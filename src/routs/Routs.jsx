@@ -3,6 +3,7 @@ import Mainlayout from "../Mainlayout/Mainlayout";
 import Login from "../Login/Login";
 import Home from "../Home/Home";
 import Register from "../Login/Register";
+import Dashbord from "../Privet/Dashbord/Dashbord";
 
 export const Routs = createBrowserRouter([
   {
@@ -12,6 +13,9 @@ export const Routs = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },{
+        path: "dashbord",
+        element: <Dashbord></Dashbord>
       },
       {
         path: "login",

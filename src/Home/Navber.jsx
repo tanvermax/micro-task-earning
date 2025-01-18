@@ -3,15 +3,19 @@ import { Link } from "react-router-dom";
 import useAuth from "../Provider/useAuth";
 
 const Navber = () => {
-  const { user } = useAuth();
+  const { user, handlelogout } = useAuth();
   // console.log(user.email);
-  
+
+  const logout = () => {
+    handlelogout()
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const navoption = (
     <>
-      <li>
-        <a>Dashboard</a>
-      </li>
-      <li>
+      {/* <li>
         <details>
           <summary>Available Coin</summary>
           <ul className="p-2">
@@ -25,18 +29,29 @@ const Navber = () => {
         </details>
       </li>
       <li>
-        
         <a>User Profile</a>
-      </li>
+      </li> */}
       <li>
         <a href="https://github.com/Programming-Hero-Web-Course4/b10a12-client-side-tanvermax">
           Join as Developer
         </a>
       </li>
+      {user ? (
+        <>
+          <li>
+            <Link to={'/dashbord'}>Dashboard</Link>
+          </li>
+          <li>
+            <a>{user.coins}</a>
+          </li>
+        </>
+      ) : (
+        " "
+      )}
     </>
   );
   return (
-    <div className="lg:py-10 max-w-screen-2xl mx-auto">
+    <div className="lg:py-5 max-w-screen-2xl mx-auto">
       <div className="navbar ">
         <div className="navbar-start">
           <div className="dropdown">
@@ -71,12 +86,21 @@ const Navber = () => {
           <ul className="menu menu-horizontal px-1">{navoption}</ul>
         </div>
         <div className="navbar-end gap-5">
-          <Link to={"/login"} className="btn">
-            Log In
-          </Link>
-          <Link to={"/register"} className="btn">
-            Register
-          </Link>
+          {user && user.email ? (
+            <>
+              <button>{user.email}</button>
+              <button onClick={logout}>Log Out</button>
+            </>
+          ) : (
+            <>
+              <Link to={"/login"} className="btn">
+                Log In
+              </Link>
+              <Link to={"/register"} className="btn">
+                Register
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>

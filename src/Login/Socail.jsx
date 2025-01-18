@@ -1,17 +1,41 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
+import useAuth from "../Provider/useAuth";
+import useaxiospublic from "../Axios/useaxiospublic";
 
 const Socail = () => {
+  const {handlegooglelogin}= useAuth();
+  const axiospublic= useaxiospublic();
+
+const googlelogin=()=>{
+  handlegooglelogin()
+  .then(result=>{
+    const user = result.user;
+    
+    const userinfo={
+      name : user.displayName,
+      email: user.email,
+      job : "worker",
+      coins : 10
+    }
+    axiospublic.post("/users",userinfo)
+    .then(res=>{
+      console.log(res.data);
+      console.log("hi");
+      
+    })
+    .catch((err) => {
+      console.error("Error adding user to database:", err);
+    });
+  })
+}
+
   return (
     <div>
       <div className="flex mt-4 justify-center space-x-4">
-        <Link className="p-2 rounded-full border hover:bg-gray-100">
-          <img
-            src="https://img.icons8.com/color/48/google-logo.png"
-            alt="Google"
-            className="h-6 w-6"
-          />
-        </Link>
+        <button onClick={googlelogin} className="p-2 rounded-full border hover:bg-gray-100">
+        <FcGoogle />
+        </button>
         <button className="p-2 rounded-full border hover:bg-gray-100">
           <img
             src="https://img.icons8.com/color/48/facebook-new.png"

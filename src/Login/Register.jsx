@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import Socail from "./Socail";
 import useAuth from "../Provider/useAuth";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../Axios/useAxiosSecure";
 
 const Register = () => {
   const { handlnewuser } = useAuth();
@@ -10,23 +12,42 @@ const Register = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
-
+  const axiosSecure = useAxiosSecure();
   const onSubmit = (data) => {
     console.log("Registration Data:", data);
     handlnewuser(data.email, data.password)
       .then((result) => {
         const loguser = result.user;
         console.log(loguser);
-        navigate('/')
+        const user = {
+          email: data.email,
+          userName: data.fullName,
+          job: data.jobstatus,
+         coins : data.coins
+        };
+        axiosSecure.post("/users", user).then((res) => {
+          console.log(res.data);
+          if (data.insertedId) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your work has been saved",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
+        navigate("/");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode);
         console.log(errorMessage);
-        
+
         // ..
       });
   };
@@ -137,6 +158,50 @@ const Register = () => {
             </p>
           )}
         </div> */}
+        <div>
+          <label className="block text-base font-medium text-gray-700">
+            What do you want to be?
+          </label>
+          <div className="mt-2 space-y-2">
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                value="Worker"
+                {...register("jobstatus", {
+                  required: "Please select an option",
+                  onChange: (e)=>{
+                    if (e.target.value ==="Worker") {
+                      setValue("coins",10)
+                    }
+                  }
+                })}
+                className="rounded border-gray-300 text-blue-500 focus:ring-blue-400"
+              />
+              <span>Worker</span>
+            </label>
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                value="Buyer"
+                {...register("jobstatus", {
+                  required: "Please select an option",
+                  onChange: (e)=>{
+                    if (e.target.value ==="Buyer") {
+                      setValue("coins",50)
+                    }
+                  }
+                })}
+                className="rounded border-gray-300 text-blue-500 focus:ring-blue-400"
+              />
+              <span>Buyer</span>
+            </label>
+          </div>
+          {errors.jobstatus && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.jobstatus.message}
+            </p>
+          )}
+        </div>
 
         {/* Submit Button */}
         <button
