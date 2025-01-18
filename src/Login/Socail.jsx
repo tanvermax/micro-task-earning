@@ -13,7 +13,7 @@ const googlelogin=()=>{
     const user = result.user;
     
     const userinfo={
-      name : user.displayName,
+      userName : user.displayName,
       email: user.email,
       job : "worker",
       coins : 10

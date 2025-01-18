@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../Provider/useAuth";
 
 const Navber = () => {
   const { user, handlelogout } = useAuth();
-  // console.log(user.email);
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    if (user?.email) {
+      fetch(`http://localhost:5000/users?email=${user.email}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("feting data", data);
+          setUserData(data);
+        })
+        .catch((err) => console.error("Error fetching user data:", err));
+    }
+  }, [user?.email]);
+
+  console.log(userData.email);
 
   const logout = () => {
     handlelogout()
@@ -13,24 +27,9 @@ const Navber = () => {
         console.log(error);
       });
   };
+
   const navoption = (
     <>
-      {/* <li>
-        <details>
-          <summary>Available Coin</summary>
-          <ul className="p-2">
-            <li>
-              <a>Submenu 1</a>
-            </li>
-            <li>
-              <a>Submenu 2</a>
-            </li>
-          </ul>
-        </details>
-      </li>
-      <li>
-        <a>User Profile</a>
-      </li> */}
       <li>
         <a href="https://github.com/Programming-Hero-Web-Course4/b10a12-client-side-tanvermax">
           Join as Developer
@@ -39,10 +38,10 @@ const Navber = () => {
       {user ? (
         <>
           <li>
-            <Link to={'/dashbord'}>Dashboard</Link>
+            <Link to={"/dashbord"}>Dashboard</Link>
           </li>
           <li>
-            <a>{user.coins}</a>
+            <a>Coins: {userData?.coins || 0}</a>
           </li>
         </>
       ) : (
@@ -50,6 +49,7 @@ const Navber = () => {
       )}
     </>
   );
+
   return (
     <div className="lg:py-5 max-w-screen-2xl mx-auto">
       <div className="navbar ">
