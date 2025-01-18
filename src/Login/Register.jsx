@@ -1,8 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import Socail from "./Socail";
+import useAuth from "../Provider/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const { handlnewuser } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -11,6 +15,20 @@ const Register = () => {
 
   const onSubmit = (data) => {
     console.log("Registration Data:", data);
+    handlnewuser(data.email, data.password)
+      .then((result) => {
+        const loguser = result.user;
+        console.log(loguser);
+        navigate('/')
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+        
+        // ..
+      });
   };
   return (
     <div className="w-full max-w-xl bg-green-200 mx-auto  rounded-lg shadow-lg p-8">
@@ -50,10 +68,10 @@ const Register = () => {
             placeholder="Enter your email"
             {...register("email", {
               required: "Email is required",
-              pattern: {
-                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                message: "Invalid email address",
-              },
+              // pattern: {
+              //   value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              //   message: "Invalid email address",
+              // },
             })}
             className={`w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 ${
               errors.email
@@ -95,7 +113,7 @@ const Register = () => {
         </div>
 
         {/* Confirm Password */}
-        <div>
+        {/* <div>
           <label className="block text-sm font-medium text-gray-700">
             Confirm Password
           </label>
@@ -118,7 +136,7 @@ const Register = () => {
               {errors.confirmPassword.message}
             </p>
           )}
-        </div>
+        </div> */}
 
         {/* Submit Button */}
         <button

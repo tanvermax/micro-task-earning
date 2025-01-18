@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../Provider/useAuth";
 
 const Navber = () => {
+  const { user } = useAuth();
+  // console.log(user.email);
+  
   const navoption = (
     <>
       <li>
@@ -21,10 +25,13 @@ const Navber = () => {
         </details>
       </li>
       <li>
+        
         <a>User Profile</a>
       </li>
       <li>
-        <a>Join as Developer</a>
+        <a href="https://github.com/Programming-Hero-Web-Course4/b10a12-client-side-tanvermax">
+          Join as Developer
+        </a>
       </li>
     </>
   );
@@ -56,14 +63,20 @@ const Navber = () => {
               {navoption}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">Earnly</a>
+          <Link to={"/"} className="btn btn-ghost text-xl">
+            Earnly
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navoption}</ul>
         </div>
         <div className="navbar-end gap-5">
-          <Link to={"/login"} className="btn">Log In</Link>
-          <Link to={'/register'} className="btn">Register</Link>
+          <Link to={"/login"} className="btn">
+            Log In
+          </Link>
+          <Link to={"/register"} className="btn">
+            Register
+          </Link>
         </div>
       </div>
     </div>

@@ -1,8 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import Socail from "./Socail";
+import useAuth from "../Provider/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const { loginwithemail } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -11,6 +15,17 @@ const Login = () => {
 
   const onSubmit = (data) => {
     console.log("Form Data:", data);
+    loginwithemail(data.email, data.password)
+      .then((res) => {
+        console.log("log user",res.user);
+        navigate("/");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+      });
   };
   return (
     <div className="w-full max-w-xl bg-red-200 rounded-lg shadow-lg p-8 mx-auto">
@@ -28,10 +43,10 @@ const Login = () => {
             placeholder="Enter your email"
             {...register("email", {
               required: "Email is required",
-            //   pattern: {
-            //     value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            //     message: "Invalid email address",
-            //   },
+              //   pattern: {
+              //     value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              //     message: "Invalid email address",
+              //   },
             })}
             className={`w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 ${
               errors.email
@@ -74,13 +89,13 @@ const Login = () => {
 
         {/* Remember Me & Forgot Password */}
         <div className="flex items-center justify-between">
-          <label className="flex items-center">
+          {/* <label className="flex items-center">
             <input
               type="checkbox"
               className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             />
             <span className="ml-2 text-sm text-gray-600">Remember me</span>
-          </label>
+          </label> */}
           <a href="#" className="text-sm text-blue-600 hover:underline">
             Forgot password?
           </a>
