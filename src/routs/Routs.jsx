@@ -5,6 +5,7 @@ import Home from "../Home/Home";
 import Register from "../Login/Register";
 import Dashbord from "../Privet/Dashbord/Dashbord";
 import Users from "../Privet/Dashbord/Users";
+import Manageuser from "../Privet/Dpages/Manageuser";
 
 export const Routs = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ export const Routs = createBrowserRouter([
             path: "users",
             element: <Users></Users>,
           },
+          {
+            path:'manageuser',
+            element: <Manageuser></Manageuser>
+          }
         ],
       },
       {

@@ -38,7 +38,7 @@ const Navber = () => {
       {user ? (
         <>
           <li>
-            <Link to={"/dashbord"}>Dashboard</Link>
+            <Link to={"/dashbord/users"}>Dashboard</Link>
           </li>
           <li>
             <a>Coins: {userData?.coins || 0}</a>
