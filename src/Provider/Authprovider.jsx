@@ -62,7 +62,7 @@ const Authprovider = ({ children }) => {
     return () => {
       return unsubscribe();
     };
-  });
+  },[axiospublic]);
 
   const authinfo = {
     user,
