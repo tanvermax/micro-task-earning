@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { app } from "../Firebase/Firebase.init";
 import {
   createUserWithEmailAndPassword,
+  deleteUser,
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
@@ -36,6 +37,10 @@ const Authprovider = ({ children }) => {
     setLoading(true);
     return signOut(auth);
   };
+
+  const deleteUser1=()=>{
+   return deleteUser(user);
+  }
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -65,7 +70,7 @@ const Authprovider = ({ children }) => {
     handlnewuser,
     handlegooglelogin,
     loginwithemail,
-    handlelogout,
+    handlelogout,deleteUser1
   };
   return (
     <AuthContext.Provider value={authinfo}>{children}</AuthContext.Provider>

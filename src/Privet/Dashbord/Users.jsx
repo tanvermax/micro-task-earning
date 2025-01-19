@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../Axios/useAxiosSecure";
 import Swal from "sweetalert2";
 import { FaUser, FaUsers } from "react-icons/fa";
+import useAuth from "../../Provider/useAuth";
 
 const Users = () => {
   //   const [data, setData] = useState([]);
@@ -11,6 +12,7 @@ const Users = () => {
   //       .then((result) => result.json())
   //       .then((data) => setData(data));
   //   }, []);
+  const { deleteUser1 } = useAuth();
 
   const axiosSecure = useAxiosSecure();
   const { data: users = [], refetch } = useQuery({
@@ -36,6 +38,31 @@ const Users = () => {
       }
     });
   };
+  const handledelete = (item) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/users/${item._id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
+        });
+        
+      }
+    });
+  };
   return (
     <div>
       <div className="overflow-x-auto">
@@ -48,6 +75,7 @@ const Users = () => {
               <th>email</th>
               <th> job</th>
               <th>Role</th>
+              <th>Edit</th>
             </tr>
           </thead>
           <tbody>
@@ -84,6 +112,14 @@ const Users = () => {
                       Make user Admin
                     </button>
                   )}
+                </th>
+                <th>
+                  <button
+                    onClick={() => handledelete(item)}
+                    className="btn  bg-red-500 "
+                  >
+                    Delete user
+                  </button>
                 </th>
               </tr>
             ))}
