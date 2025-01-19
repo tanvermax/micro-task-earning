@@ -7,29 +7,19 @@ const Navber = () => {
   const { user, handlelogout } = useAuth();
   const [userData, setUserData] = useState({});
 
-  const token = localStorage.getItem("access-token")
+  const token = localStorage.getItem("access-token");
 
   const axiosSecure = useAxiosSecure();
   useEffect(() => {
-    if (user?.email && token ) {
-      // fetch(`http://localhost:5000/users?email=${user.email}`)
-      //   .then((res) => res.json())
-      //   .then((data) => {
-      //     console.log("feting data", data);
-      //     setUserData(data);
-      //   })
-      //   .catch((err) => console.error("Error fetching user data:", err));
-
-      
-      axiosSecure(`/users?email=${user.email}`)
-      .then(res=>{
-        console.log(res.data);
+    if (user?.email && token) {
+      axiosSecure(`/users?email=${user.email}`).then((res) => {
+        // console.log(res.data);
         setUserData(res.data);
-      })
+      });
     }
-  }, [user?.email,token]);
+  }, [user?.email, token]);
 
-  console.log(userData.email);
+  // console.log(userData.role);
 
   const logout = () => {
     handlelogout()
@@ -48,9 +38,30 @@ const Navber = () => {
       </li>
       {user ? (
         <>
-          <li>
+          {/* <li>
             <Link to={"/dashbord/users"}>Dashboard</Link>
-          </li>
+          </li> */}
+          {userData.role === "Worker" ? (
+            <>
+              <li>
+                <Link to={"/dashbord/tasklist"}>Dashboard</Link>
+              </li>
+            </>
+          ) : null}
+          {userData.role === "admin" ? (
+            <>
+              <li>
+                <Link to={"/dashbord/users"}>Dashboard</Link>
+              </li>
+            </>
+          ) : null}
+          {userData.role === "Buyer" ? (
+            <>
+              <li>
+                <Link to={"/dashbord/addtask"}>Dashboard</Link>
+              </li>
+            </>
+          ) : null}
           <li>
             <a>Coins: {userData?.coins || 0}</a>
           </li>

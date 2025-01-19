@@ -21,7 +21,7 @@ const UserDetails = () => {
           //   .catch((err) => console.error("Error fetching user data:", err));
           axiosSecure(`/users?email=${user.email}`)
           .then(res=>{
-            console.log(res.data);
+            // console.log(res.data);
             setUserData(res.data);
           })
 
@@ -30,7 +30,7 @@ const UserDetails = () => {
 
       }, [user?.email]);
     
-      console.log(userData.email);
+      // console.log(userData.email);
     return (
         <div className='flex items-center justify-between text-xl font-semibold'>
             <div>

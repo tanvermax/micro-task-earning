@@ -13,11 +13,14 @@ const Register = () => {
     register,
     handleSubmit,
     setValue,
-    formState: { errors },
-  } = useForm();
+    formState: { errors, isValid },
+  } = useForm({
+    mode: "onChange",
+  });
   const axiosSecure = useAxiosSecure();
   const onSubmit = (data) => {
     console.log("Registration Data:", data);
+    const coins = data.role === "Buyer" ? 50 : 10;
     handlnewuser(data.email, data.password)
       .then((result) => {
         const loguser = result.user;
@@ -25,10 +28,10 @@ const Register = () => {
         const user = {
           email: data.email,
           userName: data.fullName,
-          role: data.rolestatus,
-         coins : data.coins
+          role: data.role,
+          coins,
         };
-        
+
         axiosSecure.post("/users", user).then((res) => {
           console.log(res.data);
           if (data.insertedId) {
@@ -104,6 +107,7 @@ const Register = () => {
           {errors.email && (
             <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
           )}
+        
         </div>
 
         {/* Password */}
@@ -157,7 +161,7 @@ const Register = () => {
             <p className="text-red-500 text-sm mt-1">
               {errors.confirmPassword.message}
             </p>
-          )}
+          )}Buyer
         </div> */}
         <div>
           <label className="block text-base font-medium text-gray-700">
@@ -168,13 +172,9 @@ const Register = () => {
               <input
                 type="radio"
                 value="Worker"
-                {...register("rolestatus", {
+                {...register("role", {
                   required: "Please select an option",
-                  onChange: (e)=>{
-                    if (e.target.value ==="Worker") {
-                      setValue("coins",10)
-                    }
-                  }
+                  
                 })}
                 className="rounded border-gray-300 text-blue-500 focus:ring-blue-400"
               />
@@ -184,28 +184,23 @@ const Register = () => {
               <input
                 type="radio"
                 value="Buyer"
-                {...register("rolestatus", {
+                {...register("role", {
                   required: "Please select an option",
-                  onChange: (e)=>{
-                    if (e.target.value ==="Buyer") {
-                      setValue("coins",50)
-                    }
-                  }
+                  
                 })}
                 className="rounded border-gray-300 text-blue-500 focus:ring-blue-400"
               />
               <span>Buyer</span>
             </label>
           </div>
-          {errors.jobstatus && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.jobstatus.message}
-            </p>
+          {errors.role && (
+            <p className="text-red-500 text-sm mt-1">{errors.role.message}</p>
           )}
         </div>
 
         {/* Submit Button */}
         <button
+          disabled={!isValid}
           type="submit"
           className="w-full py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
         >
