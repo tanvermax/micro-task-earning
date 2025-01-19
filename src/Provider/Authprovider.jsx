@@ -9,6 +9,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
+import useaxiospublic from "../Axios/useaxiospublic";
 const googleprovider = new GoogleAuthProvider();
 
 export const AuthContext = createContext(null);
@@ -17,6 +18,7 @@ const Authprovider = ({ children }) => {
   const auth = getAuth(app);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const axiospublic = useaxiospublic();
 
   const handlnewuser = (email, password) => {
     setLoading(true);
@@ -26,9 +28,9 @@ const Authprovider = ({ children }) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
-  const handlegooglelogin=()=>{
-    return signInWithPopup(auth,googleprovider);
-  }
+  const handlegooglelogin = () => {
+    return signInWithPopup(auth, googleprovider);
+  };
 
   const handlelogout = () => {
     setLoading(true);
@@ -38,7 +40,18 @@ const Authprovider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       console.log("state capture", currentUser);
-
+      if (currentUser) {
+        const userinfo = {email : currentUser.email}
+        axiospublic.post("/jwt",userinfo)
+        .then(res=>{
+          if (res.data.token) {
+            localStorage.setItem('access-token',res.data.token)
+          }
+        })
+      }
+      else{
+        localStorage.removeItem('access-token')
+      }
       setLoading(false);
     });
     return () => {
@@ -46,11 +59,11 @@ const Authprovider = ({ children }) => {
     };
   });
 
-
   const authinfo = {
     user,
     loading,
-    handlnewuser,handlegooglelogin,
+    handlnewuser,
+    handlegooglelogin,
     loginwithemail,
     handlelogout,
   };

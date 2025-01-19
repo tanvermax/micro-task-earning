@@ -21,12 +21,11 @@ const Users = () => {
     },
   });
 
-
   const handleadmin = (item) => {
-    axiosSecure.patch(`/users/admin/${item._id}`)
-    .then((res) => {
+    axiosSecure.patch(`/users/admin/${item._id}`).then((res) => {
       console.log(res.data);
       if (res.data.modifiedCount > 0) {
+        refetch();
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -34,7 +33,6 @@ const Users = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        refetch();
       }
     });
   };
@@ -53,7 +51,6 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            handleadmin
             {/* row 1 */}
             {users.map((item, index) => (
               <tr key={item._id}>
@@ -75,16 +72,16 @@ const Users = () => {
                   </div>
                 </td>
                 <td>{item.email}</td>
-                <td>{item.job}</td>
+                <td>{item.role}</td>
                 <th>
                   {item.role === "admin" ? (
                     "Admin"
                   ) : (
                     <button
                       onClick={() => handleadmin(item)}
-                      className="btn btn-ghost btn-xs bg-orange-500"
+                      className="btn  bg-orange-500 "
                     >
-                      <FaUsers className="text-2xl text-white"></FaUsers>
+                      Make user Admin
                     </button>
                   )}
                 </th>

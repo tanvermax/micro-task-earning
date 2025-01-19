@@ -25,9 +25,10 @@ const Register = () => {
         const user = {
           email: data.email,
           userName: data.fullName,
-          job: data.jobstatus,
+          role: data.rolestatus,
          coins : data.coins
         };
+        
         axiosSecure.post("/users", user).then((res) => {
           console.log(res.data);
           if (data.insertedId) {
@@ -167,7 +168,7 @@ const Register = () => {
               <input
                 type="radio"
                 value="Worker"
-                {...register("jobstatus", {
+                {...register("rolestatus", {
                   required: "Please select an option",
                   onChange: (e)=>{
                     if (e.target.value ==="Worker") {
@@ -183,7 +184,7 @@ const Register = () => {
               <input
                 type="radio"
                 value="Buyer"
-                {...register("jobstatus", {
+                {...register("rolestatus", {
                   required: "Please select an option",
                   onChange: (e)=>{
                     if (e.target.value ==="Buyer") {
