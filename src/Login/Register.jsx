@@ -34,7 +34,7 @@ const Register = () => {
 
         axiosSecure.post("/users", user).then((res) => {
           console.log(res.data);
-          if (data.insertedId) {
+          if (res.data.insertedId) {
             Swal.fire({
               position: "top-end",
               icon: "success",

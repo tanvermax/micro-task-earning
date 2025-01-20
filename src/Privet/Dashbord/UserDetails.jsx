@@ -2,24 +2,26 @@ import React, { useCallback, useEffect, useState } from "react";
 import useAuth from "../../Provider/useAuth";
 import useAxiosSecure from "../../Axios/useAxiosSecure";
 import { FcBusinessman } from "react-icons/fc";
+import userMange from "./userMange";
 
 const UserDetails = () => {
-  const axiosSecure = useAxiosSecure();
+  // const axiosSecure = useAxiosSecure();
 
-  const { user } = useAuth();
-  const [userData, setUserData] = useState({});
-  const fetchUserData = useCallback(() => {
-    if (user?.email) {
-      axiosSecure(`/users?email=${user.email}`).then((res) => {
-        setUserData(res.data);
-      });
-    }
-  }, [user?.email, axiosSecure]);
+  // const { user } = useAuth();
+  // const [userData, setUserData] = useState({});
+  // const fetchUserData = useCallback(() => {
+  //   if (user?.email) {
+  //     axiosSecure(`/users?email=${user.email}`).then((res) => {
+  //       setUserData(res.data);
+  //     });
+  //   }
+  // }, [user?.email, axiosSecure]);
 
-  // Fetch user data when the component mounts or the email changes
-  useEffect(() => {
-    fetchUserData();
-  }, [fetchUserData]);
+  // // Fetch user data when the component mounts or the email changes
+  // useEffect(() => {
+  //   fetchUserData();
+  // }, [fetchUserData]);
+  const [ userData] = userMange();
 
   // console.log(userData.email);
   return (

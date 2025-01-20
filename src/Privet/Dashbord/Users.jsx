@@ -110,7 +110,7 @@ const Users = () => {
                 </th>
                 <th>
                   <button
-                    onClick={() => deleteUser1(item)}
+                    onClick={() => handledelete(item)}
                     className="btn  bg-red-500 "
                   >
                     Delete user

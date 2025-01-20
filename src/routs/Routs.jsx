@@ -9,9 +9,11 @@ import Manageuser from "../Privet/Dpages/Manageuser";
 import PrivetRoute from "./PrivetRoute";
 import TaskList from "../Privet/Dashbord/Worker/TaskList";
 import Addtask from "../Privet/Dashbord/Buyer/Addtask";
-import Purchase from "../Privet/Dashbord/Worker/Purchase";
 import Mytask from "../Privet/Dashbord/Buyer/Mytask";
 import Taskupdate from "../Privet/Dashbord/Buyer/Taskupdate";
+import Purchase from "../Privet/Dashbord/Buyer/Purchase";
+import Taskdetails from "../Privet/Dashbord/Worker/Taskdetails";
+import BuyerHome from "../Privet/Dashbord/Buyer/BuyerHome";
 
 export const Routs = createBrowserRouter([
   {
@@ -33,6 +35,10 @@ export const Routs = createBrowserRouter([
           {
             path: "users",
             element: <Users></Users>,
+          },
+          {
+            path: "buyerhome",
+            element: <BuyerHome></BuyerHome>,
           },
           {
             path: "manageuser",
@@ -62,6 +68,12 @@ export const Routs = createBrowserRouter([
           {
             path: "taskupdate/:id",
             element: <Taskupdate></Taskupdate>,
+            loader: ({ params }) =>
+              fetch(`http://localhost:5000/task/${params.id}`),
+          },
+          {
+            path: "taskdetails/:id",
+            element: <Taskdetails></Taskdetails>,
             loader: ({ params }) =>
               fetch(`http://localhost:5000/task/${params.id}`),
           },

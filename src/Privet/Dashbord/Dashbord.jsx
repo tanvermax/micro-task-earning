@@ -55,6 +55,11 @@ const Dashbord = () => {
           ) : null}
           {userData.role === "Worker" ? (
             <>
+             <li>
+                <NavLink to={"/dashbord/workerhome"}>
+                  profile <FaHome />
+                </NavLink>
+              </li>
               <li>
                 <NavLink to={"/dashbord/tasklist"}>
                   Task List <FaHome />
@@ -80,6 +85,11 @@ const Dashbord = () => {
           ) : null}
           {userData.role === "Buyer" ? (
             <>
+            <li>
+                <NavLink to={"/dashbord/buyerhome"}>
+                  profile <FaHome />
+                </NavLink>
+              </li>
               <li>
                 <NavLink to={"/dashbord/addtask"}>
                   Add New Tasks <FaHome />

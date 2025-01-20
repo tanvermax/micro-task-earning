@@ -23,7 +23,9 @@ const Navber = () => {
 
   const logout = () => {
     handlelogout()
-      .then(() => {})
+      .then(() => {
+        window.location.reload()
+      })
       .catch((error) => {
         console.log(error);
       });
