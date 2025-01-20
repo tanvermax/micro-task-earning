@@ -3,13 +3,13 @@ import useAuth from "../../../Provider/useAuth";
 import useAxiosSecure from "../../../Axios/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Addtask = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const location= useLocation();
-
+const navigate = useNavigate();
   const [userData, setUserData] = useState({});
   useEffect(() => {
     if (user?.email) {
@@ -78,9 +78,10 @@ const Addtask = () => {
       // Insufficient coins
       Swal.fire({
         icon: "error",
-        title: "Insufficient Coins",
+        title: "Not available Coin.  Purchase Coin",
         text: "You do not have enough coins to create this task. Please top up your account.",
       });
+      navigate('/dashbord/purchase')
     }
   };
 

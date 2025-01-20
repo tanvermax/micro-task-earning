@@ -6,12 +6,7 @@ import { FaUser, FaUsers } from "react-icons/fa";
 import useAuth from "../../Provider/useAuth";
 
 const Users = () => {
-  //   const [data, setData] = useState([]);
-  //   useEffect(() => {
-  //     fetch("http://localhost:5000/users")
-  //       .then((result) => result.json())
-  //       .then((data) => setData(data));
-  //   }, []);
+ 
   const { deleteUser1 } = useAuth();
 
   const axiosSecure = useAxiosSecure();
@@ -115,7 +110,7 @@ const Users = () => {
                 </th>
                 <th>
                   <button
-                    onClick={() => handledelete(item)}
+                    onClick={() => deleteUser1(item)}
                     className="btn  bg-red-500 "
                   >
                     Delete user
