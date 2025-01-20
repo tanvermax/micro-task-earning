@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaHome, FaUserShield } from "react-icons/fa";
+import { FaBitcoin, FaHome, FaUserShield } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import Footer from "../../Home/Footer";
 import UserDetails from "./UserDetails";
@@ -7,6 +7,8 @@ import useAdmin from "../../Axios/Hook/useAdmin";
 import useAxiosSecure from "../../Axios/useAxiosSecure";
 import useAuth from "../../Provider/useAuth";
 import { MdTask } from "react-icons/md";
+import { RiSecurePaymentFill } from "react-icons/ri";
+import { FcOnlineSupport } from "react-icons/fc";
 
 const Dashbord = () => {
   const [isAdmin] = useAdmin();
@@ -34,11 +36,7 @@ const Dashbord = () => {
               Home <FaHome></FaHome>
             </NavLink>
           </li>
-          <li>
-            <NavLink to={"/dashbord/profile"}>
-              profile <FaHome></FaHome>
-            </NavLink>
-          </li>
+         
           <div className="divider"></div>
 
           {isAdmin ? (
@@ -88,29 +86,25 @@ const Dashbord = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to={"/dashbord/my-tasks"}>
-                  My Tasks <FaHome />
+                <NavLink to={"/dashbord/mytask"}>
+                  My Task's <FaHome />
                 </NavLink>
               </li>
+             
               <li>
-                <NavLink to={"/dashbord/withdrawals"}>
-                  Withdrawals <FaHome />
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to={"/dashbord/purchase-coin"}>
-                  Purchase Coin <FaHome />
+                <NavLink to={"/dashbord/purchase"}>
+                  Purchase Coin <FaBitcoin />
                 </NavLink>
               </li>
               <li>
                 <NavLink to={"/dashbord/payment-history"}>
-                  Payment History <FaHome />
+                  Payment History <RiSecurePaymentFill />
                 </NavLink>
               </li>
               {/* Add more specific links for buyers */}
               <li>
                 <NavLink to={"/dashbord/buyer-support"}>
-                  Buyer Support <FaHome />
+                  Buyer Support <FcOnlineSupport />
                 </NavLink>
               </li>
             </>

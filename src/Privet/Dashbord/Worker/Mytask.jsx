@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Profile = () => {
+const Mytask = () => {
     return (
         <div>
-            <h1>your profile</h1>
+            <h1>Yours Task</h1>
         </div>
     );
 };
 
-export default Profile;
+export default Mytask;

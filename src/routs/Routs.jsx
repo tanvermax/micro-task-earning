@@ -6,10 +6,11 @@ import Register from "../Login/Register";
 import Dashbord from "../Privet/Dashbord/Dashbord";
 import Users from "../Privet/Dashbord/Users";
 import Manageuser from "../Privet/Dpages/Manageuser";
-import Profile from "../Privet/Dashbord/Profile";
 import PrivetRoute from "./PrivetRoute";
 import TaskList from "../Privet/Dashbord/Worker/TaskList";
 import Addtask from "../Privet/Dashbord/Buyer/Addtask";
+import Mytask from "../Privet/Dashbord/Worker/Mytask";
+import Purchase from "../Privet/Dashbord/Worker/Purchase";
 
 export const Routs = createBrowserRouter([
   {
@@ -40,14 +41,19 @@ export const Routs = createBrowserRouter([
             path: "tasklist",
             element: <TaskList></TaskList>,
           },
+
           {
-            path: "profile",
-            element: <Profile></Profile>,
+            path: "addtask",
+            element: <Addtask></Addtask>,
           },
           {
-            path:"addtask",
-            element: <Addtask></Addtask>
-          }
+            path: "mytask",
+            element: <Mytask></Mytask>,
+          },
+          {
+            path: "purchase",
+            element: <Purchase></Purchase>,
+          },
         ],
       },
       {

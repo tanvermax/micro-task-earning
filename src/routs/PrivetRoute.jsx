@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import useAuth from "../Provider/useAuth";
 import { Navigate, useLocation } from "react-router-dom";
+import { AuthContext } from "../Provider/Authprovider";
 
-const PrivetRoute = ({children}) => {
-  const { user, loading } = useAuth();
+const PrivetRoute = ({ children }) => {
+  const { user, loading } = useContext(AuthContext);
+  console.log(user, loading);
+
   const location = useLocation();
 
   if (loading) {
-    <div className="flex justify-center items-center min-h-screen">
-      <span className="loading loading-spinner text-success"></span>
-    </div>;
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <span className="loading loading-spinner text-success"></span>
+      </div>
+    );
   }
   if (user) {
     return children;

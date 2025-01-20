@@ -38,31 +38,33 @@ const Authprovider = ({ children }) => {
     return signOut(auth);
   };
 
-  const deleteUser1=()=>{
-   return deleteUser(user);
-  }
+  const deleteUser1 = () => {
+    return deleteUser(user);
+  };
   useEffect(() => {
+    setLoading(true);
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
       // console.log("state capture", currentUser);
       if (currentUser) {
-        const userinfo = {email : currentUser.email}
-        axiospublic.post("/jwt",userinfo)
-        .then(res=>{
+        setUser(currentUser);
+
+        setLoading(false);
+        const userinfo = { email: currentUser.email };
+        axiospublic.post("/jwt", userinfo).then((res) => {
           if (res.data.token) {
-            localStorage.setItem('access-token',res.data.token)
+            localStorage.setItem("access-token", res.data.token);
           }
-        })
+        });
+      } else {
+        setLoading(false);
+        setUser(null);
+        localStorage.removeItem("access-token");
       }
-      else{
-        localStorage.removeItem('access-token')
-      }
-      setLoading(false);
     });
     return () => {
       return unsubscribe();
     };
-  },[axiospublic]);
+  }, [axiospublic,user]);
 
   const authinfo = {
     user,
@@ -70,7 +72,8 @@ const Authprovider = ({ children }) => {
     handlnewuser,
     handlegooglelogin,
     loginwithemail,
-    handlelogout,deleteUser1
+    handlelogout,
+    deleteUser1,
   };
   return (
     <AuthContext.Provider value={authinfo}>{children}</AuthContext.Provider>
