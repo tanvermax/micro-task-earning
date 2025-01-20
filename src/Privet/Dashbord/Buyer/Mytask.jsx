@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Axios/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const Mytask = () => {
   const axiosSecure = useAxiosSecure();
@@ -24,6 +25,8 @@ const Mytask = () => {
       setSortedData(sorted);
     }
   }, [task]);
+  console.log(task);
+  
   const handledeletetask = (id) => {
     console.log(id);
     Swal.fire({
@@ -62,8 +65,8 @@ const Mytask = () => {
               <tr>
                 <th></th>
                 <th>Name</th>
-                <th>task Details</th>
-                <th>submission_Details</th>
+                <th>Required Workers</th>
+                <th>Payable Amount</th>
                 <th>compliton date</th>
                 <th>Edit</th>
                 <th>Edit</th>
@@ -75,10 +78,10 @@ const Mytask = () => {
                 <tr key={item._id}>
                   <th>{index + 1}</th>
                   <td>{item.taskName}</td>
-                  <td>{item.taskDetails}</td>
-                  <td>{item.submissinInfo}</td>
+                  <td>{item.requiredWorkers}</td>
+                  <td>{item.payableAmount}</td>
                   <td>{item.taskDate}</td>
-                  <td>Update</td>
+                  <td><Link  to={`/dashbord/taskupdate/${item._id}`} >Update</Link></td>
                   <td>
                     <button onClick={() => handledeletetask(item._id)}>
                       Delete

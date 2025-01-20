@@ -11,6 +11,7 @@ import TaskList from "../Privet/Dashbord/Worker/TaskList";
 import Addtask from "../Privet/Dashbord/Buyer/Addtask";
 import Purchase from "../Privet/Dashbord/Worker/Purchase";
 import Mytask from "../Privet/Dashbord/Buyer/Mytask";
+import Taskupdate from "../Privet/Dashbord/Buyer/Taskupdate";
 
 export const Routs = createBrowserRouter([
   {
@@ -55,9 +56,15 @@ export const Routs = createBrowserRouter([
             element: <Purchase></Purchase>,
           },
           {
-            path:'mytask',
-            element:<Mytask></Mytask>
-          }
+            path: "mytask",
+            element: <Mytask></Mytask>,
+          },
+          {
+            path: "taskupdate/:id",
+            element: <Taskupdate></Taskupdate>,
+            loader: ({ params }) =>
+              fetch(`http://localhost:5000/task/${params.id}`),
+          },
         ],
       },
       {
