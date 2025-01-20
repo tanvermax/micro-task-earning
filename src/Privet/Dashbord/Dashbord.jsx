@@ -113,7 +113,7 @@ const Dashbord = () => {
          
         </ul>
       </div>
-      <div className="w-full p-20">
+      <div className="w-full p-10">
         <div className="min-h-screen">
           <div>
             <UserDetails></UserDetails>
