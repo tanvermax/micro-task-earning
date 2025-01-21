@@ -4,15 +4,16 @@ import useAxiosSecure from "../../../Axios/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import useaxiospublic from "../../../Axios/useaxiospublic";
 
-
-// const image_hostin_key = import.meta.env.VITE_IMAGEBB;
-// const image_hosting_api= `https://api.imgbb.com/1/upload?key${}`
+const image_hostin_key = import.meta.env.VITE_IMAGEBB;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hostin_key}`;
 const Addtask = () => {
   const { user } = useAuth();
+  const axiosPublic = useaxiospublic();
   const axiosSecure = useAxiosSecure();
-  const location= useLocation();
-const navigate = useNavigate();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({});
   useEffect(() => {
     if (user?.email) {
@@ -22,7 +23,7 @@ const navigate = useNavigate();
     }
   }, [user?.email]);
 
-  console.log(userData.coins); // Initial coins value
+  // console.log(userData.coins); // Initial coins value
 
   const {
     register,
@@ -30,64 +31,77 @@ const navigate = useNavigate();
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    const totalCost = data.required_workers * data.payable_amount;
-    console.log(`Total Cost: ${totalCost}, User Coins: ${userData.coins}`);
+  const onSubmit = async (data) => {
+    const imageFile = { image: data.task_image_url[0] };
+    const res = await axiosPublic.post(image_hosting_api, imageFile, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    console.log(data);
 
-    if (userData.coins >= totalCost) {
-      // User has enough coins
-      const taskitem = {
-        taskowner: user.email,
-        taskName: data.task_title,
-        taskDetails: data.task_detail,
-        requiredWorkers: parseInt(data.required_workers),
-        payableAmount: parseInt(data.payable_amount),
-        taskDate: data.completion_date,
-        submissinInfo: data.submission_info,
-        taskImage: data.task_image_url,
-      };
-      console.log(taskitem);
-      
+    console.log("Registration Data:", data);
+    if (res.data.success) {
+      const totalCost = data.required_workers * data.payable_amount;
+      console.log(`Total Cost: ${totalCost}, User Coins: ${userData.coins}`);
 
-      axiosSecure.post("/task", taskitem).then((res) => {
-        if (res.data.insertedId) {
-          // Deduct the coins
-          const updatedCoins = userData.coins - totalCost; // Calculate updated coins
-          axiosSecure.patch(`/users/coins/${userData._id}`, {
-            email: user.email,
-              coins: updatedCoins,
-            })
-            .then((updateRes) => {
-              if (updateRes.data.success) {
-                // Update userData state with the new coins value
-                setUserData((prevData) => ({
-                  ...prevData,
-                  coins: updatedCoins, // Update coins after deduction
-                }));
+      if (userData.coins >= totalCost) {
+        // User has enough coins
 
-                Swal.fire({
-                  position: "top-end",
-                  icon: "success",
-                  title: "Task added successfully!",
-                  text: "Your coins have been deducted.",
-                  showConfirmButton: false,
-                  timer: 1500,
-                });
-                // window.location.reload(false);
-              }
-            });
-        }
-      });
-    } else {
-      // Insufficient coins
-      Swal.fire({
-        icon: "error",
-        title: "Not available Coin.  Purchase Coin",
-        text: "You do not have enough coins to create this task. Please top up your account.",
-      });
-      navigate('/dashbord/purchase')
-    }
-  };
+        const taskitem = {
+          taskowner: user.email,
+          taskName: data.task_title,
+          taskDetails: data.task_detail,
+          requiredWorkers: parseInt(data.required_workers),
+          payableAmount: parseInt(data.payable_amount),
+          taskDate: data.completion_date,
+          submissinInfo: data.submission_info,
+          taskImage: res.data.data.display_url,
+        };
+        console.log(taskitem);
+
+        axiosSecure.post("/task", taskitem).then((res) => {
+          if (res.data.insertedId) {
+            // Deduct the coins
+            const updatedCoins = userData.coins - totalCost; // Calculate updated coins
+            axiosSecure
+              .patch(`/users/coins/${userData._id}`, {
+                email: user.email,
+                coins: updatedCoins,
+              })
+              .then((updateRes) => {
+                if (updateRes.data.success) {
+                  // Update userData state with the new coins value
+                  setUserData((prevData) => ({
+                    ...prevData,
+                    coins: updatedCoins, // Update coins after deduction
+                  }));
+
+                  Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Task added successfully!",
+                    text: "Your coins have been deducted.",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                  // window.location.reload(false);
+                }
+              });
+          }
+        });
+      } else {
+        // Insufficient coins
+        Swal.fire({
+          icon: "error",
+          title: "Not available Coin.  Purchase Coin",
+          text: "You do not have enough coins to create this task. Please top up your account.",
+        });
+        navigate("/dashbord/purchase");
+      }
+    };
+  
+  }
 
   return (
     <div className=" border shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] ">

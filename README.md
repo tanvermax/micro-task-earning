@@ -14,7 +14,7 @@ This project is built using the **MERN stack** to deliver a responsive, robust, 
 - **Admin Password**: `admin123`
 
 ## Live Site URL
-[Micro-Task Platform Live Site](https://example-live-site-url.com)
+[Micro-Task Platform Live Site](https://earnly-f35f1.web.app/)
 
 ## GitHub Repository Links
 - **Client Side**: [GitHub - Client](https://github.com/example-client-repo)
