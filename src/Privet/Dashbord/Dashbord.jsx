@@ -41,6 +41,11 @@ const Dashbord = () => {
 
           {isAdmin ? (
             <>
+             <li>
+                <NavLink to={"/dashbord/adminhome"}>
+                  Manage Users <FaUserShield />
+                </NavLink>
+              </li>
               <li>
                 <NavLink to={"/dashbord/users"}>
                   Manage Users <FaUserShield />

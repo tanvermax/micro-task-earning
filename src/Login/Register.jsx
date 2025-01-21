@@ -5,8 +5,13 @@ import useAuth from "../Provider/useAuth";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../Axios/useAxiosSecure";
+import useaxiospublic from "../Axios/useaxiospublic";
+
+const image_hostin_key = import.meta.env.VITE_IMAGEBB;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hostin_key}`;
 
 const Register = () => {
+  const axiosPublic = useaxiospublic();
   const { handlnewuser } = useAuth();
   const navigate = useNavigate();
   const {
@@ -18,42 +23,57 @@ const Register = () => {
     mode: "onChange",
   });
   const axiosSecure = useAxiosSecure();
-  const onSubmit = (data) => {
+
+  const onSubmit = async (data) => {
+    const imageFile = { image: data.photo[0] };
+    const res = await axiosPublic.post(image_hosting_api, imageFile, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    // console.log("Is form valid?", isValid);
+    console.log(res.data);
+
     console.log("Registration Data:", data);
-    const coins = data.role === "Buyer" ? 50 : 10;
-    handlnewuser(data.email, data.password)
-      .then((result) => {
-        const loguser = result.user;
-        console.log(loguser);
-        const user = {
-          email: data.email,
-          userName: data.fullName,
-          role: data.role,
-          coins,
-        };
+    if (res.data.success) {
+      const coins = data.role === "Buyer" ? 50 : 10;
+      handlnewuser(data.email, data.password)
+        .then((result) => {
+          const loguser = result.user;
+          console.log(loguser);
+          const user = {
+            email: data.email,
+            userName: data.fullName,
+            role: data.role,
+            photo: res.data.data.display_url,
+            coins,
+          };
+          console.log(user);
 
-        axiosSecure.post("/users", user).then((res) => {
-          console.log(res.data);
-          if (res.data.insertedId) {
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Your work has been saved",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }
+          axiosSecure.post("/users", user)
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.insertedId) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your work has been saved",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          });
+          navigate("/");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode);
+          console.log(errorMessage);
+
+          // ..
         });
-        navigate("/");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
-
-        // ..
-      });
+    }
   };
   return (
     <div className="w-full max-w-xl bg-green-200 mx-auto  rounded-lg shadow-lg p-8">
@@ -70,6 +90,27 @@ const Register = () => {
             type="text"
             placeholder="Enter your full name"
             {...register("fullName", { required: "Full name is required" })}
+            className={`w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 ${
+              errors.fullName
+                ? "border-red-500 focus:ring-red-500"
+                : "focus:ring-blue-400"
+            }`}
+          />
+          {errors.fullName && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.fullName.message}
+            </p>
+          )}
+        </div>
+        {/* photo file */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            photo
+          </label>
+          <input
+            type="file"
+            placeholder="Enter your full name"
+            {...register("photo", { required: "give your photo" })}
             className={`w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 ${
               errors.fullName
                 ? "border-red-500 focus:ring-red-500"
@@ -107,7 +148,6 @@ const Register = () => {
           {errors.email && (
             <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
           )}
-        
         </div>
 
         {/* Password */}
@@ -174,7 +214,6 @@ const Register = () => {
                 value="Worker"
                 {...register("role", {
                   required: "Please select an option",
-                  
                 })}
                 className="rounded border-gray-300 text-blue-500 focus:ring-blue-400"
               />
@@ -186,7 +225,6 @@ const Register = () => {
                 value="Buyer"
                 {...register("role", {
                   required: "Please select an option",
-                  
                 })}
                 className="rounded border-gray-300 text-blue-500 focus:ring-blue-400"
               />
@@ -200,7 +238,6 @@ const Register = () => {
 
         {/* Submit Button */}
         <button
-          disabled={!isValid}
           type="submit"
           className="w-full py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
         >

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../Provider/useAuth";
 import useAxiosSecure from "../Axios/useAxiosSecure";
+import useAdmin from "../Axios/Hook/useAdmin";
+import useWorker from "../Axios/Hook/useWorker";
+import useBuyer from "../Axios/Hook/useBuyer";
 
 const Navber = () => {
   const { user, handlelogout } = useAuth();
@@ -30,6 +33,12 @@ const Navber = () => {
         console.log(error);
       });
   };
+
+  const [isAdmin, isAdminLoading] = useAdmin();
+  const [isWorker, isWorkerLoading] = useWorker();
+  const [isBuyer, isBuyerLoading] = useBuyer();
+  
+
 
   const navoption = (
     <>
@@ -73,6 +82,7 @@ const Navber = () => {
       )}
     </>
   );
+
 
   return (
     <div className="lg:py-5 max-w-screen-2xl mx-auto">

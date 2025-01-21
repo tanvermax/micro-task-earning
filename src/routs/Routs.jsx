@@ -18,6 +18,8 @@ import WorkerHome from "../Privet/Dashbord/Worker/WorkerHome";
 import Maysubmission from "../Privet/Dashbord/Worker/Maysubmission";
 import WithdrawPage from "../Privet/Dashbord/Worker/WithdrawPage";
 import ManageTask from "../Privet/Dashbord/ManageTask";
+import AdminHome from "../Privet/Dashbord/AdminHome";
+import AdminRouts from "../Axios/Hook/AdminRouts";
 
 export const Routs = createBrowserRouter([
   {
@@ -38,7 +40,10 @@ export const Routs = createBrowserRouter([
         children: [
           {
             path: "users",
-            element: <Users></Users>,
+            element: <AdminRouts><Users></Users></AdminRouts>,
+          },{
+            path:'adminhome',
+            element:<AdminRouts><AdminHome></AdminHome></AdminRouts>
           },
           {
             path:'managetask',
