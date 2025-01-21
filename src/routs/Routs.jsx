@@ -14,6 +14,7 @@ import Taskupdate from "../Privet/Dashbord/Buyer/Taskupdate";
 import Purchase from "../Privet/Dashbord/Buyer/Purchase";
 import Taskdetails from "../Privet/Dashbord/Worker/Taskdetails";
 import BuyerHome from "../Privet/Dashbord/Buyer/BuyerHome";
+import WorkerHome from "../Privet/Dashbord/Worker/WorkerHome";
 
 export const Routs = createBrowserRouter([
   {
@@ -39,6 +40,9 @@ export const Routs = createBrowserRouter([
           {
             path: "buyerhome",
             element: <BuyerHome></BuyerHome>,
+          },{
+            path:'workerhome',
+            element:<WorkerHome></WorkerHome>
           },
           {
             path: "manageuser",
