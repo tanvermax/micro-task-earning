@@ -39,9 +39,11 @@ const BuyerHome = () => {
   );
 
   const handleApprove = (id) => {
+    
     axiosSecure.patch(`/submitted/${id}`)
       .then((res) => {
         if (res.data.modifiedCount > 0) {
+          
           refetch();
           Swal.fire({
             position: "top-end",
@@ -129,7 +131,7 @@ const BuyerHome = () => {
       {/* Submissions Table */}
       <div className="bg-white p-5 rounded shadow">
         <h2 className="text-lg font-bold mb-5">Task Submissions</h2>
-        <table className="w-full text-left border-collapse">
+        <table className="w-full text-lef	Payable Amountt border-collapse">
           <thead>
             <tr>
               <th className="border-b py-2">Worker Name</th>

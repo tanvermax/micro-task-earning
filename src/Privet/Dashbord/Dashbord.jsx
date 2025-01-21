@@ -66,7 +66,7 @@ const Dashbord = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to={"/dashbord/submissions"}>
+                <NavLink to={"/dashbord/maysubmissioin"}>
                   My Submissions <FaHome />
                 </NavLink>
               </li>

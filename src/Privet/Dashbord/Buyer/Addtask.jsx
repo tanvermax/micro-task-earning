@@ -48,8 +48,7 @@ const navigate = useNavigate();
         if (res.data.insertedId) {
           // Deduct the coins
           const updatedCoins = userData.coins - totalCost; // Calculate updated coins
-          axiosSecure
-          .patch(`/users/coins/${userData._id}`, {
+          axiosSecure.patch(`/users/coins/${userData._id}`, {
             email: user.email,
               coins: updatedCoins,
             })
@@ -69,7 +68,7 @@ const navigate = useNavigate();
                   showConfirmButton: false,
                   timer: 1500,
                 });
-                window.location.reload();
+                window.location.reload(false);
               }
             });
         }

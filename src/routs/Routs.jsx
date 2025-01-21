@@ -15,6 +15,7 @@ import Purchase from "../Privet/Dashbord/Buyer/Purchase";
 import Taskdetails from "../Privet/Dashbord/Worker/Taskdetails";
 import BuyerHome from "../Privet/Dashbord/Buyer/BuyerHome";
 import WorkerHome from "../Privet/Dashbord/Worker/WorkerHome";
+import Maysubmission from "../Privet/Dashbord/Worker/Maysubmission";
 
 export const Routs = createBrowserRouter([
   {
@@ -64,6 +65,9 @@ export const Routs = createBrowserRouter([
           {
             path: "purchase",
             element: <Purchase></Purchase>,
+          },{
+            path:'maysubmissioin',
+            element:<Maysubmission></Maysubmission>
           },
           {
             path: "mytask",

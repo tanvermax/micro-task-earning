@@ -19,6 +19,7 @@ const Login = () => {
       .then((res) => {
         console.log("log user",res.user);
         navigate("/");
+        window.location.reload(false);
       })
       .catch((error) => {
         const errorCode = error.code;

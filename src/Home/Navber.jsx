@@ -24,7 +24,7 @@ const Navber = () => {
   const logout = () => {
     handlelogout()
       .then(() => {
-        window.location.reload()
+        window.location.reload(false)
       })
       .catch((error) => {
         console.log(error);
