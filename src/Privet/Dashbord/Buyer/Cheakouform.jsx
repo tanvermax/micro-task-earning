@@ -13,7 +13,9 @@ const Cheakouform = ({ coinAmount, price }) => {
   const [processing, setProcessing] = useState(false);
   const [success, setSuccess] = useState(false);
 
+
   useEffect(() => {
+    
     // Create a payment intent when the component loads
     axiosSecure.post("/create-payment-intent", { amount: price * 100 }) // Convert dollars to cents
       .then((res) => {

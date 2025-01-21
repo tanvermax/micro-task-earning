@@ -47,7 +47,7 @@ const Dashbord = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to={"/dashbord/task"}>
+                <NavLink to={"/dashbord/managetask"}>
                   Manage Task <MdTask />
                 </NavLink>
               </li>

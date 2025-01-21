@@ -5,6 +5,9 @@ import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+
+// const image_hostin_key = import.meta.env.VITE_IMAGEBB;
+// const image_hosting_api= `https://api.imgbb.com/1/upload?key${}`
 const Addtask = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
@@ -37,12 +40,14 @@ const navigate = useNavigate();
         taskowner: user.email,
         taskName: data.task_title,
         taskDetails: data.task_detail,
-        requiredWorkers: data.required_workers,
-        payableAmount: data.payable_amount,
+        requiredWorkers: parseInt(data.required_workers),
+        payableAmount: parseInt(data.payable_amount),
         taskDate: data.completion_date,
         submissinInfo: data.submission_info,
         taskImage: data.task_image_url,
       };
+      console.log(taskitem);
+      
 
       axiosSecure.post("/task", taskitem).then((res) => {
         if (res.data.insertedId) {
@@ -68,7 +73,7 @@ const navigate = useNavigate();
                   showConfirmButton: false,
                   timer: 1500,
                 });
-                window.location.reload(false);
+                // window.location.reload(false);
               }
             });
         }
@@ -243,7 +248,7 @@ const navigate = useNavigate();
               Task Image URL
             </label>
             <input
-              type="url"
+              type="file"
               id="task_image_url"
               {...register("task_image_url", {
                 required: "Task image URL is required",

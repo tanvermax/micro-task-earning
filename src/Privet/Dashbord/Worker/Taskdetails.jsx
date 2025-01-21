@@ -35,11 +35,12 @@ const Taskdetails = () => {
       current_date: currentDate,
       status: "pending",
     };
+    
 
     console.log("Submission Data:", submission);
 
     // Simulating an API call to save submission
-    axiosSecure.post("/submitted", submission).then((res) => {
+    axiosSecure.post("/tasksubmit", submission).then((res) => {
       console.log(res.data);
       if (res.data.insertedId) {
         Swal.fire({

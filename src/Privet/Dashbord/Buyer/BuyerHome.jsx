@@ -1,27 +1,31 @@
 import React, { useState } from "react";
-import useTask from "./useTask";
+// import useTask from "./useTask";
 import useAuth from "../../../Provider/useAuth";
 import useAxiosSecure from "../../../Axios/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import userTask from "./userTask";
+import userSubmission from "./userSubmission";
 
 const BuyerHome = () => {
   const { user } = useAuth(); // Replace with actual email from auth
-  const [tasks] = useTask(user.email);
+  // const [tasks] = useTask(user.email);
+  const [tasks] = userTask();
   // const [submissions, setSubmissions] = useState([]);
   const axiosSecure = useAxiosSecure();
   const [selectedSubmission, setSelectedSubmission] = useState(null);
   console.log(tasks);
 
-  const { data: submissions = [], refetch } = useQuery({
-    queryKey: ["submissions"], // Unique key for caching and identifying the query
-    queryFn: async () => {
-      const response = await axiosSecure.get("/submitted");
+  // const { data: submissions = [], refetch } = useQuery({
+  //   queryKey: ["submissions"], // Unique key for caching and identifying the query
+  //   queryFn: async () => {
+  //     const response = await axiosSecure.get("/submitted");
 
-      // Filter submissions to include only "pending" status
-      return response.data.filter((sub) => sub.status === "pending");
-    },
-  });
+  //     // Filter submissions to include only "pending" status
+  //     return response.data.filter((sub) => sub.status === "pending");
+  //   },
+  // });
+  const [submissions] = userSubmission();
 
   // Total task count
   const totalTaskCount = tasks.length;
@@ -39,11 +43,10 @@ const BuyerHome = () => {
   );
 
   const handleApprove = (id) => {
-    
-    axiosSecure.patch(`/submitted/${id}`)
+    axiosSecure
+      .patch(`/submitted/${id}`)
       .then((res) => {
         if (res.data.modifiedCount > 0) {
-          
           refetch();
           Swal.fire({
             position: "top-end",
@@ -59,56 +62,26 @@ const BuyerHome = () => {
       });
   };
 
-
-
-  // Handle approve submission
-  // const handleApprove = async (submission) => {
-  //   try {
-  //     await fetch(`http://localhost:5000/submitted/${submission._id}`, {
-  //       method: "PATCH",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         status: "approve",
-  //         worker_coins: submission.payable_amount,
-  //       }),
-  //     });
-
-  //     // Update local state
-  //     setSubmissions((prev) => prev.filter((sub) => sub.id !== submission._id));
-  //     alert("Submission approved successfully!");
-  //   } catch (error) {
-  //     console.error("Error approving submission:", error);
-  //   }
-  // };
-
-  // // Handle reject submission
-  // const handleReject = async (submission) => {
-  //   try {
-  //     await fetch(`http://localhost:5000/submitted/${submission._id}`, {
-  //       method: "PATCH",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         status: "rejected",
-  //       }),
-  //     });
-
-  //     await fetch(`http://localhost:5000/tasks/${submission.task_id}`, {
-  //       method: "PATCH",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         requiredWorkers: submission.required_workers + 1,
-  //       }),
-  //     });
-
-  //     // Update local state
-  //     setSubmissions((prev) => prev.filter((sub) => sub.id !== submission.id));
-  //     alert("Submission rejected and required workers increased!");
-  //   } catch (error) {
-  //     console.error("Error rejecting submission:", error);
-  //   }
-  // };
-
-  return (
+  const handleReject = (id) => {
+    axiosSecure
+      .patch(`/submitted/reject/${id}`)
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "The task is rejected",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error approving task:", error);
+      });
+  };
+ return (
     <div className="container mx-auto p-5">
       <h1 className="text-2xl font-bold mb-5">Buyer Dashboard</h1>
 
@@ -137,37 +110,47 @@ const BuyerHome = () => {
               <th className="border-b py-2">Worker Name</th>
               <th className="border-b py-2">Task Title</th>
               <th className="border-b py-2">Payable Amount</th>
+              <th className="border-b py-2">status</th>
               <th className="border-b py-2">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {submissions.map((submission) => (
-              <tr key={submission._id}>
-                <td className="border-b py-2">{submission.worker_name}</td>
-                <td className="border-b py-2">{submission.task_title}</td>
-                <td csubmissionslassName="border-b py-2">${submission.payable_amount}</td>
-                <td className="border-b py-2">
-                  <button
-                    onClick={() => setSelectedSubmission(submission)}
-                    className="mr-2 text-white bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded"
-                  >
-                    View Submission
-                  </button>
-                  <button
-                    onClick={() => handleApprove(submission._id)}
-                    className="mr-2 text-white bg-green-600 hover:bg-green-700 px-3 py-1 rounded"
-                  >
-                    Approve
-                  </button>
-                  <button
-                    onClick={() => handleReject(submission)}
-                    className="text-white bg-red-600 hover:bg-red-700 px-3 py-1 rounded"
-                  >
-                    Reject
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {submissions.lenght > 0 ? (
+              submissions.map((submission) => (
+                <tr key={submission._id}>
+                  <td className="border-b py-2">{submission.worker_name}</td>
+                  <td className="border-b py-2">{submission.task_title}</td>
+                  <td csubmissionslassName="border-b py-2">
+                    ${submission.payable_amount}
+                  </td>
+                  <td csubmissionslassName="border-b py-2">
+                    {submission.status}
+                  </td>
+                  <td className="border-b py-2">
+                    <button
+                      onClick={() => setSelectedSubmission(submission)}
+                      className="mr-2 text-white bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded"
+                    >
+                      View Submission
+                    </button>
+                    <button
+                      onClick={() => handleApprove(submission._id)}
+                      className="mr-2 text-white bg-green-600 hover:bg-green-700 px-3 py-1 rounded"
+                    >
+                      Approve
+                    </button>
+                    <button
+                      onClick={() => handleReject(submission._id)}
+                      className="text-white bg-red-600 hover:bg-red-700 px-3 py-1 rounded"
+                    >
+                      Reject
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <h1 className="text-red-500">! no one  submitted your task</h1>
+            )}
           </tbody>
         </table>
       </div>

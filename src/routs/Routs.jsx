@@ -17,6 +17,7 @@ import BuyerHome from "../Privet/Dashbord/Buyer/BuyerHome";
 import WorkerHome from "../Privet/Dashbord/Worker/WorkerHome";
 import Maysubmission from "../Privet/Dashbord/Worker/Maysubmission";
 import WithdrawPage from "../Privet/Dashbord/Worker/WithdrawPage";
+import ManageTask from "../Privet/Dashbord/ManageTask";
 
 export const Routs = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const Routs = createBrowserRouter([
           {
             path: "users",
             element: <Users></Users>,
+          },
+          {
+            path:'managetask',
+            element:<ManageTask></ManageTask>
           },
           {
             path: "buyerhome",

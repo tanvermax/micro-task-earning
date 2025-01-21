@@ -3,7 +3,8 @@ import useAxiosSecure from "../../../Axios/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-import useTask from "./useTask";
+// import useTask from "./useTask";
+import userTask from "./userTask";
 
 const Mytask = () => {
   const axiosSecure = useAxiosSecure();
@@ -15,7 +16,8 @@ const Mytask = () => {
   //     return res.data;
   //   },
   // });
-  const [task]= useTask();
+  // const [task]= useTask();
+  const [task] = userTask();
   //   console.log(task);
   const [sortedata, setSortedData] = useState([]);
 

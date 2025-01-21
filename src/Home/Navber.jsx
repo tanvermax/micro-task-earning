@@ -46,7 +46,7 @@ const Navber = () => {
           {userData.role === "Worker" ? (
             <>
               <li>
-                <Link to={"/dashbord/tasklist"}>Dashboard</Link>
+                <Link to={"/dashbord/workerhome"}>Dashboard</Link>
               </li>
             </>
           ) : null}
@@ -60,7 +60,7 @@ const Navber = () => {
           {userData.role === "Buyer" ? (
             <>
               <li>
-                <Link to={"/dashbord/addtask"}>Dashboard</Link>
+                <Link to={"/dashbord/buyerhome"}>Dashboard</Link>
               </li>
             </>
           ) : null}
