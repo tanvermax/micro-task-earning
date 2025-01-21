@@ -19,47 +19,49 @@ const Maysubmission = () => {
   });
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
-      <h1 className="text-3xl text-center text-gray-800 mb-6">My Submissions</h1>
+    <div className="max-w-7xl mx-auto p-6">
+      <h1 className="text-3xl font-semibold text-gray-800 mb-6 text-center">My Submissions</h1>
       {submissions.length > 0 ? (
-        <table className="w-full table-auto shadow-md bg-white rounded-lg">
-          <thead className="bg-blue-600 text-white text-lg">
-            <tr>
-              <th className="px-4 py-2">Task Title</th>
-              <th className="px-4 py-2">Payable Amount</th>
-              <th className="px-4 py-2">Submission Details</th>
-              <th className="px-4 py-2">Worker Name</th>
-              <th className="px-4 py-2">Buyer Email</th>
-              <th className="px-4 py-2">Status</th>
-              <th className="px-4 py-2">Submission Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {submissions.map((sub) => (
-              <tr key={sub.id} className="text-gray-700">
-                <td className="px-4 py-2">{sub.task_title}</td>
-                <td className="px-4 py-2">${sub.payable_amount}</td>
-                <td className="px-4 py-2">{sub.submission_details}</td>
-                <td className="px-4 py-2">{sub.worker_name}</td>
-                <td className="px-4 py-2">{sub.Buyer_email}</td>
-                <td
-                  className={`px-4 py-2 font-bold text-white rounded-lg ${
-                    sub.status.toLowerCase() === 'completed'
-                      ? 'bg-green-500'
-                      : sub.status.toLowerCase() === 'pending'
-                      ? 'bg-yellow-500'
-                      : 'bg-red-500'
-                  }`}
-                >
-                  {sub.status}
-                </td>
-                <td className="px-4 py-2">
-                  {new Date(sub.current_date).toLocaleDateString()}
-                </td>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white shadow-md rounded-lg">
+            <thead className="bg-blue-600 text-white">
+              <tr>
+                <th className="py-3 px-4 text-left">Task Title</th>
+                <th className="py-3 px-4 text-left">Payable Amount</th>
+                <th className="py-3 px-4 text-left">Submission Details</th>
+                <th className="py-3 px-4 text-left">Worker Name</th>
+                <th className="py-3 px-4 text-left">Buyer Email</th>
+                <th className="py-3 px-4 text-left">Status</th>
+                <th className="py-3 px-4 text-left">Submission Date</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {submissions.map((sub) => (
+                <tr key={sub.id} className="border-t border-gray-200">
+                  <td className="py-3 px-4">{sub.task_title}</td>
+                  <td className="py-3 px-4">${sub.payable_amount}</td>
+                  <td className="py-3 px-4">{sub.submission_details}</td>
+                  <td className="py-3 px-4">{sub.worker_name}</td>
+                  <td className="py-3 px-4">{sub.Buyer_email}</td>
+                  <td
+                    className={`py-3 px-4 font-semibold text-white rounded-lg ${
+                      sub.status.toLowerCase() === 'completed'
+                        ? 'bg-green-500'
+                        : sub.status.toLowerCase() === 'pending'
+                        ? 'bg-yellow-500'
+                        : 'bg-red-500'
+                    }`}
+                  >
+                    {sub.status}
+                  </td>
+                  <td className="py-3 px-4">
+                    {new Date(sub.current_date).toLocaleDateString()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <p className="text-center text-gray-500">No submissions found.</p>
       )}

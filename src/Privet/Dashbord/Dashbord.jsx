@@ -71,7 +71,7 @@ const Dashbord = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to={"/dashbord/withdrawals"}>
+                <NavLink to={"/dashbord/withdraw"}>
                   Withdrawals <FaHome />
                 </NavLink>
               </li>

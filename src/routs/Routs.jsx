@@ -16,6 +16,7 @@ import Taskdetails from "../Privet/Dashbord/Worker/Taskdetails";
 import BuyerHome from "../Privet/Dashbord/Buyer/BuyerHome";
 import WorkerHome from "../Privet/Dashbord/Worker/WorkerHome";
 import Maysubmission from "../Privet/Dashbord/Worker/Maysubmission";
+import WithdrawPage from "../Privet/Dashbord/Worker/WithdrawPage";
 
 export const Routs = createBrowserRouter([
   {
@@ -72,6 +73,9 @@ export const Routs = createBrowserRouter([
           {
             path: "mytask",
             element: <Mytask></Mytask>,
+          },{
+            path:'withdraw',
+            element:<WithdrawPage></WithdrawPage>
           },
           {
             path: "taskupdate/:id",
