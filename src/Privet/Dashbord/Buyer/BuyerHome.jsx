@@ -14,18 +14,23 @@ const BuyerHome = () => {
   // const [submissions, setSubmissions] = useState([]);
   const axiosSecure = useAxiosSecure();
   const [selectedSubmission, setSelectedSubmission] = useState(null);
-  console.log(tasks);
+  // console.log(tasks);
 
-  // const { data: submissions = [], refetch } = useQuery({
-  //   queryKey: ["submissions"], // Unique key for caching and identifying the query
-  //   queryFn: async () => {
-  //     const response = await axiosSecure.get("/submitted");
+  const { data: submissions = [], refetch } = useQuery({
+    queryKey: ["submissions"], // Unique key for caching and identifying the query
+    queryFn: async () => {
+      const response = await axiosSecure.get("/submitted");
 
-  //     // Filter submissions to include only "pending" status
-  //     return response.data.filter((sub) => sub.status === "pending");
-  //   },
-  // });
-  const [submissions] = userSubmission();
+      // Filter submissions to include only "pending" status
+      return response.data.filter((sub) => sub.status === "pending");
+    },
+  });
+  // const [submissions] = userSubmission();
+  // console.log(submissions);
+
+  const userSubmissions = submissions.filter(
+    (submission) => submission.Buyer_email === user.email
+  );
 
   // Total task count
   const totalTaskCount = tasks.length;
@@ -43,8 +48,9 @@ const BuyerHome = () => {
   );
 
   const handleApprove = (id) => {
-    axiosSecure
-      .patch(`/submitted/${id}`)
+    // console.log(id);
+    
+    axiosSecure.patch(`/submitted/${id}`)
       .then((res) => {
         if (res.data.modifiedCount > 0) {
           refetch();
@@ -63,25 +69,28 @@ const BuyerHome = () => {
   };
 
   const handleReject = (id) => {
+    console.log(id);
+    
     axiosSecure
       .patch(`/submitted/reject/${id}`)
       .then((res) => {
-        if (res.data.modifiedCount > 0) {
-          refetch();
-          Swal.fire({
-            position: "top-end",
-            icon: "error",
-            title: "The task is rejected",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
+        console.log(res.data);
+        refetch();
+       if (res.data.message) {
+               Swal.fire({
+                 position: "top-end",
+                 icon: "success",
+                 title: "Your work has been saved",
+                 showConfirmButton: false,
+                 timer: 1500,
+               });
+             }
       })
       .catch((error) => {
         console.error("Error approving task:", error);
       });
   };
- return (
+  return (
     <div className="container mx-auto p-5">
       <h1 className="text-2xl font-bold mb-5">Buyer Dashboard</h1>
 
@@ -115,42 +124,42 @@ const BuyerHome = () => {
             </tr>
           </thead>
           <tbody>
-            {submissions.lenght > 0 ? (
-              submissions.map((submission) => (
-                <tr key={submission._id}>
-                  <td className="border-b py-2">{submission.worker_name}</td>
-                  <td className="border-b py-2">{submission.task_title}</td>
-                  <td csubmissionslassName="border-b py-2">
-                    ${submission.payable_amount}
-                  </td>
-                  <td csubmissionslassName="border-b py-2">
-                    {submission.status}
-                  </td>
-                  <td className="border-b py-2">
-                    <button
-                      onClick={() => setSelectedSubmission(submission)}
-                      className="mr-2 text-white bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded"
-                    >
-                      View Submission
-                    </button>
-                    <button
-                      onClick={() => handleApprove(submission._id)}
-                      className="mr-2 text-white bg-green-600 hover:bg-green-700 px-3 py-1 rounded"
-                    >
-                      Approve
-                    </button>
-                    <button
-                      onClick={() => handleReject(submission._id)}
-                      className="text-white bg-red-600 hover:bg-red-700 px-3 py-1 rounded"
-                    >
-                      Reject
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <h1 className="text-red-500">! no one  submitted your task</h1>
-            )}
+            {/* {submissions.lenght > 0 ? ( */}
+            {userSubmissions.map((submission) => (
+              <tr key={submission._id}>
+                <td className="border-b py-2">{submission.worker_name}</td>
+                <td className="border-b py-2">{submission.task_title}</td>
+                <td csubmissionslassName="border-b py-2">
+                  ${submission.payable_amount}
+                </td>
+                <td csubmissionslassName="border-b py-2">
+                  {submission.status}
+                </td>
+                <td className="border-b py-2">
+                  <button
+                    onClick={() => setSelectedSubmission(submission)}
+                    className="mr-2 text-white bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded"
+                  >
+                    View Submission
+                  </button>
+                  <button
+                    onClick={() => handleApprove(submission._id)}
+                    className="mr-2 text-white bg-green-600 hover:bg-green-700 px-3 py-1 rounded"
+                  >
+                    Approve
+                  </button>
+                  <button
+                    onClick={() => handleReject(submission._id)}
+                    className="text-white bg-red-600 hover:bg-red-700 px-3 py-1 rounded"
+                  >
+                    Reject
+                  </button>
+                </td>
+              </tr>
+            ))}
+            {/* ) : (
+              <h1 className="text-red-500">! no one submitted your task</h1>
+            )} */}
           </tbody>
         </table>
       </div>

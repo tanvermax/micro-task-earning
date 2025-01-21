@@ -12,14 +12,13 @@ const userSubmission = () => {
     queryFn: async () => {
       const res = await axiosSecure.get("/submitted");
 
-      // Filter submissions to include only "pending" status
+      // Apply multiple filters
       return res.data
-        .filter((sub) => sub.taskowner === user.email) // Filter by taskowner
-        .filter((sub) => sub.status === "pending"); 
+        ; // Further filter by status
     },
   });
-  return [submissions];
-}
 
+  return [submissions, refetch];
+};
 
 export default userSubmission;

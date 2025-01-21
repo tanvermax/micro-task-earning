@@ -42,7 +42,7 @@ const Taskdetails = () => {
     // Simulating an API call to save submission
     axiosSecure.post("/tasksubmit", submission).then((res) => {
       console.log(res.data);
-      if (res.data.insertedId) {
+      if (res.data.message) {
         Swal.fire({
           position: "top-end",
           icon: "success",
