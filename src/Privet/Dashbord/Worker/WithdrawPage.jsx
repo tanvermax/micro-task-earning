@@ -15,6 +15,8 @@ const WithdrawPage = () => {
 
   // Fetch user data (coins)
  const [userData]= userMange();
+ console.log(userData);
+ 
 
   const totalCoins = userData.coins ;
   const withdrawableAmount = Math.floor(totalCoins / 20); // 20 coins = 1 dollar
@@ -29,34 +31,34 @@ const WithdrawPage = () => {
     }
   };
 
-  const handleWithdraw = async () => {
+  const handleWithdraw = async (coinsToWithdraw,paymentSystem,accountNumber) => {
     if (coinsToWithdraw >= 200) {
       try {
-        const response = await axiosSecure.post("/withdrawals", {
-          worker_email: user.email,
-          worker_name: user.name,
-          withdrawal_coin: coinsToWithdraw,
-          withdrawal_amount: withdrawAmount,
-          payment_system: paymentSystem,
-          account_number: accountNumber,
-          withdraw_date: new Date(),
-          status: "pending",
-        });
-
-        if (response.data.success) {
-          Swal.fire({
-            icon: "success",
-            title: "Withdrawal Request Submitted",
-            text: `You have requested a withdrawal of $${withdrawAmount}.`,
-          });
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Withdrawal Failed",
-            text: "Please try again later.",
-          });
-        }
+        const withdrawalData = {
+            worker_email: userData.email,
+            worker_name: userData.userName,
+            withdrawal_coin: coinsToWithdraw,
+            withdrawal_amount: withdrawAmount,
+            payment_system: paymentSystem,
+            payment_status :'pending',
+            account_number: accountNumber,
+          };
+          console.log(withdrawalData);
+          
+        axiosSecure.post('/withdrawals',withdrawalData)
+        .then(res=>{
+            console.log(res.data);
+            if (res.data.insertedId) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Successfulyy added!",
+                    text: 'lease try again later',
+                  });
+            }
+            
+        })
       } catch (error) {
+
         console.error("Error making withdrawal", error);
         Swal.fire({
           icon: "error",
@@ -79,7 +81,7 @@ const WithdrawPage = () => {
       
       <div className="bg-white p-6 rounded-lg shadow-md mb-8">
         <p className="text-lg text-gray-700"><strong>Total Coins:</strong> {totalCoins}</p>
-        <p className="text-lg text-gray-700"><strong>Withdrawal Amount:</strong> ${withdrawAmount}</p>
+        <p className="text-lg text-gray-700"><strong>Withdrawal Amount:</strong> ${withdrawableAmount}</p>
       </div>
 
       <form className="space-y-6">
@@ -135,7 +137,7 @@ const WithdrawPage = () => {
             <button
               type="button"
               className="px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 focus:outline-none"
-              onClick={handleWithdraw}
+              onClick={()=>handleWithdraw(coinsToWithdraw,paymentSystem,accountNumber)}
             >
               Withdraw
             </button>
