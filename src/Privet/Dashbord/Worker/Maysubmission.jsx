@@ -106,7 +106,7 @@ const Maysubmission = () => {
               ))}
             </tbody>
           </table>
-          <p>current page{currentPage}</p>
+          {/* <p>current page{currentPage}</p> */}
           <div className="pagination py-10 items-center flex justify-center gap-5">
             <button onClick={handlprev} className="btn">
               prev

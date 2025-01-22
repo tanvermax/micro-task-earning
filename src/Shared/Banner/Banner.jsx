@@ -1,54 +1,54 @@
-import React from 'react';
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.css'; // Import Swiper styles
-
+import React from "react";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css"; // Import Swiper styles
+import Sectiontitle from "./Sectiontitle";
 
 const Banner = () => {
-    return (
-        <div>
-            <div className="w-full h-[500px] bg-gray-100">
-      <Swiper
-        modules={[Navigation, Pagination, Autoplay]}
-        navigation
-        pagination={{ clickable: true }}
-        autoplay={{ delay: 3000, disableOnInteraction: false }}
-        loop
-        className="h-full"
-      >
-        {/* Slide 1 */}
-        <SwiperSlide>
-          <div className="w-full h-full flex items-center justify-center bg-blue-500 text-white">
-            <div className="text-center">
-              <h1 className="text-4xl font-bold">Welcome to Our Platform</h1>
-              <p className="mt-4 text-lg">Explore the best features and services we have to offer!</p>
-            </div>
-          </div>
-        </SwiperSlide>
+  return (
+    <div>
+      <div className="w-full h-[500px] bg-gray-100">
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay]}
+          navigation
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          loop
+          className="h-full"
+        >
+          {/* Slide 1 */}
+          <SwiperSlide>
+            <Sectiontitle
+              heading={"Track Your Submissions Effortlessly"}
+              subheading={
+                "Stay organized with real-time updates on your tasks, payments, and statuses—all in one place."
+              }
+            ></Sectiontitle>
+          </SwiperSlide>
 
-        {/* Slide 2 */}
-        <SwiperSlide>
-          <div className="w-full h-full flex items-center justify-center bg-green-500 text-white">
-            <div className="text-center">
-              <h1 className="text-4xl font-bold">Unleash Your Potential</h1>
-              <p className="mt-4 text-lg">Join us and grow your skills to the next level.</p>
-            </div>
-          </div>
-        </SwiperSlide>
+          {/* Slide 2 */}
+          <SwiperSlide>
+            <Sectiontitle
+              heading={"Empowering Workers and Buyers Alike"}
+              subheading={
+                "Seamlessly manage submissions, approvals, and payouts with an intuitive dashboard designed for everyone."
+              }
+            ></Sectiontitle>
+          </SwiperSlide>
 
-        {/* Slide 3 */}
-        <SwiperSlide>
-          <div className="w-full h-full flex items-center justify-center bg-purple-500 text-white">
-            <div className="text-center">
-              <h1 className="text-4xl font-bold">Your Journey Begins Here</h1>
-              <p className="mt-4 text-lg">Discover a world of opportunities and adventures.</p>
-            </div>
-          </div>
-        </SwiperSlide>
-      </Swiper>
+          {/* Slide 3 */}
+          <SwiperSlide>
+            <Sectiontitle
+              heading={"Maximize Your Productivity"}
+              subheading={
+                "Leverage advanced tools to track progress, customize settings, and focus on what matters most—your work."
+              }
+            ></Sectiontitle>
+          </SwiperSlide>
+        </Swiper>
+      </div>
     </div>
-        </div>
-    );
+  );
 };
 
 export default Banner;
