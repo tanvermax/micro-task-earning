@@ -50,6 +50,7 @@ const Addtask = () => {
 
         const taskitem = {
           taskowner: user.email,
+          ownername: user.displayName,
           taskName: data.task_title,
           taskDetails: data.task_detail,
           requiredWorkers: parseInt(data.required_workers),

@@ -60,7 +60,7 @@ const Register = () => {
             Swal.fire({
               position: "top-end",
               icon: "success",
-              title: "Your work has been saved",
+              title: "Your your account has being created",
               showConfirmButton: false,
               timer: 1500,
             });

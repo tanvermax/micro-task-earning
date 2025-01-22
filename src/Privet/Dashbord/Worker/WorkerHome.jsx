@@ -48,40 +48,7 @@ const WorkerHome = () => {
   const totalusercoin = totalEarnings + userData.coins;
   console.log(totalusercoin);
 
-  const handlecoinadd = async (co) => {
-    try {
-      // Calculate the total coins
-      const totalCoins = co + userData.coins;
-      console.log("Updated Coins:", totalCoins);
-  
-      // Patch the updated coins to the server
-      const response = await axiosSecure.patch(`/users/${user.email}`, {
-        coins: totalCoins,
-      });
-  
-      if (response.data.success) {
-        Swal.fire({
-          icon: "success",
-          title: "Coins Added Successfully!",
-          text: `Your account now has ${totalCoins} coins.`,
-        });
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Failed to Add Coins",
-          text: "Please try again later.",
-        });
-      }
-    } catch (error) {
-      console.error("Error updating coins:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Something went wrong!",
-        text: error.message,
-      });
-    }
-  };
-  
+ 
 
   
 
@@ -129,7 +96,7 @@ const WorkerHome = () => {
               <tr key={submission._id}>
                 <td className="border-b py-2">{submission.task_title}</td>
                 <td className="border-b py-2">${submission.payable_amount}</td>
-                <td className="border-b py-2">{submission.buyer_name}</td>
+                <td className="border-b py-2">{submission.ownername}</td>
                 <td className="border-b py-2">{submission.status}</td>
               </tr>
             ))}

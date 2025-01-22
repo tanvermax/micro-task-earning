@@ -57,7 +57,7 @@ const Navber = () => {
           )}
           {userData.role === "admin" && (
             <li>
-              <Link to={"/dashbord/admin"} className="flex items-center gap-2">
+              <Link to={"/dashbord/adminhome"} className="flex items-center gap-2">
                 <FaUserCircle />
                 Admin Dashboard
               </Link>

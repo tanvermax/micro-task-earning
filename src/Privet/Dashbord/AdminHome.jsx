@@ -1,10 +1,28 @@
 import React from "react";
 // import { useQuery } from "@tanstack/react-query";
-// import useAxiosSecure from "../../Axios/useAxiosSecure";
+import useAxiosSecure from "../../Axios/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const AdminHome = () => {
-//   const axiosSecure = useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
 
+  const { data: wokerdata = [], refetch } = useQuery({
+    queryKey: ["wokerdata"],
+    queryFn: async () => {
+      const res = await axiosSecure.get('/users/role',{ params: { role: 'Worker' }});
+      return res.data;
+    },
+  });
+  const { data: Buyerdata = [] } = useQuery({
+    queryKey: ["Buyerdata"],
+    queryFn: async () => {
+      const res = await axiosSecure.get('/users/role',{ params: { role: 'Buyer' }});
+      return res.data;
+    },
+  });
+  console.log(Buyerdata);
+  
+  
 //   const { data: stats = {}, isLoading } = useQuery({
 //     queryKey: ["adminStats"],
 //     queryFn: async () => {
@@ -27,13 +45,13 @@ const AdminHome = () => {
         {/* Total Workers */}
         <div className="bg-white shadow p-6 rounded-lg">
           <h2 className="text-xl font-semibold mb-2">Total Workers</h2>
-          <p className="text-2xl font-bold text-blue-600"></p>
+          <p className="text-2xl font-bold text-blue-600">{wokerdata.length}</p>
         </div>
 
         {/* Total Buyers */}
         <div className="bg-white shadow p-6 rounded-lg">
           <h2 className="text-xl font-semibold mb-2">Total Buyers</h2>
-          <p className="text-2xl font-bold text-green-600"></p>
+          <p className="text-2xl font-bold text-green-600">{Buyerdata.length}</p>
         </div>
 
         {/* Total Coins */}
