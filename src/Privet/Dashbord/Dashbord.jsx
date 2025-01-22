@@ -116,12 +116,7 @@ const Dashbord = () => {
                   Payment History <RiSecurePaymentFill />
                 </NavLink>
               </li>
-              {/* Add more specific links for buyers */}
-              <li>
-                <NavLink to={"/dashbord/buyer-support"}>
-                  Buyer Support <FcOnlineSupport />
-                </NavLink>
-              </li>
+             
             </>
           ) : null}
 

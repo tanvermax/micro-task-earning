@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 
 const ManageTask = () => {
   const axiosSecure = useAxiosSecure();
+  const [task, refetch] = useTask(); //
   const handleDeletetask = (id) => {
     // console.log(id);
      Swal.fire({
@@ -27,7 +28,7 @@ const ManageTask = () => {
                     text: "Your file has been deleted.",
                     icon: "success",
                   });
-                  window.location.reload(false);
+                  refetch();
                 }
               });
               
@@ -35,7 +36,7 @@ const ManageTask = () => {
           });
   };
 
-  const [task] = useTask();
+ 
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4">Total Task ({task.length})</h1>

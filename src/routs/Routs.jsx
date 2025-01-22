@@ -78,7 +78,8 @@ export const Routs = createBrowserRouter([
             element: <Purchase></Purchase>,
           },{
             path:'maysubmissioin',
-            element:<Maysubmission></Maysubmission>
+            element:<Maysubmission></Maysubmission>,
+            loader: ()=> fetch('http://localhost:5000/submitCount')
           },
           {
             path: "mytask",
