@@ -26,10 +26,10 @@ const UserDetails = () => {
   // console.log(userData.email);
   return (
     <div className="flex items-center justify-between text-xl font-semibold py-5">
-      <div>
+      <div  className="flex gap-5" >
         <div>
-          {userData.photoURL ? (
-            <img src={userData.photoURL} alt="" />
+          {userData.photo ? (
+            <img className="h-20 w-20 rounded-full  border-blue-500 border-2 " src={userData.photo} alt="" />
           ) : (
             <>
               <div className="text-5xl">

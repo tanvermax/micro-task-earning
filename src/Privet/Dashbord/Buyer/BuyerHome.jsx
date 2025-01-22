@@ -52,8 +52,7 @@ const BuyerHome = () => {
     
     axiosSecure.patch(`/submitted/${id}`)
       .then((res) => {
-        if (res.data.modifiedCount > 0) {
-          refetch();
+        if (res.data.message === "Submission approved and coins updated successfully") {
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -61,6 +60,8 @@ const BuyerHome = () => {
             showConfirmButton: false,
             timer: 1500,
           });
+          refetch();
+
         }
       })
       .catch((error) => {

@@ -102,11 +102,11 @@ const WorkerHome = () => {
         <div className="bg-white p-5 rounded shadow">
           <h2 className="text-lg font-bold">Total Earnings</h2>
           <button
-            onClick={() => handlecoinadd(totalEarnings)}
+            
             className="text-xl"
           >
             ${totalEarnings.toFixed(2)}{" "}
-            <button className="btn btn-primary">add coin to you account</button>{" "}
+           {" "}
           </button>
           {/* <p className="text-xl">coin :{totalusercoin}</p> */}
         </div>
