@@ -6,36 +6,41 @@ import { useQuery } from "@tanstack/react-query";
 const AdminHome = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: wokerdata = [], refetch } = useQuery({
+  const {
+    data: wokerdata = [],
+    refetch
+  } = useQuery({
     queryKey: ["wokerdata"],
     queryFn: async () => {
-      const res = await axiosSecure.get('/users/role',{ params: { role: 'Worker' }});
+      const res = await axiosSecure.get("/users/role", {
+        params: { role: "Worker" },
+      });
       return res.data;
     },
   });
+
+
   const { data: Buyerdata = [] } = useQuery({
     queryKey: ["Buyerdata"],
     queryFn: async () => {
-      const res = await axiosSecure.get('/users/role',{ params: { role: 'Buyer' }});
+      const res = await axiosSecure.get("/users/role", {
+        params: { role: "Buyer" },
+      });
       return res.data;
     },
   });
   console.log(Buyerdata);
-  
-  
-//   const { data: stats = {}, isLoading } = useQuery({
-//     queryKey: ["adminStats"],
-//     queryFn: async () => {
-//       const response = await axiosSecure.get("/admin/stats");
-//       return response.data;
-//     },
-//   });
+  const totalWorkerCoins = Buyerdata.
+  reduce(
+    (sum, user) => sum + (user.coins || 0),
+    0
+  );
 
-//   if (isLoading) {
-//     return <span className="loading loading-infinity loading-lg"></span>;
-//   }
-
-//   const { totalWorkers, totalBuyers, totalCoins, totalPayments } = stats;
+  const totalBuyerCoins = wokerdata.reduce(
+    (sum, user) => sum + (user.coins || 0),
+    0
+  );
+  const totalCoins = totalWorkerCoins + totalBuyerCoins;
 
   return (
     <div className="container mx-auto p-5">
@@ -51,13 +56,15 @@ const AdminHome = () => {
         {/* Total Buyers */}
         <div className="bg-white shadow p-6 rounded-lg">
           <h2 className="text-xl font-semibold mb-2">Total Buyers</h2>
-          <p className="text-2xl font-bold text-green-600">{Buyerdata.length}</p>
+          <p className="text-2xl font-bold text-green-600">
+            {Buyerdata.length}
+          </p>
         </div>
 
         {/* Total Coins */}
         <div className="bg-white shadow p-6 rounded-lg">
           <h2 className="text-xl font-semibold mb-2">Total Coins</h2>
-          <p className="text-2xl font-bold text-yellow-600"></p>
+          <p className="text-2xl font-bold text-yellow-600">{totalCoins}</p>
         </div>
 
         {/* Total Payments */}
