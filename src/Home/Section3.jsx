@@ -3,8 +3,8 @@ import React from "react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules"; // Correct path for modules
-
+import { Pagination,Autoplay } from "swiper/modules"; // Correct path for modules
+import "swiper/css/autoplay";
 
 const Section3 = () => {
   const testimonials = [
@@ -39,14 +39,15 @@ const Section3 = () => {
   ];
 
   return (
-    <section className="bg-gray-100 py-12">
+    <section className="bg-gray-100 py-16">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-3xl font-bold text-gray-800 mb-6">What Our Users Say</h2>
         <Swiper
           slidesPerView={1}
           spaceBetween={30}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
           pagination={{ clickable: true }}
-          modules={[Pagination]}
+          modules={[Pagination,Autoplay]}
           className="mySwiper"
         >
           {testimonials.map((testimonial) => (
