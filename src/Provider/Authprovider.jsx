@@ -9,6 +9,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import useaxiospublic from "../Axios/useaxiospublic";
 const googleprovider = new GoogleAuthProvider();
@@ -41,6 +42,11 @@ const Authprovider = ({ children }) => {
   const deleteUser1 = () => {
     return deleteUser(user);
   };
+
+  const updateUser = async (updatedData) => {
+    await updateProfile(auth.currentUser, updatedData);
+    setUser({...auth.currentUser});
+  };
   useEffect(() => {
     setLoading(true);
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -64,7 +70,7 @@ const Authprovider = ({ children }) => {
     return () => {
       return unsubscribe();
     };
-  }, [axiospublic,user]);
+  }, [axiospublic, user]);
 
   const authinfo = {
     user,
@@ -74,6 +80,8 @@ const Authprovider = ({ children }) => {
     loginwithemail,
     handlelogout,
     deleteUser1,
+    setUser,
+    updateUser,
   };
   return (
     <AuthContext.Provider value={authinfo}>{children}</AuthContext.Provider>

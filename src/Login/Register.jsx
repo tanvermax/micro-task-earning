@@ -12,7 +12,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hostin_key
 
 const Register = () => {
   const axiosPublic = useaxiospublic();
-  const { handlnewuser } = useAuth();
+  const { handlnewuser,setUser,updateUser } = useAuth();
   const navigate = useNavigate();
   const {
     register,
@@ -25,56 +25,61 @@ const Register = () => {
   const axiosSecure = useAxiosSecure();
 
   const onSubmit = async (data) => {
-    const imageFile = { image: data.photo[0] };
-    const res = await axiosPublic.post(image_hosting_api, imageFile, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    // console.log("Is form valid?", isValid);
-    console.log(res.data);
-
-    console.log("Registration Data:", data);
-    if (res.data.success) {
-      const coins = data.role === "Buyer" ? 50 : 10;
-      handlnewuser(data.email, data.password)
-        .then((result) => {
-          const loguser = result.user;
-          console.log(loguser);
-          const user = {
-            email: data.email,
-            userName: data.fullName,
-            role: data.role,
-            photo: res.data.data.display_url,
-            coins,
-          };
-          console.log(user);
-
-          axiosSecure.post("/users", user)
-          .then((res) => {
-            console.log(res.data);
-            if (res.data.insertedId) {
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Your work has been saved",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-            }
+    try {
+      const imageFile = { image: data.photo[0] };
+      const res = await axiosPublic.post(image_hosting_api, imageFile, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+  
+      if (res.data.success) {
+        const hostedImageUrl = res.data.data.display_url;
+        const coins = data.role === "Buyer" ? 50 : 10;
+  
+        const user = {
+          email: data.email,
+          userName: data.fullName,
+          role: data.role,
+          photo: hostedImageUrl,
+          coins,
+        };
+  
+        // Register the user
+        const result = await handlnewuser(data.email, data.password);
+        if (result.user) {
+          setUser(result.user);
+  
+          // Update the user profile
+          await updateUser({
+            displayName: data.fullName,
+            photoURL: hostedImageUrl,
           });
+  
+          // Save user data to the database
+          const dbResponse = await axiosSecure.post("/users", user);
+          if (dbResponse.data.insertedId) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your work has been saved",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+  
+          // Navigate to home or login
           navigate("/");
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode);
-          console.log(errorMessage);
-
-          // ..
-        });
+        }
+      }
+    } catch (error) {
+      console.error("Registration Error:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Registration failed",
+        text: error.message,
+      });
     }
   };
+  
   return (
     <div className="w-full max-w-xl bg-green-200 mx-auto  rounded-lg shadow-lg p-8">
       <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
