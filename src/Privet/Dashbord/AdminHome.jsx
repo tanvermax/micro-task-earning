@@ -6,10 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 const AdminHome = () => {
   const axiosSecure = useAxiosSecure();
 
-  const {
-    data: wokerdata = [],
-    refetch
-  } = useQuery({
+  const { data: wokerdata = [], refetch } = useQuery({
     queryKey: ["wokerdata"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users/role", {
@@ -18,7 +15,6 @@ const AdminHome = () => {
       return res.data;
     },
   });
-
 
   const { data: Buyerdata = [] } = useQuery({
     queryKey: ["Buyerdata"],
@@ -30,8 +26,7 @@ const AdminHome = () => {
     },
   });
   console.log(Buyerdata);
-  const totalWorkerCoins = Buyerdata.
-  reduce(
+  const totalWorkerCoins = Buyerdata.reduce(
     (sum, user) => sum + (user.coins || 0),
     0
   );
