@@ -2,21 +2,31 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Axios/useAxiosSecure";
 import useAuth from "../../../Provider/useAuth";
-// import userMange from "../userMange";
+import userMange from "../userMange";
+import { data } from "react-router-dom";
+import Swal from "sweetalert2";
 
-const Cheakouform = ({ coinAmount }) => {
+const Cheakouform = () => {
   const stripe = useStripe();
   const element = useElements();
   const { user } = useAuth();
-  // const [userData] = userMange(); // User information
+  const [userData] = userMange(); // User information
   const axiosSecure = useAxiosSecure(); // Secure Axios instance
   const [error, setError] = useState("");
   const [transictionid, setTransictionId] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [price, setPrice] = useState(5);
+  const [price, setPrice] = useState(1);
+  const [coinAmount, setCoinAmount] = useState(10);
+  // console.log(userData);
 
+  const priceToCoinMap = {
+    1: 10,
+    10: 150,
+    20: 500,
+    35: 1000,
+  };
   useEffect(() => {
     // Create a payment intent when the component loads
     if (price) {
@@ -29,7 +39,7 @@ const Cheakouform = ({ coinAmount }) => {
         })
         .catch((err) => console.error("Error creating payment intent:", err));
     }
-  }, [axiosSecure,price]);
+  }, [axiosSecure, price]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -72,6 +82,46 @@ const Cheakouform = ({ coinAmount }) => {
       if (paymentIntent.status === "succeeded") {
         console.log("transiction id", paymentIntent.id);
         setTransictionId(paymentIntent.id);
+
+        const coinToadd = priceToCoinMap[price] || 0;
+        const updatecoins = (userData.coins || 0) + coinToadd;
+        // setUserData({ ...userData, coins: updatecoins });
+
+        axiosSecure
+        .patch("/users", {
+            email: user.email,
+            coins: updatecoins,
+          })
+          .then((res) => {
+            console.log(res.data.message);
+            const postData={
+              
+                transitsection_id: paymentIntent.id,
+                transittuserName : user.displayName,
+                trasnsituseEmail : user.email,
+                trasitTIme : new Date() ,
+                coinbuyed : coinToadd,
+                moneyforcoin : price,
+              
+            }
+            axiosSecure.post('/transit',postData)
+            .then(res=>{
+              console.log("transit Data posted successfully:", res.data);
+              if (res.data.acknowledged) {
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Your Transiction has been success",
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+              }
+            })
+            .catch((err) => {
+              console.error("Error posting data:", err.response?.data || err.message);
+            });            
+            alert("success");
+          });
       }
       setError("");
     }
@@ -81,16 +131,19 @@ const Cheakouform = ({ coinAmount }) => {
     <>
       <div className="mb-4">
         <h3>Select Payment Amount:</h3>
-        <div className="flex space-x-4">
-          {[1, 10, 20, 40].map((value) => (
+        <div className="grid grid-cols-2 gap-5 p-5">
+          {[1, 10, 20, 35].map((value) => (
             <button
               key={value}
-              onClick={() => setPrice(value)}
-              className={`px-4 py-2 border rounded ${
+              onClick={() => {
+                setPrice(value);
+                setCoinAmount(priceToCoinMap[value]);
+              }}
+              className={`px-4 py-5  border rounded  ${
                 price === value ? "bg-blue-500 text-white" : "bg-gray-200"
               }`}
             >
-              ${value}
+              ${value} = {priceToCoinMap[value]} coins
             </button>
           ))}
         </div>
@@ -113,11 +166,11 @@ const Cheakouform = ({ coinAmount }) => {
         {success && <p className="text-green-700">Payment successful!</p>}
 
         <button
-          className="btn btn-sm btn-primary"
+          className="btn btn-xl text-xl my-10 btn-primary"
           type="submit"
           disabled={!stripe || !clientSecret}
         >
-          pay${price}
+          pay {price}$
         </button>
         {transictionid && (
           <p className="text-green-500">

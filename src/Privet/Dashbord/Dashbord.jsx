@@ -81,11 +81,7 @@ const Dashbord = () => {
                 </NavLink>
               </li>
               {/* Add more specific links for workers */}
-              <li>
-                <NavLink to={"/dashbord/worker-guide"}>
-                  Worker Guide <FaHome />
-                </NavLink>
-              </li>
+             
             </>
           ) : null}
           {userData.role === "buyer" ? (
@@ -112,7 +108,7 @@ const Dashbord = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to={"/dashbord/payment-history"}>
+                <NavLink to={"/dashbord/paymnethistory"}>
                   Payment History <RiSecurePaymentFill />
                 </NavLink>
               </li>

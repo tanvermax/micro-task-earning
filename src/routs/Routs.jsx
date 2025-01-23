@@ -20,6 +20,7 @@ import WithdrawPage from "../Privet/Dashbord/Worker/WithdrawPage";
 import ManageTask from "../Privet/Dashbord/ManageTask";
 import AdminHome from "../Privet/Dashbord/AdminHome";
 import AdminRouts from "../Axios/Hook/AdminRouts";
+import Paymenhistory from "../Privet/Dashbord/Buyer/Paymenhistory";
 
 export const Routs = createBrowserRouter([
   {
@@ -72,6 +73,9 @@ export const Routs = createBrowserRouter([
           {
             path: "mytask",
             element: <Mytask></Mytask>,
+          },{
+            path:"paymnethistory",
+            element:<Paymenhistory></Paymenhistory>
           },
           {
             path: "purchase",
