@@ -45,7 +45,7 @@ const Manageuser = () => {
           </div>
         </td>
         <td>
-          Wyman-Ledner
+        
           <br />
           <span className="badge badge-ghost badge-sm">Community Outreach Specialist</span>
         </td>

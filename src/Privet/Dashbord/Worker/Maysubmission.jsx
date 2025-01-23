@@ -33,20 +33,7 @@ const Maysubmission = () => {
 console.log(result);
 
 
-//    const { data: allsubmissions = [] } = useQuery({
-//       queryKey: ["workerSubmissions", user.email], // Unique key for caching
-//       queryFn: async () => {
-//         const response = await axiosSecure.get("/submitted");
-//         return response.data.filter((sub) => sub.worker_email === user.email); // Filter submissions by worker email
-//       },
-//     });
-// console.log(allsubmissions);
 
-//   // const page= [];
-  // for (let i = 0; i < numberofPage; i++) {
-  //   page.push(i);
-
-  // }
   useEffect(() => {
     refetch();
   }, [currentPage, itemperPage, refetch]);

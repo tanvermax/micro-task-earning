@@ -19,15 +19,19 @@ const BuyerHome = () => {
     queryKey: ["submissions"], // Unique key for caching and identifying the query
     queryFn: async () => {
       const response = await axiosSecure.get(`/subar`);
-  
+
       // Filter submissions to include only "pending" status
       // (Assuming your data has a "status" property)
-      return response.data.filter((submission) => submission.status === 'pending');
+      return response.data.filter(
+        (submission) => submission.status === "pending"
+      );
     },
   });
   // const [submissions] = userSubmission();
   // console.log(submissions);
   console.log(submissions);
+  console.log(user);
+  
 
   const userSubmissions = submissions.filter(
     (submission) => submission.Buyer_email === user.email
@@ -48,21 +52,34 @@ const BuyerHome = () => {
     0
   );
 
-  const handleApprove = (id) => {
+  const handleApprove = (submission) => {
     // console.log(id);
-    
-    axiosSecure.patch(`/submitted/${id}`)
+
+    axiosSecure
+      .patch(`/submitted/${submission._id}`)
       .then((res) => {
-        if (res.data.message === "Submission approved and coins updated successfully") {
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "The task is approved",
-            showConfirmButton: false,
-            timer: 1500,
-          });
+        if (
+          res.data.message ===
+          "Submission approved and coins updated successfully"
+        ) {
+          
+          axiosSecure.post("/newnotificatio",{workermessage : `You have earned ${submissions.payable_amount} Coin from ${user.displayName || 'anonymous'} for completing ${submissions.task_title}`,
+          woekermail : submission.worker_email})
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.acknowledged) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your work has been saved",
+                showConfirmButton: false,
+                timer: 1500,
+              });
           refetch();
 
+            }
+           
+          });
         }
       })
       .catch((error) => {
@@ -72,21 +89,31 @@ const BuyerHome = () => {
 
   const handleReject = (id) => {
     console.log(id);
-    
+
     axiosSecure
       .patch(`/submitted/reject/${id}`)
       .then((res) => {
         console.log(res.data);
         refetch();
-       if (res.data.message) {
-               Swal.fire({
-                 position: "top-end",
-                 icon: "success",
-                 title: "Your work has been saved",
-                 showConfirmButton: false,
-                 timer: 1500,
-               });
-             }
+        if (res.data.message) {
+          const notifi ={
+            workermessage : `you have earned ${payable_amount} rejected from ${user.diplayNmae || anonymous} for not  completing ${task_title}`
+          }
+          axiosSecure.post("/newnotificatio",{notifi})
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.message) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "this work has been Rejected",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+           
+          });
+        }
       })
       .catch((error) => {
         console.error("Error approving task:", error);
@@ -132,7 +159,7 @@ const BuyerHome = () => {
                 <td className="border-b py-2">{submission.worker_name}</td>
                 <td className="border-b py-2">{submission.task_title}</td>
                 <td csubmissionslassName="border-b py-2 ">
-                 {submission.payable_amount} Coin
+                  {submission.payable_amount} Coin
                 </td>
                 <td csubmissionslassName="border-b py-2">
                   {submission.status}
@@ -145,13 +172,13 @@ const BuyerHome = () => {
                     View Submission
                   </button>
                   <button
-                    onClick={() => handleApprove(submission._id)}
+                    onClick={() => handleApprove(submission)}
                     className="mr-2 text-white bg-green-600 hover:bg-green-700 px-3 py-1 rounded"
                   >
                     Approve
                   </button>
                   <button
-                    onClick={() => handleReject(submission._id)}
+                    onClick={() => handleReject(submission)}
                     className="text-white bg-red-600 hover:bg-red-700 px-3 py-1 rounded"
                   >
                     Reject
