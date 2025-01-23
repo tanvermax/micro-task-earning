@@ -2,6 +2,7 @@ import React from "react";
 // import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Axios/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import WorkerPaymnet from "./WorkerPaymnet";
 
 const AdminHome = () => {
   const axiosSecure = useAxiosSecure();
@@ -25,7 +26,7 @@ const AdminHome = () => {
       return res.data;
     },
   });
-  console.log(Buyerdata);
+  // console.log(Buyerdata);
   const totalWorkerCoins = Buyerdata.reduce(
     (sum, user) => sum + (user.coins || 0),
     0
@@ -67,7 +68,9 @@ const AdminHome = () => {
           <h2 className="text-xl font-semibold mb-2">Total Payments</h2>
           <p className="text-2xl font-bold text-red-600"></p>
         </div>
+        
       </div>
+      <WorkerPaymnet></WorkerPaymnet>
     </div>
   );
 };

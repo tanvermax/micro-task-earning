@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import userTask from "./userTask";
 import userSubmission from "./userSubmission";
+import { FaBitcoin } from "react-icons/fa";
 
 const BuyerHome = () => {
   const { user } = useAuth(); // Replace with actual email from auth
@@ -14,19 +15,19 @@ const BuyerHome = () => {
   // const [submissions, setSubmissions] = useState([]);
   const axiosSecure = useAxiosSecure();
   const [selectedSubmission, setSelectedSubmission] = useState(null);
-  // console.log(tasks);
-
   const { data: submissions = [], refetch } = useQuery({
     queryKey: ["submissions"], // Unique key for caching and identifying the query
     queryFn: async () => {
-      const response = await axiosSecure.get("/submitted");
-
+      const response = await axiosSecure.get(`/subar`);
+  
       // Filter submissions to include only "pending" status
-      return response.data.filter((sub) => sub.status === "pending");
+      // (Assuming your data has a "status" property)
+      return response.data.filter((submission) => submission.status === 'pending');
     },
   });
   // const [submissions] = userSubmission();
   // console.log(submissions);
+  console.log(submissions);
 
   const userSubmissions = submissions.filter(
     (submission) => submission.Buyer_email === user.email
@@ -130,8 +131,8 @@ const BuyerHome = () => {
               <tr key={submission._id}>
                 <td className="border-b py-2">{submission.worker_name}</td>
                 <td className="border-b py-2">{submission.task_title}</td>
-                <td csubmissionslassName="border-b py-2">
-                  ${submission.payable_amount}
+                <td csubmissionslassName="border-b py-2 ">
+                 {submission.payable_amount} Coin
                 </td>
                 <td csubmissionslassName="border-b py-2">
                   {submission.status}

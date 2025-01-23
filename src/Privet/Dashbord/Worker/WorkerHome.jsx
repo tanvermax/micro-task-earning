@@ -15,11 +15,11 @@ const WorkerHome = () => {
   const { data: submissions = [] } = useQuery({
     queryKey: ["workerSubmissions", user.email], // Unique key for caching
     queryFn: async () => {
-      const response = await axiosSecure.get("/submitted");
-      return response.data.filter((sub) => sub.worker_email === user.email); // Filter submissions by worker email
+      const response = await axiosSecure.get("/totoalsubmitted");
+      return response.data; // Filter submissions by worker email
     },
   });
-  // console.log(submissions);
+  console.log(submissions);
   
 
 //   console.log(userData.coins);

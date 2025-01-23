@@ -15,7 +15,7 @@ const WithdrawPage = () => {
 
   // Fetch user data (coins)
  const [userData]= userMange();
- console.log(userData);
+//  console.log(userData);
  
 
   const totalCoins = userData.coins ;
@@ -40,7 +40,7 @@ const WithdrawPage = () => {
             withdrawal_coin: coinsToWithdraw,
             withdrawal_amount: withdrawAmount,
             payment_system: paymentSystem,
-            payment_status :'pending',
+            status :'pending',
             account_number: accountNumber,
           };
           console.log(withdrawalData);
