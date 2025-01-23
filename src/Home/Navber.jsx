@@ -47,7 +47,7 @@ const Navber = () => {
      
       {user ? (
         <>
-          {userData.role === "Worker" && (
+          {userData.role === "worker" && (
             <li>
               <Link to={"/dashbord/workerhome"} className="flex items-center gap-2">
                 <FaUserCircle />
@@ -63,7 +63,7 @@ const Navber = () => {
               </Link>
             </li>
           )}
-           {userData.role === "Buyer" && (
+           {userData.role === "buyer" && (
             <li>
               <Link to={"/dashbord/buyerhome"}>Dashboard<MdSpaceDashboard /></Link>
             </li>

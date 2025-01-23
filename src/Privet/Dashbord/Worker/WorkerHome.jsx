@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import useAxiosSecure from "../../../Axios/useAxiosSecure";
 import useAuth from "../../../Provider/useAuth";
 import userMange from "../userMange";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 
 const WorkerHome = () => {
   const { user } = useAuth(); 
@@ -19,6 +19,8 @@ const WorkerHome = () => {
       return response.data.filter((sub) => sub.worker_email === user.email); // Filter submissions by worker email
     },
   });
+  // console.log(submissions);
+  
 
 //   console.log(userData.coins);
 //   console.log(user.coins);
@@ -46,7 +48,7 @@ const WorkerHome = () => {
   );
 
   const totalusercoin = totalEarnings + userData.coins;
-  console.log(totalusercoin);
+  // console.log(totalusercoin);
 
  
 

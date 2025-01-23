@@ -4,12 +4,13 @@ import Cheakouform from "./Cheakouform";
 
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GET);
 
-const Purchase = ({ coinAmount, price }) => {
+const Purchase = () => {
   return (
     <div>
       <h1>Purchase Coins</h1>
+
       <Elements stripe={stripePromise}>
-        <Cheakouform coinAmount={coinAmount} price={price} />
+        <Cheakouform></Cheakouform>
       </Elements>
     </div>
   );

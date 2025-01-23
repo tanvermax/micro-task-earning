@@ -33,7 +33,7 @@ const Register = () => {
   
       if (res.data.success) {
         const hostedImageUrl = res.data.data.display_url;
-        const coins = data.role === "Buyer" ? 50 : 10;
+        const coins = data.role === "buyer" ? 50 : 10;
   
         const user = {
           email: data.email,
@@ -216,7 +216,7 @@ const Register = () => {
             <label className="flex items-center space-x-2">
               <input
                 type="radio"
-                value="Worker"
+                value="worker"
                 {...register("role", {
                   required: "Please select an option",
                 })}
@@ -227,7 +227,7 @@ const Register = () => {
             <label className="flex items-center space-x-2">
               <input
                 type="radio"
-                value="Buyer"
+                value="buyer"
                 {...register("role", {
                   required: "Please select an option",
                 })}

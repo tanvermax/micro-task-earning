@@ -6,7 +6,6 @@ import { FaUser, FaUsers } from "react-icons/fa";
 import useAuth from "../../Provider/useAuth";
 
 const Users = () => {
- 
   const { deleteUser1 } = useAuth();
 
   const axiosSecure = useAxiosSecure();
@@ -17,21 +16,37 @@ const Users = () => {
       return res.data;
     },
   });
+  console.log(users);
+  
 
-  const handleadmin = (item) => {
-    axiosSecure.patch(`/users/admin/${item._id}`).then((res) => {
-      console.log(res.data);
-      if (res.data.modifiedCount > 0) {
-        refetch();
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: `${users.userName} is Admin Now`,
-          showConfirmButton: false,
-          timer: 1500,
+  const handleRoleChange = (item, role) => {
+    Swal.fire({
+      title: `Are you want to make ${item.userName} to ${role}?`,
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, make it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.patch(`/users/admin/${item._id}`, { role }).then((res) => {
+          console.log(res.data);
+          if (res.data.success > 0) {
+            refetch();
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: `${item.userName} is ${role} Now`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
         });
       }
     });
+
+    //
   };
   const handledelete = (item) => {
     Swal.fire({
@@ -46,9 +61,9 @@ const Users = () => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/users/${item._id}`).then((res) => {
           // console.log(res.data);
-          
+
           // console.log(item._id);
-          
+
           if (res.data.deletedCount > 0) {
             refetch();
             Swal.fire({
@@ -59,7 +74,6 @@ const Users = () => {
             refetch();
           }
         });
-        
       }
     });
   };
@@ -102,16 +116,15 @@ const Users = () => {
                 <td>{item.email}</td>
                 <td>{item.role}</td>
                 <th>
-                  {item.role === "admin" ? (
-                    "Admin"
-                  ) : (
-                    <button
-                      onClick={() => handleadmin(item)}
-                      className="btn  bg-orange-500 "
-                    >
-                      Make user Admin
-                    </button>
-                  )}
+                  <select
+                    onChange={(e) => handleRoleChange(item, e.target.value)}
+                    className="select select-bordered w-full max-w-xs"
+                    defaultValue={item.role}
+                  >
+                    <option value="admin">Admin</option>
+                    <option value="worker">Worker</option>
+                    <option value="buyer">Buyer</option>
+                  </select>
                 </th>
                 <th>
                   <button

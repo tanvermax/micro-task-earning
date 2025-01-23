@@ -6,7 +6,7 @@ import UserDetails from "./UserDetails";
 import useAdmin from "../../Axios/Hook/useAdmin";
 import useAxiosSecure from "../../Axios/useAxiosSecure";
 import useAuth from "../../Provider/useAuth";
-import { MdTask } from "react-icons/md";
+import { MdAdminPanelSettings, MdTask } from "react-icons/md";
 import { RiSecurePaymentFill } from "react-icons/ri";
 import { FcOnlineSupport } from "react-icons/fc";
 
@@ -43,7 +43,7 @@ const Dashbord = () => {
             <>
              <li>
                 <NavLink to={"/dashbord/adminhome"}>
-                  Manage Users <FaUserShield />
+                  Admin Home <MdAdminPanelSettings />
                 </NavLink>
               </li>
               <li>
@@ -58,7 +58,7 @@ const Dashbord = () => {
               </li>
             </>
           ) : null}
-          {userData.role === "Worker" ? (
+          {userData.role === "worker" ? (
             <>
              <li>
                 <NavLink to={"/dashbord/workerhome"}>
@@ -88,7 +88,7 @@ const Dashbord = () => {
               </li>
             </>
           ) : null}
-          {userData.role === "Buyer" ? (
+          {userData.role === "buyer" ? (
             <>
             <li>
                 <NavLink to={"/dashbord/buyerhome"}>

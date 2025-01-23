@@ -10,7 +10,7 @@ const AdminHome = () => {
     queryKey: ["wokerdata"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users/role", {
-        params: { role: "Worker" },
+        params: { role: "worker" },
       });
       return res.data;
     },
@@ -20,7 +20,7 @@ const AdminHome = () => {
     queryKey: ["Buyerdata"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users/role", {
-        params: { role: "Buyer" },
+        params: { role: "buyer" },
       });
       return res.data;
     },

@@ -11,23 +11,38 @@ const Maysubmission = () => {
   const axiosSecure = useAxiosSecure();
   const [userData] = userMange();
   const { count } = useLoaderData();
-  const [itemperPage, setItemPerPage] = useState(8);
+  const [itemperPage, setItemPerPage] = useState(10);
   console.log(count);
   // const itemperPage = 8;
   const numberofPage = Math.ceil(count / itemperPage);
 
   const [currentPage, setCurrentPage] = useState(0);
   // Fetch worker submissions
-  const { data: submissions = [],refetch } = useQuery({
+
+
+  const { data:  result = [] , refetch } = useQuery({
     queryKey: ["workerSubmissions", user.email, currentPage, itemperPage],
     queryFn: async () => {
       const response = await axiosSecure.get(`/submitted?page=${currentPage}&size=${itemperPage}`);
-      return response.data.filter((sub) => sub.worker_email === user.email);
+      console.log(response.data);  // Ensure the response is correctly structured
+      return response.data;
     },
-    keepPreviousData:true
+    keepPreviousData: true
   });
+  
+console.log(result);
 
-  // const page= [];
+
+//    const { data: allsubmissions = [] } = useQuery({
+//       queryKey: ["workerSubmissions", user.email], // Unique key for caching
+//       queryFn: async () => {
+//         const response = await axiosSecure.get("/submitted");
+//         return response.data.filter((sub) => sub.worker_email === user.email); // Filter submissions by worker email
+//       },
+//     });
+// console.log(allsubmissions);
+
+//   // const page= [];
   // for (let i = 0; i < numberofPage; i++) {
   //   page.push(i);
 
@@ -66,7 +81,7 @@ const Maysubmission = () => {
       <h1 className="text-3xl font-semibold text-gray-800 mb-6 text-center">
         My Submissions
       </h1>
-      {submissions.length > 0 ? (
+      {result.length > 0 ? (
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white shadow-md rounded-lg">
             <thead className="bg-blue-600 text-white">
@@ -81,8 +96,8 @@ const Maysubmission = () => {
               </tr>
             </thead>
             <tbody>
-              {submissions.map((sub) => (
-                <tr key={sub.id} className="border-t border-gray-200">
+              {result.map((sub) => (
+                <tr key={sub._id} className="border-t border-gray-200">
                   <td className="py-3 px-4">{sub.task_title}</td>
                   <td className="py-3 px-4">${sub.payable_amount}</td>
                   <td className="py-3 px-4">{sub.submission_details}</td>
