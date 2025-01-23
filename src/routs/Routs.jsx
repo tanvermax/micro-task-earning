@@ -83,7 +83,7 @@ export const Routs = createBrowserRouter([
           },{
             path:'maysubmissioin',
             element:<Maysubmission></Maysubmission>,
-            loader: ()=> fetch('http://localhost:5000/submitCount')
+            loader: ()=> fetch('https://micro-tasking-server.vercel.app/submitCount')
           },
           {
             path: "mytask",
@@ -96,13 +96,13 @@ export const Routs = createBrowserRouter([
             path: "taskupdate/:id",
             element: <Taskupdate></Taskupdate>,
             loader: ({ params }) =>
-              fetch(`http://localhost:5000/task/${params.id}`),
+              fetch(`https://micro-tasking-server.vercel.app/task/${params.id}`),
           },
           {
             path: "taskdetails/:id",
             element: <Taskdetails></Taskdetails>,
             loader: ({ params }) =>
-              fetch(`http://localhost:5000/task/${params.id}`),
+              fetch(`https://micro-tasking-server.vercel.app/task/${params.id}`),
           },
         ],
       },

@@ -15,22 +15,22 @@ const UserDetails = () => {
     <>
     <div className="flex justify-between px-10">
     <div className="w-3/4 flex items-center justify-between text-xl font-semibold py-5">
-      <div  className="flex gap-5" >
+      <div  className="lg:flex gap-5 grid grid-cols-4" >
         <div>
           {userData.photo ? (
-            <img className="h-20 w-20 rounded-full  border-blue-500 border-2 " src={userData.photo} alt="" />
+            <img className="lg:h-20 lg:w-20 rounded-full  border-blue-500 border-2 " src={userData.photo} alt="" />
           ) : (
             <>
-              <div className="text-5xl">
+              <div className="lg:text-5xl">
                 <FcBusinessman />
               </div>
             </>
           )}
         </div>
-        <div>Hi, {userData.userName}</div>
+        <div className="text-[8px] lg:text-[20px]">Hi, {userData.userName}</div>
       </div>
-      <div>COIN {userData.coins}</div>
-      <div className="btn uppercase">
+      <div className="text-[8px] lg:text-[20px]">COIN {userData.coins}</div>
+      <div className="btn uppercase btn-xs lg:text-[20px]">
         Your role is :<span className="text-green-500">{userData.role}</span>
       </div>
     </div>

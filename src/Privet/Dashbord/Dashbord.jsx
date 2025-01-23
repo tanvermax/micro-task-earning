@@ -29,10 +29,10 @@ const Dashbord = () => {
 
   return (
     <div className="flex  ">
-      <div className="w-64 min-h-screen bg-green-400 ">
-        <ul className="menu p-5 gap-5">
-          <li>
-            <NavLink to={"/"}>
+      <div className="lg:w-64 w-32 min-h-screen bg-green-400 ">
+        <ul className="menu lg:p-5 lg:gap-16 gap-5">
+        <li className="btn-xs ">
+        <NavLink className={'lg:p-5 lg:text-xl'}to={"/"}>
               Home <FaHome></FaHome>
             </NavLink>
           </li>
@@ -41,18 +41,18 @@ const Dashbord = () => {
 
           {isAdmin ? (
             <>
-             <li>
-                <NavLink to={"/dashbord/adminhome"}>
+             <li className="btn-xs ">
+                <NavLink className={'lg:p-5 lg:text-xl'} to={"/dashbord/adminhome"}>
                   Admin Home <MdAdminPanelSettings />
                 </NavLink>
               </li>
-              <li>
-                <NavLink to={"/dashbord/users"}>
+              <li className="btn-xs ">
+                <NavLink className={'lg:p-5 lg:text-xl'} to={"/dashbord/users"}>
                   Manage Users <FaUserShield />
                 </NavLink>
               </li>
-              <li>
-                <NavLink to={"/dashbord/managetask"}>
+              <li className="btn-xs ">
+                <NavLink className={'lg:p-5 lg:text-xl'}to={"/dashbord/managetask"}>
                   Manage Task <MdTask />
                 </NavLink>
               </li>
@@ -60,23 +60,23 @@ const Dashbord = () => {
           ) : null}
           {userData.role === "worker" ? (
             <>
-             <li>
-                <NavLink to={"/dashbord/workerhome"}>
+             <li className="btn-xs ">
+             <NavLink className={'lg:p-5 lg:text-xl'} to={"/dashbord/workerhome"}>
                   profile <FaHome />
                 </NavLink>
               </li>
-              <li>
-                <NavLink to={"/dashbord/tasklist"}>
+              <li className="btn-xs ">
+                <NavLink className={'lg:p-5 lg:text-xl'} to={"/dashbord/tasklist"}>
                   Task List <FaHome />
                 </NavLink>
               </li>
-              <li>
-                <NavLink to={"/dashbord/maysubmissioin"}>
+              <li className="btn-xs ">
+                <NavLink className={'lg:p-5 lg:text-xl'} to={"/dashbord/maysubmissioin"}>
                   My Submissions <FaHome />
                 </NavLink>
               </li>
-              <li>
-                <NavLink to={"/dashbord/withdraw"}>
+              <li className="btn-xs ">
+                <NavLink className={'lg:p-5 lg:text-xl'} to={"/dashbord/withdraw"}>
                   Withdrawals <FaHome />
                 </NavLink>
               </li>
@@ -86,29 +86,29 @@ const Dashbord = () => {
           ) : null}
           {userData.role === "buyer" ? (
             <>
-            <li>
-                <NavLink to={"/dashbord/buyerhome"}>
+            <li className="btn-xs ">
+            <NavLink className={'lg:p-5 lg:text-xl'} to={"/dashbord/buyerhome"}>
                   profile <FaHome />
                 </NavLink>
               </li>
-              <li>
-                <NavLink to={"/dashbord/addtask"}>
+              <li className="btn-xs ">
+                <NavLink className={'lg:p-5 lg:text-xl'} to={"/dashbord/addtask"}>
                   Add New Tasks <FaHome />
                 </NavLink>
               </li>
-              <li>
-                <NavLink to={"/dashbord/mytask"}>
+              <li className="btn-xs ">
+                <NavLink className={'lg:p-5 lg:text-xl'}to={"/dashbord/mytask"}>
                   My Task's <FaHome />
                 </NavLink>
               </li>
              
-              <li>
-                <NavLink to={"/dashbord/purchase"}>
+              <li className="btn-xs ">
+                <NavLink className={'lg:p-5 lg:text-xl'} to={"/dashbord/purchase"}>
                   Purchase Coin <FaBitcoin />
                 </NavLink>
               </li>
-              <li>
-                <NavLink to={"/dashbord/paymnethistory"}>
+              <li className="btn-xs ">
+                <NavLink className={'lg:p-5 lg:text-xl'} to={"/dashbord/paymnethistory"}>
                   Payment History <RiSecurePaymentFill />
                 </NavLink>
               </li>
@@ -119,14 +119,14 @@ const Dashbord = () => {
          
         </ul>
       </div>
-      <div className="w-full p-10">
+      <div className=" w-full lg:p-10">
         <div className="min-h-screen">
           <div>
             <UserDetails></UserDetails>
           </div>
           <Outlet></Outlet>
         </div>
-        <Footer></Footer>
+       
       </div>
     </div>
   );

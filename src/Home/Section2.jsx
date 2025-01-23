@@ -21,7 +21,7 @@ const Section2 = () => {
   return (
     <div>
       {/* <h1>The Best Worker{wokerdata.length}</h1> */}
-      <div className="grid grid-cols-3 gap-10">
+      <div className="grid lg:grid-cols-3 grid-cols-2 gap-10">
         {wokerdata.map((item) => (
           <div key={item._id} className="max-w-2xl mx-4 sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-sm sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto mt-16 bg-white shadow-xl rounded-lg text-gray-900">
             <div classNameName="rounded-t-lg h-32 overflow-hidden">
@@ -33,7 +33,7 @@ const Section2 = () => {
             </div>
             <div className="mx-auto w-32 h-32 relative -mt-16 border-4 border-white rounded-full overflow-hidden">
               <img
-                className="object-cover object-center h-32"
+                className="object-cover object-center h-20 lg:w-32 w-20 mx-auto lg:h-32"
                 src={item.photo}
                 alt="Woman looking front"
               />
@@ -54,13 +54,14 @@ const Section2 = () => {
               </li>
             </ul>
             <div className="p-4 border-t mx-8 mt-2">
-              <button className="w-1/2 block mx-auto rounded-full bg-gray-900 hover:shadow-lg font-semibold text-white px-6 py-2">
+              <button className="lg:w-1/2 text-xs  lg:text-xl block mx-auto rounded-full bg-gray-900 hover:shadow-lg font-semibold text-white lg:px-6 p-2">
                 Follow
               </button>
             </div>
           </div>
         ))}
       </div>
+      
     </div>
   );
 };

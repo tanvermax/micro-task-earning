@@ -29,7 +29,7 @@ const Login = () => {
       });
   };
   return (
-    <div className="w-full max-w-xl bg-red-200 rounded-lg shadow-lg p-8 mx-auto">
+    <div className="lg:w-full lg:max-w-xl bg-yellow-300 lg:rounded-lg shadow-lg lg:p-8 p-10 lg:mx-auto">
       <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
         Welcome Back!
       </h2>

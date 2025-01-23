@@ -39,7 +39,7 @@ const Navber = () => {
 
   const navoption = (
     <>
-       <li>
+       <li className="btn">
         <a href="https://github.com/Programming-Hero-Web-Course4/b10a12-client-side-tanvermax">
           Join as Developer<MdOutlineDeveloperMode />
         </a>
@@ -48,7 +48,7 @@ const Navber = () => {
       {user ? (
         <>
           {userData.role === "worker" && (
-            <li>
+            <li className="btn">
               <Link to={"/dashbord/workerhome"} className="flex items-center gap-2">
                 <FaUserCircle />
                 Worker Dashboard
@@ -56,7 +56,7 @@ const Navber = () => {
             </li>
           )}
           {userData.role === "admin" && (
-            <li>
+            <li className="btn">
               <Link to={"/dashbord/adminhome"} className="flex items-center gap-2">
                 <FaUserCircle />
                 Admin Dashboard
@@ -68,7 +68,7 @@ const Navber = () => {
               <Link to={"/dashbord/buyerhome"}>Dashboard<MdSpaceDashboard /></Link>
             </li>
           )}
-          <li>
+          <li className="btn">
             <span className="flex items-center gap-2 text-yellow-500">
               <FaCoins />
               Coins: {userData?.coins || 0}
@@ -80,8 +80,8 @@ const Navber = () => {
   );
 
   return (
-    <div className="   bg-gradient-to-r from-blue-500 to-gray-500">
-      <div className="navbar max-w-screen-2xl text-white mx-auto py-5">
+    <div className="   bg-gradient-to-r from-yellow-500 to-gray-500">
+      <div className="navbar max-w-screen-2xl text-white mx-auto lg:py-5">
         <div className="navbar-start">
           <div className="dropdown">
             <button
@@ -96,7 +96,7 @@ const Navber = () => {
               </ul>
             )}
           </div>
-          <Link to="/" className="btn btn-ghost text-2xl font-bold">
+          <Link to="/" className="btn btn-ghost lg:text-2xl font-bold text-black">
             Earnly
           </Link>
         </div>
@@ -106,27 +106,27 @@ const Navber = () => {
         <div className="navbar-end flex items-center gap-4">
           {user ? (
             <>
-              <div className="flex gap-4">
-                {user.photoURL ? <img className="h-10 w-10 rounded-full" src={user.photoURL}></img> : <FaUserCircle className="h-6 w-6" />}
+              <div className="lg:flex gap-4 ">
+                {user.photoURL ? <img className="lg:h-10 h-6 w-6 lg:w-10 rounded-full" src={user.photoURL}></img> : <FaUserCircle className="h-6 w-6" />}
                 <div>
-                <p>{user.email}</p>
-                <p>{user.displayName}</p>
+                <p className="lg:text-base text-[8px]">{user.email}</p>
+                <p className="lg:text-base text-[8px]">{user.displayName}</p>
                 </div>
 
               </div>
               <button
                 onClick={logout}
-                className="btn bg-red-500 hover:bg-red-600 text-white"
+                className="btn btn-xs lg:btn-md bg-red-300 hover:bg-red-600 text-black"
               >
                 Log Out
               </button>
             </>
           ) : (
             <>
-              <Link to="/login" className="btn bg-green-500 hover:bg-green-600 text-white">
+              <Link to="/login" className="btn btn-sm lg:btn-md text-black">
                 Log In
               </Link>
-              <Link to="/register" className="btn bg-blue-500 hover:bg-blue-600 text-white">
+              <Link to="/register" className="btn btn-sm lg:btn-md text-black">
                 Register
               </Link>
             </>

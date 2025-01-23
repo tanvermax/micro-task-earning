@@ -7,7 +7,7 @@ import Sectiontitle from "./Sectiontitle";
 const Banner = () => {
   return (
     <div>
-      <div className="w-full h-[500px] bg-gray-100">
+      <div className="w-full lg:h-[500px] h-[300px] ">
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
           navigation
