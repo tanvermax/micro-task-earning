@@ -17,7 +17,7 @@ const googlelogin=()=>{
     const userinfo={
       userName : user.displayName,
       email: user.email,
-      job : "worker",
+      role : "worker",
       coins : 10
     }
     axiospublic.post("/users",userinfo)

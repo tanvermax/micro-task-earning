@@ -23,7 +23,7 @@ const Maysubmission = () => {
   const { data:  result = [] , refetch } = useQuery({
     queryKey: ["workerSubmissions", user.email, currentPage, itemperPage],
     queryFn: async () => {
-      const response = await axiosSecure.get(`/submitted?page=${currentPage}&size=${itemperPage}`);
+      const response = await axiosSecure.get(`/submitted?page=${currentPage}&size=${itemperPage}&userEmail=${user.email}`);
       console.log(response.data);  // Ensure the response is correctly structured
       return response.data;
     },
@@ -105,7 +105,7 @@ console.log(result);
                   <td className="py-3 px-4">{sub.Buyer_email}</td>
                   <td
                     className={`py-3 px-4 font-semibold text-white rounded-lg ${
-                      sub.status.toLowerCase() === "completed"
+                      sub.status.toLowerCase() === "approve"
                         ? "bg-green-500"
                         : sub.status.toLowerCase() === "pending"
                         ? "bg-yellow-500"

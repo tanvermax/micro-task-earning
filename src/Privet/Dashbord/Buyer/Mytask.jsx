@@ -9,14 +9,6 @@ import userTask from "./userTask";
 const Mytask = () => {
   const axiosSecure = useAxiosSecure();
 
-  // const { data: task = [], refetch } = useQuery({
-  //   queryKey: ["users"],
-  //   queryFn: async () => {
-  //     const res = await axiosSecure.get("/task");
-  //     return res.data;
-  //   },
-  // });
-  // const [task]= useTask();
   const [task] = userTask();
   //   console.log(task);
   const [sortedata, setSortedData] = useState([]);

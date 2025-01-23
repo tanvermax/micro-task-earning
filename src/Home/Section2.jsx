@@ -10,19 +10,19 @@ const Section2 = () => {
     queryKey: ["wokerdata"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users/role", {
-        params: { role: "Worker" },
+        params: { role: "worker" },
       });
       return res.data;
     },
   });
-  console.log(wokerdata);
+  // console.log(wokerdata);
   
 
   return (
     <div>
       {/* <h1>The Best Worker{wokerdata.length}</h1> */}
       <div className="grid grid-cols-3 gap-10">
-        {wokerdata.sort((a,b)=>b.coins-a.coins).slice(0,6).map((item) => (
+        {wokerdata.map((item) => (
           <div key={item._id} className="max-w-2xl mx-4 sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-sm sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto mt-16 bg-white shadow-xl rounded-lg text-gray-900">
             <div classNameName="rounded-t-lg h-32 overflow-hidden">
               <img
