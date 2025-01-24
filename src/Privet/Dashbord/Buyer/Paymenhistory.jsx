@@ -1,23 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import useAxiosSecure from "../../../Axios/useAxiosSecure";
+import useAuth from "../../../Provider/useAuth";
 
 const Paymenhistory = () => {
-
-    const axiosSecure = useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
   const { data: transittion = [], refetch } = useQuery({
     queryKey: ["transittion"], // Unique key for caching and identifying the query
     queryFn: async () => {
       const res = await axiosSecure.get("/transit");
 
       // Apply multiple filters
-      return res.data; // Further filter by status
+      return res.data.filter((item) => item.trasnsituseEmail === user.email); // Further filter by status
     },
   });
+  console.log(transittion);
+  console.log(user);
+  
+  
 
   return (
     <div>
-      
       <div>
         <div className="container mx-auto p-6">
           <h1 className="text-2xl font-bold mb-4">Payment History</h1>
@@ -49,9 +53,7 @@ const Paymenhistory = () => {
                     <td className="px-4 py-2 border border-gray-300">
                       {payment.transitsection_id}
                     </td>
-                    <td
-                      className={`px-4 py-2 border border-gray-300 `}
-                    >
+                    <td className={`px-4 py-2 border border-gray-300 `}>
                       {payment.trasnsituseEmail}
                     </td>
                   </tr>

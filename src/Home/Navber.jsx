@@ -39,7 +39,7 @@ const Navber = () => {
 
   const navoption = (
     <>
-       <li className="btn">
+       <li className="btn ml-2">
         <a href="https://github.com/Programming-Hero-Web-Course4/b10a12-client-side-tanvermax">
           Join as Developer<MdOutlineDeveloperMode />
         </a>
@@ -48,7 +48,7 @@ const Navber = () => {
       {user ? (
         <>
           {userData.role === "worker" && (
-            <li className="btn">
+            <li className="btn ml-2">
               <Link to={"/dashbord/workerhome"} className="flex items-center gap-2">
                 <FaUserCircle />
                 Worker Dashboard
@@ -56,7 +56,7 @@ const Navber = () => {
             </li>
           )}
           {userData.role === "admin" && (
-            <li className="btn">
+            <li className="btn ml-2">
               <Link to={"/dashbord/adminhome"} className="flex items-center gap-2">
                 <FaUserCircle />
                 Admin Dashboard
@@ -64,11 +64,11 @@ const Navber = () => {
             </li>
           )}
            {userData.role === "buyer" && (
-            <li>
+            <li className="btn ml-2">
               <Link to={"/dashbord/buyerhome"}>Dashboard<MdSpaceDashboard /></Link>
             </li>
           )}
-          <li className="btn">
+          <li className="btn ml-2">
             <span className="flex items-center gap-2 text-yellow-500">
               <FaCoins />
               Coins: {userData?.coins || 0}

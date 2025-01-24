@@ -34,7 +34,9 @@ const UserDetails = () => {
         Your role is :<span className="text-green-500">{userData.role}</span>
       </div>
     </div>
-    <Notification></Notification>
+    <div className="">
+    <Notification  ></Notification>
+    </div>
     </div>
     </>
   );
