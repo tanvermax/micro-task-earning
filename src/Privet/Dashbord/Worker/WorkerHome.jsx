@@ -9,7 +9,7 @@ const WorkerHome = () => {
   const { user } = useAuth(); 
   // Get logged-in user info
   const axiosSecure = useAxiosSecure();
-  const [userData] = userMange();
+  const [userData,refetch] = userMange();
 
   // Fetch worker submissions
   const { data: submissions = [] } = useQuery({

@@ -1,33 +1,26 @@
-import  { useCallback, useEffect, useState } from 'react';
-import useAxiosSecure from '../../Axios/useAxiosSecure';
-import useAuth from '../../Provider/useAuth';
+import { useCallback, useEffect, useState } from "react";
+import useAxiosSecure from "../../Axios/useAxiosSecure";
+import useAuth from "../../Provider/useAuth";
+import { useQuery } from "@tanstack/react-query";
 
 const userMange = () => {
-    const axiosSecure = useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
 
   const { user } = useAuth();
-  const [userData, setUserData] = useState({});
-  const fetchUserData = useCallback(() => {
-    if (user?.email) {
-        axiosSecure(`/users?email=${user.email}`)
-        .then((res) => {
-          setUserData(res.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching user data:", error);
-        });
-      
-    }
-  }, [user?.email, axiosSecure]);
+  // const [userData, setUserData] = useState({});
 
-  // Fetch user data when the component mounts or the email changes
-  useEffect(() => {
-    fetchUserData();
-  }, [fetchUserData]);
+  const { data: userData = {}, refetch } = useQuery({
+    queryKey: ["workerSubmissions", user.email], // Unique key for caching
+    queryFn: async () => {
+      const response = await axiosSecure.get(`/users?email=${user.email}`);
+      return response.data; // Filter submissions by worker email
+    },
+    refetchInterval: 1000, // Optional: Poll for new data every 5 seconds
+    refetchOnWindowFocus: true,
+  });
 
 
-  
-  return [userData]
+  return [userData];
 };
 
 export default userMange;

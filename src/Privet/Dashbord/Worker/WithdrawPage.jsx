@@ -14,7 +14,7 @@ const WithdrawPage = () => {
   const [accountNumber, setAccountNumber] = useState("");
 
   // Fetch user data (coins)
- const [userData]= userMange();
+ const [userData,refetch]= userMange();
 //  console.log(userData);
  
 

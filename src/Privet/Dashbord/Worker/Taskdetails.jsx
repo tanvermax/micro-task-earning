@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 
 const Taskdetails = () => {
   const task = useLoaderData();
-  const [userData] = userMange(); // Load task data from the route
+  const [userData,refetch] = userMange(); // Load task data from the route
   const axiosSecure = useAxiosSecure();
   const [submissionDetails, setSubmissionDetails] = useState("");
 //   console.log(userData);

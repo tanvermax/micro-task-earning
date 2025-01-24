@@ -15,8 +15,8 @@ const Paymenhistory = () => {
       return res.data.filter((item) => item.trasnsituseEmail === user.email); // Further filter by status
     },
   });
-  console.log(transittion);
-  console.log(user);
+  // console.log(transittion);
+  // console.log(user);
   
   
 
