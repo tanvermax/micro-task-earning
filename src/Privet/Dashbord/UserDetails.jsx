@@ -32,7 +32,7 @@ const UserDetails = () => {
                 {userData.email}
               </p>
             </div>
-            <button class="rounded-full lg:py-3 px-5 bg-gray-100 flex items-center group transition-all duration-500 hover:bg-indigo-100 mr-10 md:w-[120px] ">
+            <button class=" rounded-full lg:py-3 px-5 bg-gray-100 flex items-center group transition-all duration-500 hover:bg-indigo-100 mr-10 md:w-[120px] ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
