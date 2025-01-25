@@ -27,11 +27,6 @@ const BuyerHome = () => {
       );
     },
   });
-  // const [submissions] = userSubmission();
-  // console.log(submissions);
-  console.log(totalsubmissions);
-  console.log(user);
-  
 
   const userSubmissions = totalsubmissions.filter(
     (submission) => submission.Buyer_email === user.email
@@ -62,26 +57,29 @@ const BuyerHome = () => {
           res.data.message ===
           "Submission approved and coins updated successfully"
         ) {
-          
-          axiosSecure.post("/newnotificatio",{workermessage: `You have earned ${submission.payable_amount} Coin from ${
-            user.displayName || "anonymous"
-          } for completing ${submission.task_title}`,
-          woekermail: submission.worker_email,})
-          .then((res) => {
-            console.log(res.data);
-            if (res.data.acknowledged) {
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Your work has been saved",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-          refetch();
-
-            }
-           
-          });
+          axiosSecure
+            .post("/newnotificatio", {
+              workermessage: `You have earned ${
+                submission.payable_amount
+              } Coin from ${submission?.Buyer_email || "anonymous"} for completing ${
+                submission.task_title
+              }`,
+              woekermail: submission.worker_email,
+              data: new Date(),
+            })
+            .then((res) => {
+              console.log(res.data);
+              if (res.data.acknowledged) {
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Your work has been saved",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                refetch();
+              }
+            });
         }
       })
       .catch((error) => {
@@ -89,32 +87,39 @@ const BuyerHome = () => {
       });
   };
 
-  const handleReject = (id) => {
-    console.log(id);
+  const handleReject = (submission) => {
+    console.log(submission._id);
 
     axiosSecure
-      .patch(`/submitted/reject/${id}`)
+      .patch(`/submitted/reject/${submission._id}`)
       .then((res) => {
         console.log(res.data);
         refetch();
         if (res.data.message) {
-          const notifi ={
-            workermessage : `you have earned ${payable_amount} rejected from ${user.diplayNmae || anonymous} for not  completing ${task_title}`
-          }
-          axiosSecure.post("/newnotificatio",{notifi})
-          .then((res) => {
-            console.log(res.data);
-            if (res.data.message) {
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "this work has been Rejected",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-            }
-           
-          });
+          
+          axiosSecure
+            .post("/newnotificatio", {
+              workermessage: ` sorry Your  earned ${
+                submission.payable_amount
+              } Coin rejected from ${submission?.Buyer_email || "anonymous"} for not completing ${
+                submission.task_title
+              }`,
+              woekermail: submission.worker_email,
+              data: new Date(),
+            })
+            .then((res) => {
+              console.log(res.data);
+              if (res.data.acknowledged) {
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Your work has been saved",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                refetch();
+              }
+            });
         }
       })
       .catch((error) => {
@@ -143,13 +148,21 @@ const BuyerHome = () => {
 
       {/* Submissions Table */}
       <div className="bg-red-400 p-5 rounded shadow max-w-[220px] md:max-w-full lg:max-w-full ">
-        <h2 className="lg:text-lg text-[8px] font-bold mb-5">Task Submissions</h2>
+        <h2 className="lg:text-lg text-[8px] font-bold mb-5">
+          Task Submissions
+        </h2>
         <table className="w-full text-lef	Payable Amount border-collapse">
           <thead>
             <tr>
-              <th className="border-b py-2 lg:text-lg text-[8px]">Worker Name</th>
-              <th className="border-b py-2 lg:text-lg text-[8px]">Task Title</th>
-              <th className="border-b py-2 lg:text-lg text-[8px]">Payable Amount</th>
+              <th className="border-b py-2 lg:text-lg text-[8px]">
+                Worker Name
+              </th>
+              <th className="border-b py-2 lg:text-lg text-[8px]">
+                Task Title
+              </th>
+              <th className="border-b py-2 lg:text-lg text-[8px]">
+                Payable Amount
+              </th>
               <th className="border-b py-2 lg:text-lg text-[8px]">status</th>
               <th className="border-b py-2 lg:text-lg text-[8px]">Actions</th>
             </tr>
@@ -158,11 +171,16 @@ const BuyerHome = () => {
             {/* {submissions.lenght > 0 ? ( */}
             {userSubmissions.map((submission) => (
               <tr key={submission._id}>
-                <td className="border-b py-2 lg:text-lg text-[8px]">{submission.worker_name}</td>
-                <td className="border-b py-2 lg:text-lg text-[8px]">{submission.task_title}</td>
+                <td className="border-b py-2 lg:text-lg text-[8px]">
+                  {submission.worker_name}
+                </td>
+                <td className="border-b py-2 lg:text-lg text-[8px]">
+                  {submission.task_title}
+                </td>
                 <td csubmissionslassName="border-b py-2 lg:text-lg text-[8px]">
-                  
-                  <p className="lg:text-lg text-[8px]">{submission.payable_amount} Coin</p>
+                  <p className="lg:text-lg text-[8px]">
+                    {submission.payable_amount} Coin
+                  </p>
                 </td>
                 <td csubmissionslassName="border-b py-2 ">
                   <p className="lg:text-lg text-[8px]">{submission.status}</p>

@@ -16,41 +16,47 @@ const WorkerPaymnet = () => {
       return response.data.filter((item) => item.status === "pending");
     },
   });
-  
-  // console.log("Submissions:", withdaw);  // Log user data here (optional)
-
-  // ... rest of your code
+// console.log(withdaw);
 
 
-  // const { data: submissions = [], refetch } = useQuery({
-  //   queryKey: ["workerSubmissions", user.email], // Unique key for caching
-  //   queryFn: async () => {
-  //     const response = await axiosSecure.get("/withdrawals");
-  //     return response.data.filter((item) => item.status === "pending"); // Filter submissions by worker email
-  //   },
-  // });
-  const handleApprove = (id) => {
-    console.log(id);
-    axiosSecure
-      .patch(`/withdrawals/${id}`)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data) {
-          Swal.fire({
-            title: "updated!",
-            text: "worker status has been updated.",
-            icon: "success",
+  const handleApprove = (request) => {
+    // console.log(request._id);
+    axiosSecure.patch(`/withdrawals/${request._id}`).then((res) => {
+      console.log(res.data);
+      if (res.data) {
+        axiosSecure
+          .post("/newnotificatio", {
+            workermessage: `GOOD NEWS,You have earned ${
+              request.withdrawal_amount
+            } doller  in ${
+              request.payment_system
+            }`,
+            woekermail: request.worker_email,
+            data: new Date(),
+          })
+          .then((res) => {
+            // console.log(res.data);
+            if (res.data.acknowledged) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your work has been saved",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              refetch();
+            }
           });
-        }
+      }
 
-        refetch();
-      });
+      refetch();
+    });
   };
 
   return (
     <div className="container mx-auto lg:p-4">
       <h1 className="text-2xl font-bold mb-4">
-        Withdrawal Requests{withdaw.length}
+        Withdrawal Requests {withdaw.length}
       </h1>
       <table className="lg:min-w-full table-auto">
         <thead>
@@ -65,15 +71,23 @@ const WorkerPaymnet = () => {
         <tbody>
           {withdaw.map((request) => (
             <tr key={request._id}>
-              <td className="border text-[10px] lg:text-xl  px-4 py-2">{request.worker_email}</td>
-              <td className="border text-[10px] lg:text-xl px-4 py-2">{request.withdrawal_coin}</td>
-              <td className="border text-[10px] lg:text-xl px-4 py-2">{request.payment_system}</td>
-              <td className="border text-[10px] lg:text-xl px-4 py-2">{request.status}</td>
+              <td className="border text-[10px] lg:text-xl  px-4 py-2">
+                {request.worker_email}
+              </td>
+              <td className="border text-[10px] lg:text-xl px-4 py-2">
+                {request.withdrawal_coin}
+              </td>
+              <td className="border text-[10px] lg:text-xl px-4 py-2">
+                {request.payment_system}
+              </td>
+              <td className="border text-[10px] lg:text-xl px-4 py-2">
+                {request.status}
+              </td>
               <td className="border text-[10px] lg:text-xl px-4 py-2">
                 {request.status === "pending" && (
                   <button
                     className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                    onClick={() => handleApprove(request._id)}
+                    onClick={() => handleApprove(request)}
                   >
                     payment success
                   </button>

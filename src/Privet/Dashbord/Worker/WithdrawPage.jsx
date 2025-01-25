@@ -43,11 +43,11 @@ const WithdrawPage = () => {
             status :'pending',
             account_number: accountNumber,
           };
-          console.log(withdrawalData);
+          // console.log(withdrawalData);/
           
         axiosSecure.post('/withdrawals',withdrawalData)
         .then(res=>{
-            console.log(res.data);
+            // console.log(res.data);
             if (res.data.insertedId) {
                 Swal.fire({
                     icon: "success",

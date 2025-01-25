@@ -7,7 +7,7 @@ import Notification from "../Notification";
 
 const UserDetails = () => {
   // }, [fetchUserData]);
-  const [userData] = userMange();
+  const [userData,refetch] = userMange();
   // console.log(userData);
 
   // console.log(userData.email);

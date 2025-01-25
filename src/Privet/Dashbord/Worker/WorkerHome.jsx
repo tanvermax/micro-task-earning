@@ -13,15 +13,15 @@ const WorkerHome = () => {
     queryKey: ["workerSubmissions", user.email],
     queryFn: async () => {
       const response = await axiosSecure.get("/totoalsubmitted");
-      console.log("API Response:", response.data); // Log API response
+      // console.log("API Response:", response.data); // Log API response
       return response.data;
     },
   });
   const [userData] = userMange();
 
   // Fetch worker submissions
-  console.log(submissions);
-  console.log("hello");
+  // console.log(submissions);
+  // console.log("hello");
   
   // console.log(userData);
   
