@@ -25,7 +25,7 @@ const Paymenhistory = () => {
       <div>
         <div className="container mx-auto p-6">
           <h1 className="text-2xl font-bold mb-4">Payment History</h1>
-          <div className="overflow-x-auto max-w-[200px]">
+          <div className="overflow-x-auto max-w-[200px]  md:max-w-full lg:max-w-full">
             <table className="min-w-full table-auto border-collapse border border-gray-300">
               <thead>
                 <tr className="bg-gray-100">

@@ -16,7 +16,7 @@ const UserDetails = () => {
       {/* ????? */}
       <section class="">
         <div class="w-full  lg:max-w-7xl mx-auto">
-          <div class="flex items-center lg:justify-center sm:justify-start relative z-10 lg:mb-5">
+          <div class="flex items-center  sm:justify-start relative z-10 lg:mb-5">
             <img
               src={userData.photo}
               alt="user-avatar-image"
@@ -32,7 +32,7 @@ const UserDetails = () => {
                 {userData.email}
               </p>
             </div>
-            <button class="rounded-full lg:py-3 px-5 bg-gray-100 flex items-center group transition-all duration-500 hover:bg-indigo-100 ">
+            <button class="rounded-full lg:py-3 px-5 bg-gray-100 flex items-center group transition-all duration-500 hover:bg-indigo-100 mr-10 md:w-[120px] ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"

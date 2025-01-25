@@ -37,7 +37,7 @@ const Taskdetails = () => {
     };
     
 
-    console.log("Submission Data:", submission);
+    // console.log("Submission Data:", submission);
 
     // Simulating an API call to save submission
     axiosSecure.post("/tasksubmit", submission).then((res) => {

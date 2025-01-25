@@ -15,8 +15,8 @@ const BuyerHome = () => {
   // const [submissions, setSubmissions] = useState([]);
   const axiosSecure = useAxiosSecure();
   const [selectedSubmission, setSelectedSubmission] = useState(null);
-  const { data: submissions = [], refetch } = useQuery({
-    queryKey: ["submissions"], // Unique key for caching and identifying the query
+  const { data: totalsubmissions = [], refetch } = useQuery({
+    queryKey: ["totalsubmissions"], // Unique key for caching and identifying the query
     queryFn: async () => {
       const response = await axiosSecure.get(`/subar`);
 
@@ -29,11 +29,11 @@ const BuyerHome = () => {
   });
   // const [submissions] = userSubmission();
   // console.log(submissions);
-  console.log(submissions);
+  console.log(totalsubmissions);
   console.log(user);
   
 
-  const userSubmissions = submissions.filter(
+  const userSubmissions = totalsubmissions.filter(
     (submission) => submission.Buyer_email === user.email
   );
 
@@ -63,8 +63,10 @@ const BuyerHome = () => {
           "Submission approved and coins updated successfully"
         ) {
           
-          axiosSecure.post("/newnotificatio",{workermessage : `You have earned ${submissions.payable_amount} Coin from ${user.displayName || 'anonymous'} for completing ${submissions.task_title}`,
-          woekermail : submission.worker_email})
+          axiosSecure.post("/newnotificatio",{workermessage: `You have earned ${submission.payable_amount} Coin from ${
+            user.displayName || "anonymous"
+          } for completing ${submission.task_title}`,
+          woekermail: submission.worker_email,})
           .then((res) => {
             console.log(res.data);
             if (res.data.acknowledged) {
@@ -130,56 +132,57 @@ const BuyerHome = () => {
           <p className="text-xl">{totalTaskCount}</p>
         </div>
         <div className="bg-white p-5 rounded shadow">
-          <h2 className="text-lg font-bold">Pending Workers</h2>
+          <h2 className="text-lg font-bold">Pending task</h2>
           <p className="text-xl">{pendingTaskCount}</p>
         </div>
         <div className="bg-white p-5 rounded shadow">
           <h2 className="text-lg font-bold">Total Payment</h2>
-          <p className="text-xl">${totalPayment}</p>
+          <p className="text-xl">{totalPayment} coin</p>
         </div>
       </div>
 
       {/* Submissions Table */}
-      <div className="bg-white p-5 rounded shadow">
-        <h2 className="text-lg font-bold mb-5">Task Submissions</h2>
-        <table className="w-full text-lef	Payable Amountt border-collapse">
+      <div className="bg-red-400 p-5 rounded shadow max-w-[220px] md:max-w-full lg:max-w-full ">
+        <h2 className="lg:text-lg text-[8px] font-bold mb-5">Task Submissions</h2>
+        <table className="w-full text-lef	Payable Amount border-collapse">
           <thead>
             <tr>
-              <th className="border-b py-2">Worker Name</th>
-              <th className="border-b py-2">Task Title</th>
-              <th className="border-b py-2">Payable Amount</th>
-              <th className="border-b py-2">status</th>
-              <th className="border-b py-2">Actions</th>
+              <th className="border-b py-2 lg:text-lg text-[8px]">Worker Name</th>
+              <th className="border-b py-2 lg:text-lg text-[8px]">Task Title</th>
+              <th className="border-b py-2 lg:text-lg text-[8px]">Payable Amount</th>
+              <th className="border-b py-2 lg:text-lg text-[8px]">status</th>
+              <th className="border-b py-2 lg:text-lg text-[8px]">Actions</th>
             </tr>
           </thead>
           <tbody>
             {/* {submissions.lenght > 0 ? ( */}
             {userSubmissions.map((submission) => (
               <tr key={submission._id}>
-                <td className="border-b py-2">{submission.worker_name}</td>
-                <td className="border-b py-2">{submission.task_title}</td>
-                <td csubmissionslassName="border-b py-2 ">
-                  {submission.payable_amount} Coin
+                <td className="border-b py-2 lg:text-lg text-[8px]">{submission.worker_name}</td>
+                <td className="border-b py-2 lg:text-lg text-[8px]">{submission.task_title}</td>
+                <td csubmissionslassName="border-b py-2 lg:text-lg text-[8px]">
+                  
+                  <p className="lg:text-lg text-[8px]">{submission.payable_amount} Coin</p>
                 </td>
-                <td csubmissionslassName="border-b py-2">
-                  {submission.status}
+                <td csubmissionslassName="border-b py-2 ">
+                  <p className="lg:text-lg text-[8px]">{submission.status}</p>
                 </td>
                 <td className="border-b py-2">
                   <button
                     onClick={() => setSelectedSubmission(submission)}
-                    className="mr-2 text-white bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded"
+                    className="mr-2 text-white lg:text-lg text-[8px] bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded"
                   >
                     View Submission
                   </button>
                   <button
                     onClick={() => handleApprove(submission)}
-                    className="mr-2 text-white bg-green-600 hover:bg-green-700 px-3 py-1 rounded"
+                    className="mr-2 text-white bg-green-600 hover:bg-green-700 px-3 py-1 rounded lg:text-lg text-[8px]"
                   >
                     Approve
                   </button>
                   <button
                     onClick={() => handleReject(submission)}
-                    className="text-white bg-red-600 hover:bg-red-700 px-3 py-1 rounded"
+                    className="text-white bg-red-600 hover:bg-red-700 px-3 py-1 rounded lg:text-lg text-[8px]"
                   >
                     Reject
                   </button>
