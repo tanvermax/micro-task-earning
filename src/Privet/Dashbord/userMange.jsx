@@ -10,7 +10,7 @@ const userMange = () => {
   // const [userData, setUserData] = useState({});
 
   const { data: userData = {}, refetch } = useQuery({
-    queryKey: ["workerSubmissions", user.email], // Unique key for caching
+    queryKey: ["user", user.email], // Unique key for caching
     queryFn: async () => {
       const response = await axiosSecure.get(`/users?email=${user.email}`);
       return response.data; // Filter submissions by worker email

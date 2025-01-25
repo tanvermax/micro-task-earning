@@ -24,7 +24,7 @@ const Notification = () => {
         
         <div className="indicator">
           <span className="indicator-item badge badge-secondary">{submissions.length}</span>
-          <button ><IoIosNotifications className="text-5xl" /></button>
+          <button ><IoIosNotifications className="ml-10 lg:text-5xl" /></button>
         </div>
       </div>
     </div>

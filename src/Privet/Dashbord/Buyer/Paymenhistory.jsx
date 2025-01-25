@@ -25,7 +25,7 @@ const Paymenhistory = () => {
       <div>
         <div className="container mx-auto p-6">
           <h1 className="text-2xl font-bold mb-4">Payment History</h1>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto max-w-[200px]">
             <table className="min-w-full table-auto border-collapse border border-gray-300">
               <thead>
                 <tr className="bg-gray-100">
@@ -40,7 +40,7 @@ const Paymenhistory = () => {
               </thead>
               <tbody>
                 {transittion.map((payment, index) => (
-                  <tr key={payment.id} className="text-center">
+                  <tr key={payment._id} className="text-center">
                     <td className="px-4 py-2 border border-gray-300">
                       {index + 1}
                     </td>

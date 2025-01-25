@@ -120,7 +120,13 @@ const Cheakouform = () => {
             .catch((err) => {
               console.error("Error posting data:", err.response?.data || err.message);
             });            
-            alert("success");
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your Transiction has been success",
+              showConfirmButton: false,
+              timer: 1500
+            });
           });
       }
       setError("");

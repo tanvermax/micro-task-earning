@@ -1,25 +1,30 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { useEffect } from "react";
+
 import useAxiosSecure from "../../../Axios/useAxiosSecure";
 import useAuth from "../../../Provider/useAuth";
 import userMange from "../userMange";
+import { useQuery } from "@tanstack/react-query";
 // import Swal from "sweetalert2";
-
 const WorkerHome = () => {
   const { user } = useAuth(); 
   // Get logged-in user info
   const axiosSecure = useAxiosSecure();
-  const [userData,refetch] = userMange();
 
-  // Fetch worker submissions
-  const { data: submissions = [] } = useQuery({
-    queryKey: ["workerSubmissions", user.email], // Unique key for caching
+  const { data: submissions = [],refetch } = useQuery({
+    queryKey: ["workerSubmissions", user.email],
     queryFn: async () => {
       const response = await axiosSecure.get("/totoalsubmitted");
-      return response.data; // Filter submissions by worker email
+      console.log("API Response:", response.data); // Log API response
+      return response.data;
     },
   });
+  const [userData] = userMange();
+
+  // Fetch worker submissions
   console.log(submissions);
+  console.log("hello");
+  
+  // console.log(userData);
+  
   
 
 //   console.log(userData.coins);
@@ -34,10 +39,10 @@ const WorkerHome = () => {
     (sub) => sub.status === "approve"
   );
 
-  //   const totalApprovedCoins = approvedSubmissions.reduce(
-  //     (sum, sub) => sum + Number(sub.payable_amount),
-  //     0
-  //   );
+    const totalApprovedCoins = approvedSubmissions.reduce(
+      (sum, sub) => sum + Number(sub.payable_amount),
+      0
+    );
 
   // Calculate stats
   const totalSubmissions = submissions.length;
@@ -77,7 +82,6 @@ const WorkerHome = () => {
             ${totalEarnings.toFixed(2)}{" "}
            {" "}
           </button>
-          {/* <p className="text-xl">coin :{totalusercoin}</p> */}
         </div>
       </div>
 

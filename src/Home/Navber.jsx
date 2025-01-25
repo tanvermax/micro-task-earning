@@ -96,7 +96,7 @@ const Navber = () => {
               </ul>
             )}
           </div>
-          <Link to="/" className="btn btn-ghost lg:text-2xl font-bold text-black">
+          <Link to="/" className="lg:btn lg:btn-ghost lg:text-2xl font-bold text-black">
             Earnly
           </Link>
         </div>
@@ -109,8 +109,8 @@ const Navber = () => {
               <div className="lg:flex gap-4 ">
                 {user.photoURL ? <img className="lg:h-10 h-6 w-6 lg:w-10 rounded-full" src={user.photoURL}></img> : <FaUserCircle className="h-6 w-6" />}
                 <div>
-                <p className="lg:text-base text-[8px]">{user.email}</p>
-                <p className="lg:text-base text-[8px]">{user.displayName}</p>
+                <p className="lg:text-base text-[6px]">{user.email}</p>
+                <p className="lg:text-base text-[6px]">{user.displayName}</p>
                 </div>
 
               </div>

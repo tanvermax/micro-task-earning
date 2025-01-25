@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Axios/useAxiosSecure";
-import userMange from "../userMange";
+// import userMange from "../userMange";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../Provider/useAuth";
 import { useLoaderData } from "react-router-dom";
@@ -9,7 +9,7 @@ import "./mysubmis.css";
 const Maysubmission = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const [userData] = userMange();
+  // const [userData] = userMange();
   const { count } = useLoaderData();
   const [itemperPage, setItemPerPage] = useState(10);
   console.log(count);

@@ -12,7 +12,7 @@ const Mainlayout = () => {
             <div className='min-h-screen'>
             <Outlet></Outlet>
             </div>
-            <Footer></Footer>
+            {noHeaderfoot ||   <Footer></Footer>}
         </div>
     );
 };

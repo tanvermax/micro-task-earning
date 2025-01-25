@@ -12,7 +12,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hostin_key
 
 const Register = () => {
   const axiosPublic = useaxiospublic();
-  const { handlnewuser,setUser,updateUser } = useAuth();
+  const { handlnewuser, setUser, updateUser } = useAuth();
   const navigate = useNavigate();
   const {
     register,
@@ -30,11 +30,11 @@ const Register = () => {
       const res = await axiosPublic.post(image_hosting_api, imageFile, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-  
+
       if (res.data.success) {
         const hostedImageUrl = res.data.data.display_url;
         const coins = data.role === "buyer" ? 50 : 10;
-  
+
         const user = {
           email: data.email,
           userName: data.fullName,
@@ -42,18 +42,18 @@ const Register = () => {
           photo: hostedImageUrl,
           coins,
         };
-  
+
         // Register the user
         const result = await handlnewuser(data.email, data.password);
         if (result.user) {
           setUser(result.user);
-  
+
           // Update the user profile
           await updateUser({
             displayName: data.fullName,
             photoURL: hostedImageUrl,
           });
-  
+
           // Save user data to the database
           const dbResponse = await axiosSecure.post("/users", user);
           if (dbResponse.data.insertedId) {
@@ -65,9 +65,10 @@ const Register = () => {
               timer: 1500,
             });
           }
-  
+          window.location.reload(false);
           // Navigate to home or login
           navigate("/");
+          
         }
       }
     } catch (error) {
@@ -79,7 +80,7 @@ const Register = () => {
       });
     }
   };
-  
+
   return (
     <div className="w-full max-w-xl bg-green-200 mx-auto  rounded-lg shadow-lg p-8">
       <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
@@ -139,10 +140,10 @@ const Register = () => {
             placeholder="Enter your email"
             {...register("email", {
               required: "Email is required",
-              // pattern: {
-              //   value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              //   message: "Invalid email address",
-              // },
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                message: "Invalid email address",
+              },
             })}
             className={`w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 ${
               errors.email
@@ -166,8 +167,14 @@ const Register = () => {
             {...register("password", {
               required: "Password is required",
               minLength: {
-                value: 6,
-                message: "Password must be at least 6 characters",
+                value: 8,
+                message: "Password must be at least 8 characters",
+              },
+              pattern: {
+                value:
+                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                message:
+                  "Password must include at least one letter, one number, and one special character",
               },
             })}
             className={`w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 ${
