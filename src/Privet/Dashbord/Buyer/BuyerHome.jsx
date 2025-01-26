@@ -68,7 +68,7 @@ const BuyerHome = () => {
               data: new Date(),
             })
             .then((res) => {
-              console.log(res.data);
+              // console.log(res.data);
               if (res.data.acknowledged) {
                 Swal.fire({
                   position: "top-end",
@@ -88,12 +88,12 @@ const BuyerHome = () => {
   };
 
   const handleReject = (submission) => {
-    console.log(submission._id);
+    // console.log(submission._id);
 
     axiosSecure
       .patch(`/submitted/reject/${submission._id}`)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         refetch();
         if (res.data.message) {
           
@@ -108,7 +108,7 @@ const BuyerHome = () => {
               data: new Date(),
             })
             .then((res) => {
-              console.log(res.data);
+              // console.log(res.data);
               if (res.data.acknowledged) {
                 Swal.fire({
                   position: "top-end",

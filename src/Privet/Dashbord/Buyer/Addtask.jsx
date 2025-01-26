@@ -38,12 +38,12 @@ const Addtask = () => {
         "Content-Type": "multipart/form-data",
       },
     });
-    console.log(data);
+    // console.log(data);
 
-    console.log("Registration Data:", data);
+    // console.log("Registration Data:", data);
     if (res.data.success) {
       const totalCost = data.required_workers * data.payable_amount;
-      console.log(`Total Cost: ${totalCost}, User Coins: ${userData.coins}`);
+      // console.log(`Total Cost: ${totalCost}, User Coins: ${userData.coins}`);
 
       if (userData.coins >= totalCost) {
         // User has enough coins
@@ -59,7 +59,7 @@ const Addtask = () => {
           submissinInfo: data.submission_info,
           taskImage: res.data.data.display_url,
         };
-        console.log(taskitem);
+        // console.log(taskitem);
 
         axiosSecure.post("/task", taskitem).then((res) => {
           if (res.data.insertedId) {

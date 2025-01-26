@@ -33,7 +33,7 @@ const Cheakouform = () => {
       axiosSecure
         .post("/createpaymentintent", { price: parseInt(price) }) // Convert dollars to cents
         .then((res) => {
-          console.log(res.data.clientSecret);
+          // console.log(res.data.clientSecret);
 
           setClientSecret(res.data.clientSecret);
         })

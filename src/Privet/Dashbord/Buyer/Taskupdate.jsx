@@ -13,7 +13,7 @@ const Taskupdate = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     const updatedFields = {
         taskName: data.task_title,
         taskDetails: data.task_detail,

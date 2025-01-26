@@ -16,7 +16,7 @@ const Users = () => {
       return res.data;
     },
   });
-  console.log(users);
+  // console.log(users);
   
 
   const handleRoleChange = (item, role) => {
@@ -31,7 +31,7 @@ const Users = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.patch(`/users/admin/${item._id}`, { role }).then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           if (res.data.success > 0) {
             refetch();
             Swal.fire({

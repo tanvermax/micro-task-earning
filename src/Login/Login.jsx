@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Socail from "./Socail";
 import useAuth from "../Provider/useAuth";
@@ -13,21 +13,37 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
+  const [loginError, setLoginError] = useState("");
+
   const onSubmit = (data) => {
-    console.log("Form Data:", data);
+    setLoginError(""); // Clear any previous errors
     loginwithemail(data.email, data.password)
       .then((res) => {
-        console.log("log user",res.user);
         navigate("/");
         window.location.reload(false);
       })
       .catch((error) => {
+        console.error(error.message);
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
+
+        // Handle specific error codes
+        if (errorCode === "auth/invalid-credential") {
+          setLoginError("The password is incorrect.");
+        } else if (errorCode === "auth/user-not-found") {
+          setLoginError("No user found with this email.");
+        } else if (errorCode === "auth/too-many-requests") {
+          setLoginError(
+            "Access to this account has been temporarily disabled due to too many failed login attempts. Please try again later."
+          );
+        } else {
+          setLoginError(errorMessage);
+        }
+
+        console.error(errorCode, errorMessage);
       });
   };
+
   return (
     <div className="lg:w-full lg:max-w-xl bg-yellow-300 lg:rounded-lg shadow-lg lg:p-8 p-10 lg:mx-auto">
       <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
@@ -44,10 +60,6 @@ const Login = () => {
             placeholder="Enter your email"
             {...register("email", {
               required: "Email is required",
-              //   pattern: {
-              //     value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              //     message: "Invalid email address",
-              //   },
             })}
             className={`w-full px-4 py-2 mt-2 border rounded-lg focus:ring-2 ${
               errors.email
@@ -88,15 +100,13 @@ const Login = () => {
           )}
         </div>
 
+        {/* Display Login Error */}
+        {loginError && (
+          <p className="text-red-500 text-sm text-center mt-2">{loginError}</p>
+        )}
+
         {/* Remember Me & Forgot Password */}
         <div className="flex items-center justify-between">
-          {/* <label className="flex items-center">
-            <input
-              type="checkbox"
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-            />
-            <span className="ml-2 text-sm text-gray-600">Remember me</span>
-          </label> */}
           <a href="#" className="text-sm text-blue-600 hover:underline">
             Forgot password?
           </a>

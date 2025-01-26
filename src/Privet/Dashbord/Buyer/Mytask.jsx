@@ -24,15 +24,15 @@ const Mytask = () => {
       setSortedData(sorted);
     }
   }, [task]);
-  console.log(task);
+  // console.log(task);
 
   const handledeletetask = (id) => {
-    console.log(id);
+    // console.log(id);
     const taskTodelete = task.find((t) => t._id === id);
     const CoinToadd =
       taskTodelete?.payableAmount * taskTodelete?.requiredWorkers || 0;
-      console.log(taskTodelete);
-      console.log(CoinToadd);
+      // console.log(taskTodelete);
+      // console.log(CoinToadd);
       
       
     Swal.fire({
@@ -50,13 +50,13 @@ const Mytask = () => {
 
             
             const updatedCoins = userData.coins + CoinToadd;
-            console.log("updateted coin : ",updatedCoins);
+            // console.log("updateted coin : ",updatedCoins);
              
             axiosSecure
               .patch(`/users/coins/${userData._id}`, { email: userData.email, coins: updatedCoins}
             )
               .then((updateRes) => {
-                console.log(updateRes.data);
+                // console.log(updateRes.data);
                 
                 if (updateRes.data.success) {
                   // Update userData state with the new coins value

@@ -12,7 +12,7 @@ const Maysubmission = () => {
   // const [userData] = userMange();
   const { count } = useLoaderData();
   const [itemperPage, setItemPerPage] = useState(10);
-  console.log(count);
+  // console.log(count);
   // const itemperPage = 8;
   const numberofPage = Math.ceil(count / itemperPage);
 
@@ -24,13 +24,13 @@ const Maysubmission = () => {
     queryKey: ["workerSubmissions", user.email, currentPage, itemperPage],
     queryFn: async () => {
       const response = await axiosSecure.get(`/submitted?page=${currentPage}&size=${itemperPage}&userEmail=${user.email}`);
-      console.log(response.data);  // Ensure the response is correctly structured
+      // console.log(response.data);  // Ensure the response is correctly structured
       return response.data;
     },
     keepPreviousData: true
   });
   
-console.log(result);
+// console.log(result);
 
 
 
@@ -39,10 +39,10 @@ console.log(result);
   }, [currentPage, itemperPage, refetch]);
 
   const page = [...Array(numberofPage).keys()];
-  console.log(page);
+  // console.log(page);
   const handleitemperpage = (e) => {
     const val = parseInt(e.target.value);
-    console.log(val);
+    // console.log(val);
 
     setItemPerPage(val);
     setCurrentPage(0);

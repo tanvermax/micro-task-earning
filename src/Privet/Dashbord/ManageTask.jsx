@@ -19,8 +19,8 @@ const ManageTask = () => {
           }).then((result) => {
             if (result.isConfirmed) {
               axiosSecure.delete(`/task/${id}`).then((res) => {
-                console.log(res.data);
-                
+                // console.log(res.data);
+                // 
                 if (res.data.deletedCount > 0) {
                   
                   Swal.fire({

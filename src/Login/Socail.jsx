@@ -22,8 +22,8 @@ const googlelogin=()=>{
     }
     axiospublic.post("/users",userinfo)
     .then(res=>{
-      console.log(res.data);
-      console.log("hi");
+      // console.log(res.data);
+      // console.log("hi");
       navigate('/')
       
     })
