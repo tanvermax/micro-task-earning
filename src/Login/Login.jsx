@@ -23,7 +23,7 @@ const Login = () => {
         window.location.reload(false);
       })
       .catch((error) => {
-        console.error(error.message);
+        
         const errorCode = error.code;
         const errorMessage = error.message;
 

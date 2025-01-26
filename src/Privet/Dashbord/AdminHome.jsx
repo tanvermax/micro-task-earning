@@ -7,7 +7,7 @@ import WorkerPaymnet from "./WorkerPaymnet";
 const AdminHome = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: wokerdata = [], refetch } = useQuery({
+  const { data: wokerdata = [], refetch} = useQuery({
     queryKey: ["wokerdata"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users/role", {
@@ -17,7 +17,9 @@ const AdminHome = () => {
     },
   });
 
-  const { data: Buyerdata = [] } = useQuery({
+  // console.log(wokerdata);
+  
+  const { data: Buyerdata = [],refetch: refechbuyerdata } = useQuery({
     queryKey: ["Buyerdata"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users/role", {
@@ -26,6 +28,22 @@ const AdminHome = () => {
       return res.data;
     },
   });
+
+  const { data: totaldollerearn = [],refetch: refetchTotalDollarEarn } = useQuery({
+    queryKey: ["totaldollerearn"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("withdrawals");
+      return res.data.filter(item=>item.status==="approve");
+    },
+  });
+  console.log(totaldollerearn);
+
+  const totalpaymnetcoin = totaldollerearn.reduce(
+    (sum, user) => sum + (user.withdrawal_amount || 0),
+    0
+  );
+  console.log(totalpaymnetcoin);
+  
 
   const totalWorkerCoins = Buyerdata.reduce(
     (sum, user) => sum + (user.coins || 0),
@@ -73,7 +91,7 @@ const AdminHome = () => {
         <div className="bg-white shadow p-4 sm:p-6 lg:p-8 rounded-lg">
           <h2 className="text-lg sm:text-xl font-semibold mb-2">Total Payments</h2>
           <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-red-600">
-            {/* Add payment logic if needed */}
+            {totalpaymnetcoin} $
           </p>
         </div>
       </div>

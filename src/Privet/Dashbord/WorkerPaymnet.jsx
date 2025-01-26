@@ -21,7 +21,8 @@ const WorkerPaymnet = () => {
 
   const handleApprove = (request) => {
     // console.log(request._id);
-    axiosSecure.patch(`/withdrawals/${request._id}`).then((res) => {
+    axiosSecure.patch(`/withdrawals/${request._id}`)
+    .then((res) => {
       console.log(res.data);
       if (res.data) {
         axiosSecure
