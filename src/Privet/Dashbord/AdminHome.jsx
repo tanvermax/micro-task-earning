@@ -36,13 +36,13 @@ const AdminHome = () => {
       return res.data.filter(item=>item.status==="approve");
     },
   });
-  console.log(totaldollerearn);
+  // console.log(totaldollerearn);
 
   const totalpaymnetcoin = totaldollerearn.reduce(
     (sum, user) => sum + (user.withdrawal_amount || 0),
     0
   );
-  console.log(totalpaymnetcoin);
+  // console.log(totalpaymnetcoin);
   
 
   const totalWorkerCoins = Buyerdata.reduce(
