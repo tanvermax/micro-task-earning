@@ -80,7 +80,7 @@ const Navber = () => {
   );
 
   return (
-    <div className="   bg-gradient-to-r from-yellow-500 to-gray-500">
+    <div className=" bg-gray-800 sticky top-0 z-10">
       <div className="navbar max-w-screen-2xl text-white mx-auto lg:py-5">
         <div className="navbar-start">
           <div className="dropdown">
