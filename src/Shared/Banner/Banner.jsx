@@ -6,7 +6,7 @@ import Sectiontitle from "./Sectiontitle";
 
 const Banner = () => {
   return (
-    <div>
+    <div className="bg-white ">
       <div className="w-full lg:h-[500px] h-[300px] ">
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}

@@ -41,7 +41,7 @@ const Section3 = () => {
   return (
     <section className="bg-gray-100 ">
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-5xl font-bold text-[#b1804e] py-14">What Our Users Say</h2>
+        <h2 className="lg:text-5xl font-bold text-[#b1804e] py-5 lg:py-14">What Our Users Say</h2>
         <Swiper
           slidesPerView={1}
           spaceBetween={30}
