@@ -144,7 +144,7 @@ const Navber = () => {
               </ul>
             )}
           </div>
-          <Link
+          <Link data-aos="zoom-in"
             to="/"
             className="lg:btn lg:btn-ghost lg:text-2xl font-bold text-[#b1804e]"
           >

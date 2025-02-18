@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const AppOfferSection = () => {
   return (
-    <section className="bg-gradient-to-r from-[#ddbd9d] to-[#ee1111] text-white py-12  rounded-lg shadow-lg my-8">
+    <section className="bg-gradient-to-r from-[#ddbd9d] to-[#ee1111] text-white py-12 w-11/12 mx-auto rounded-lg shadow-lg my-8">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}

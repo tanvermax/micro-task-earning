@@ -25,18 +25,18 @@ const Section2 = () => {
       <div className="grid lg:grid-cols-3 grid-cols-2 lg:gap-10 ">
         {wokerdata.map((item) => (
           <div key={item._id} className="max-w-2xl mx-4 sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-sm sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto mt-16 bg-white shadow-xl rounded-lg text-gray-900">
-            <div className="rounded-t-lg h-32 overflow-hidden">
+            <div className="rounded-t-lg h-28  overflow-hidden">
               <img
                 className="object-cover object-top w-full"
                 src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
                 alt="Mountain"
               />
             </div>
-            <div className="mx-auto w-32 h-32 relative -mt-16 border-4 border-white rounded-full overflow-hidden">
+            <div className="mx-auto lg:w-32 w-16 lg:h-32 h-16 relative -mt-16 border-4 border-white rounded-full overflow-hidden">
               <img
-                className="object-cover object-center h-20 lg:w-32 w-20 mx-auto lg:h-32"
+                className="object-cover object-center "
                 src={item.photo}
-                alt="Woman looking front"
+                
               />
             </div>
             <div className="text-center mt-2">

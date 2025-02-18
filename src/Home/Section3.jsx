@@ -52,13 +52,13 @@ const Section3 = () => {
         >
           {testimonials.map((testimonial) => (
             <SwiperSlide key={testimonial.id}>
-              <div className="bg-white p-32 rounded-lg shadow-lg max-w-md mx-auto">
+              <div className="bg-white lg:p-32 p-6 rounded-lg shadow-lg max-w-md mx-auto">
                 <img
                   src={testimonial.photo}
                   alt={testimonial.name}
-                  className="w-24 h-24 mx-auto rounded-full mb-4"
+                  className="lg:w-24 w-16 lg:h-24 mx-auto rounded-full mb-4"
                 />
-                <h3 className="text-xl font-semibold text-[#b1804e]">
+                <h3 className="lg:text-xl font-semibold text-[#b1804e]">
                   {testimonial.name}
                 </h3>
                 <p className="text-gray-600 mt-4">{testimonial.quote}</p>
