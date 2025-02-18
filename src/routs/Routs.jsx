@@ -21,6 +21,7 @@ import ManageTask from "../Privet/Dashbord/ManageTask";
 import AdminHome from "../Privet/Dashbord/AdminHome";
 import AdminRouts from "../Axios/Hook/AdminRouts";
 import Paymenhistory from "../Privet/Dashbord/Buyer/Paymenhistory";
+import Aboutus from "../Home/Aboutus";
 
 export const Routs = createBrowserRouter([
   {
@@ -114,6 +115,10 @@ export const Routs = createBrowserRouter([
         path: "register",
         element: <Register></Register>,
       },
+      {
+        path:"aboutus",
+        element:<Aboutus></Aboutus>
+      }
     ],
   },
 ]);

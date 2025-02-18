@@ -39,26 +39,26 @@ const Section3 = () => {
   ];
 
   return (
-    <section className="bg-gray-100 py-16">
+    <section className="bg-gray-100 ">
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-3xl font-bold text-gray-800 mb-6">What Our Users Say</h2>
+        <h2 className="text-5xl font-bold text-[#b1804e] py-14">What Our Users Say</h2>
         <Swiper
           slidesPerView={1}
           spaceBetween={30}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           pagination={{ clickable: true }}
           modules={[Pagination,Autoplay]}
-          className="mySwiper"
+          className="mySwiper "
         >
           {testimonials.map((testimonial) => (
             <SwiperSlide key={testimonial.id}>
-              <div className="bg-white p-8 rounded-lg shadow-lg max-w-md mx-auto">
+              <div className="bg-white p-32 rounded-lg shadow-lg max-w-md mx-auto">
                 <img
                   src={testimonial.photo}
                   alt={testimonial.name}
                   className="w-24 h-24 mx-auto rounded-full mb-4"
                 />
-                <h3 className="text-xl font-semibold text-gray-800">
+                <h3 className="text-xl font-semibold text-[#b1804e]">
                   {testimonial.name}
                 </h3>
                 <p className="text-gray-600 mt-4">{testimonial.quote}</p>

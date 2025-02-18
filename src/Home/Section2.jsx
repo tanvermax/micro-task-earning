@@ -54,7 +54,7 @@ const Section2 = () => {
               </li>
             </ul>
             <div className="p-4 border-t mx-8 mt-2">
-              <button className="lg:w-1/2 text-xs  lg:text-xl block mx-auto rounded-full bg-gray-900 hover:shadow-lg font-semibold text-white lg:px-6 p-2">
+              <button className="lg:w-1/2 text-xs  lg:text-xl block mx-auto rounded-full bg-[#b1804e] hover:shadow-lg font-semibold text-white lg:px-6 p-2">
                 Follow
               </button>
             </div>

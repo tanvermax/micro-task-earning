@@ -17,7 +17,7 @@ const Mainlayout = () => {
     <>
       <div className="items-center text-center">
         {loading ? (
-          <span className="loading loading-bars text-red-700 mt-32 loading-3xl mx-auto w-20 "></span>
+          <span className="loading loading-bars text-[#b1804e] mt-32 loading-3xl mx-auto w-20 "></span>
         ) : (
             <div className="">
             {noHeaderfoot || <Navber></Navber>}

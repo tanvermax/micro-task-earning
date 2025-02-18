@@ -74,18 +74,18 @@ const Navber = () => {
               Coins: {userData?.coins || 0}
             </span>
           </li>
-          <li className="btn ml-2 bg-[#b1804e] border-none text-white">
+          <Link to={"/aboutus"} className="btn ml-2 bg-[#b1804e] border-none text-white">
             <span className="flex items-center gap-2 ">
               About us
             </span>
-          </li>
+          </Link>
         </>
       ) : null}
     </>
   );
 
   return (
-    <div className=" bg-gray-800 sticky top-0 z-10">
+    <div className=" backdrop-blur-xl sticky top-0 z-10">
       <div className="navbar max-w-screen-2xl text-[#b1804e] mx-auto lg:py-5">
         <div className="navbar-start">
           <div className="dropdown">
