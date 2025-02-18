@@ -29,7 +29,7 @@ const Section6 = () => {
                 <span className="mt-2 text-gray-500">{job.count} Jobs</span>
               </div>
               {/* Back Content */}
-              <div className="absolute inset-0 p-4 bg-blue-500 text-white flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute inset-0 p-4 bg-[#ddbd9d] text-black flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <h2 className="text-lg font-medium">{job.title}</h2>
                 <p className="mt-2 text-center">
                   Discover jobs in <br /> {job.title} and grow your expertise.
@@ -39,7 +39,7 @@ const Section6 = () => {
           ))}
         </div>
         <div className="text-center mt-10">
-          <button className="px-6 py-3 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 transition">
+          <button className="px-6 py-3 bg-[#ddbd9d] text-black font-medium rounded-lg hover:bg-red-600 transition">
             View All
           </button>
         </div>

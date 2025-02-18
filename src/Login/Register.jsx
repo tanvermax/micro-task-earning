@@ -82,8 +82,8 @@ const Register = () => {
   };
 
   return (
-    <div className="w-full max-w-xl bg-green-200 mx-auto  rounded-lg shadow-lg p-8">
-      <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+    <div className="w-full max-w-xl bg-[#daa672] mx-auto  rounded-lg shadow-lg p-8">
+      <h2 className="text-2xl font-bold text-center lg:text-left text-gray-800 mb-6">
         Create an Account
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -251,7 +251,7 @@ const Register = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+          className="w-full py-2 bg-[#ddbd9d] text-black font-semibold rounded-lg hover:bg-[#b1804e] focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
         >
           Register
         </button>
