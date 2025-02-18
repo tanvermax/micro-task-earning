@@ -30,7 +30,7 @@ const Dashbord = () => {
   return (
     <div className="grid grid-cols-12 gap-1">
       <div className=" col-span-2 min-h-screen    lg:p-2">
-        <ul className="menu lg:p-1 lg:gap-10 gap-5 bg-gray-200 rounded-2xl min-h-screen ">
+        <ul className="menu lg:p-1 lg:gap-10 gap-5  rounded-2xl min-h-screen " style={{ backgroundColor: "var(--sidebar-bg)" }}>
           <Link to="/" className=" text-[#b1804e] lg:p-5">
             <span className="text-[8px] lg:text-2xl  font-bold ">Earnly</span>
           </Link>
@@ -123,7 +123,7 @@ const Dashbord = () => {
         </ul>
       </div>
       <div className=" col-span-10 w-full lg:p-2 ">
-        <div className="min-h-screen bg-gray-200 rounded-xl">
+        <div className="min-h-screen  rounded-xl" style={{ backgroundColor: "var(--sidebar-bg)" }}>
           <div>
             <UserDetails></UserDetails>
           </div>
@@ -136,89 +136,3 @@ const Dashbord = () => {
 
 export default Dashbord;
 
-{
-  /* <li className="btn-xs text-[#b1804e]">
-        <Link to="/" className="lg:btn lg:btn-ghost text-[8px] lg:text-2xl  font-bold    ">
-            Earnly
-          </Link>
-          </li>
-         
-          <div className="divider w-10 lg:w-28"></div>
-
-          {isAdmin ? (
-            <>
-             <li className="btn-xs ">
-                <NavLink className={'lg:p-5 w-8 lg:w-full p-1 text-[6px] lg:text-xl'} to={"/dashbord/adminhome"}>
-                  Admin Home <MdAdminPanelSettings className="text-[#b1804e]" />
-                </NavLink>
-              </li>
-              <li className="btn-xs ">
-                <NavLink className={'lg:p-5 w-8 lg:w-full p-1 text-[6px] lg:text-xl'} to={"/dashbord/users"}>
-                  Manage Users <FaUserShield className="text-[#b1804e]" />
-                </NavLink>
-              </li>
-              <li className="btn-xs ">
-                <NavLink className={'lg:p-5 w-8 lg:w-full p-1 text-[6px] lg:text-xl'} to={"/dashbord/managetask"}>
-                  Manage Task <MdTask className="text-[#b1804e]" />
-                </NavLink>
-              </li>
-            </>
-          ) : null}
-          {userData.role === "worker" ? (
-            <>
-             <li className="btn-xs ">
-             <NavLink className={'lg:p-5 w-8 lg:w-full p-1 text-[6px] lg:text-xl'} to={"/dashbord/workerhome"}>
-                  profile <FaHome className="text-[#b1804e]"/>
-                </NavLink>
-              </li>
-              <li className="btn-xs ">
-                <NavLink className={'lg:p-5 w-8 lg:w-full p-1 text-[6px] lg:text-xl'} to={"/dashbord/tasklist"}>
-                  Task List <FaHome className="text-[#b1804e]" />
-                </NavLink>
-              </li>
-              <li className="btn-xs ">
-                <NavLink className={'lg:p-5 w-8 lg:w-full p-1 text-[6px] lg:text-xl'} to={"/dashbord/maysubmissioin"}>
-                  My Submissions <FaHome className="text-[#b1804e]" />
-                </NavLink>
-              </li>
-              <li className="btn-xs ">
-                <NavLink className={'lg:p-5 w-8 lg:w-full p-1 text-[6px] lg:text-xl'} to={"/dashbord/withdraw"}>
-                  Withdrawals <FaHome className="text-[#b1804e]" />
-                </NavLink>
-              </li>
-              {/* Add more specific links for workers */
-}
-
-//   </>
-// ) : null}
-// {userData.role === "buyer" ? (
-//   <>
-//   <li className="lg:btn-xs  ">
-//   <NavLink className={'lg:p-5 w-8 lg:w-full p-1 text-[8px] lg:text-xl'} to={"/dashbord/buyerhome"}>
-//         profile <FaHome className="text-[#b1804e]" />
-//       </NavLink>
-//     </li>
-//     <li className="btn-xs ">
-//       <NavLink className={'lg:p-5 w-8 lg:w-full p-1 text-[6px] lg:text-xl'} to={"/dashbord/addtask"}>
-//         Add New Tasks <FaHome className="text-[#b1804e]" />
-//       </NavLink>
-//     </li>
-//     <li className="btn-xs ">
-//       <NavLink className={'lg:p-5 w-8 lg:w-full p-1 text-[6px] lg:text-xl'}to={"/dashbord/mytask"}>
-//         My Task's <FaHome className="text-[#b1804e]" />
-//       </NavLink>
-//     </li>
-
-//     <li className="btn-xs ">
-//       <NavLink className={'lg:p-5 w-8 lg:w-full p-1 text-[6px] lg:text-xl'} to={"/dashbord/purchase"}>
-//         Purchase Coin <FaBitcoin className="text-[#b1804e]" />
-//       </NavLink>
-//     </li>
-//     <li className="btn-xs ">
-//       <NavLink className={'lg:p-5 w-8 lg:w-full p-1 text-[6px] lg:text-xl'} to={"/dashbord/paymnethistory"}>
-//         Payment History <RiSecurePaymentFill className="text-[#b1804e]" />
-//       </NavLink>
-//     </li>
-
-//   </>
-// ) : null} */}

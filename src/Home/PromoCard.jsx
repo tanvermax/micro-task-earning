@@ -2,14 +2,14 @@ import React from "react";
 
 const PromoCard = () => {
   return (
-    <div className="flex w-11/12 lg:w-full mx-auto  justify-center items-center py-10 bg-gray-100">
-      <div className="bg-white shadow-lg rounded-xl lg:flex items-center w-full max-w-4xl py-5">
+    <div className="flex w-11/12 lg:w-full mx-auto  justify-center items-center py-10 b">
+      <div className=" shadow-lg rounded-xl lg:flex items-center w-full max-w-4xl py-5">
         {/* Left Content */}
         <div className="flex-1 p-6">
-          <h2 data-aos="zoom-in" className="text-2xl font-bold text-gray-800 mb-4">
+          <h2 data-aos="zoom-in" className="text-2xl font-bold mb-4">
             Start Your Journey - Earn Now
           </h2>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm ">
             Take a few minutes to complete micro jobs anytime and anywhere with
             no prior experience. Be stress-free and choose simple jobs in
             various categories and start earning now with Picoworkers!

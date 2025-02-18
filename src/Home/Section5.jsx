@@ -2,7 +2,7 @@ import React from 'react';
 
 const Section5 = () => {
     return (
-        <div className="grid md:grid-cols-2 gap-8 px-6 md:px-20 py-12 bg-gray-100">
+        <div className="grid md:grid-cols-2 gap-8 px-6 md:px-20 py-12 " style={{ backgroundColor: "var(--sidebar-bg)" }}>
         {/* Left Section */}
         <div className="bg-[#ddbd9d] text-white rounded-lg p-8 shadow-lg">
           <h2 className="text-3xl font-bold mb-4">

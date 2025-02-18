@@ -33,7 +33,7 @@ const UserDetails = () => {
           </div>
       </div>
       <div className="flex-none">
-      <button className=" rounded-full lg:py-3 px-5 bg-gray-100 flex items-center group transition-all duration-500 hover:bg-indigo-100  ">
+      <button className=" rounded-full lg:py-3 px-5 flex items-center group transition-all duration-500 hover:bg-indigo-100  ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"

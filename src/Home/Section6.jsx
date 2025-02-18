@@ -11,7 +11,7 @@ const Section6 = () => {
         { id: 6, title: "Reviews", count: 1, img: "https://www.tradifyhq.com/hubfs/Imported_Blog_Media/5-star-reviews-tradies-2.png" },
       ];
     return (
-        <div className="bg-gray-100 py-10">
+        <div className="py-10" style={{ backgroundColor: "var(--sidebar-bg)" }}>
         <h1 className="text-3xl font-bold text-center mb-6">Find Your Jobs Easily</h1>
         <p className="text-center text-gray-600 mb-10">
           Select a category and find jobs easily in your expert category
@@ -20,10 +20,10 @@ const Section6 = () => {
           {jobs.map((job) => (
             <div
               key={job.id}
-              className="relative bg-white rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+              className="relative rounded-lg shadow-md overflow-hidden group transform hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
             >
               {/* Front Content */}
-              <div className="p-4 flex flex-col items-center group-hover:opacity-0 group-hover:absolute transition-opacity duration-300">
+              <div className="p-4 flex bg-slate-400 flex-col items-center group-hover:opacity-0 group-hover:absolute transition-opacity duration-300">
                 <img src={job.img} alt={job.title} className="w-20 h-20 mb-4" />
                 <h2 className="text-lg font-medium text-gray-800">{job.title}</h2>
                 <span className="mt-2 text-gray-500">{job.count} Jobs</span>

@@ -192,7 +192,7 @@ const Navber = () => {
             </>
           )}
         </div>
-        <button onClick={toggleTheme} style={{ padding: "8px 16px" }}>
+        <button className="" onClick={toggleTheme} style={{ padding: "8px 16px" }}>
           {theme === "light" ? <MdOutlineNightlightRound /> : <WiDaySunny />}
         </button>
       </div>

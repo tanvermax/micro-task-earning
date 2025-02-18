@@ -17,7 +17,7 @@ body{
   }
   
   [data-theme="dark"] {
-    --bg-color: #1e1e1e;
+    --bg-color: #1f2937;
     --text-color: #ffffff;
   }
   
@@ -26,4 +26,11 @@ body{
     color: var(--text-color);
     transition: all 0.3s ease-in-out;
   }
+
+  :root {
+    --sidebar-bg: #e5e7eb; /* Light mode (gray-200) */
+  }
   
+  [data-theme="dark"] {
+    --sidebar-bg: #1f2937; /* Dark mode (gray-800) */
+  }

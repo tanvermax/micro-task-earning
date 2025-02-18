@@ -39,7 +39,7 @@ const Section3 = () => {
   ];
 
   return (
-    <section className="bg-gray-100 ">
+    <section className="py-5 " style={{ backgroundColor: "var(--sidebar-bg)" }}>
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="lg:text-5xl font-bold text-[#b1804e] py-5 lg:py-14">What Our Users Say</h2>
         <Swiper
