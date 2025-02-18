@@ -9,7 +9,9 @@ import {
 } from "react-icons/fa";
 import useAuth from "../Provider/useAuth";
 import useAxiosSecure from "../Axios/useAxiosSecure";
-import { MdOutlineDeveloperMode, MdSpaceDashboard } from "react-icons/md";
+import { MdOutlineDeveloperMode, MdOutlineNightlightRound, MdSpaceDashboard } from "react-icons/md";
+import { useTheme } from "../Mainlayout/ThemeProvider";
+import { WiDaySunny } from "react-icons/wi";
 // import userMange from "../Privet/Dashbord/userMange";////
 
 const Navber = () => {
@@ -20,7 +22,7 @@ const Navber = () => {
   const token = localStorage.getItem("access-token");
   const axiosSecure = useAxiosSecure();
   // const [userDa] = userMange();
-
+  const { theme, toggleTheme } = useTheme();
   useEffect(() => {
     if (user?.email && token) {
       axiosSecure(`/users?email=${user.email}`).then((res) => {
@@ -144,7 +146,8 @@ const Navber = () => {
               </ul>
             )}
           </div>
-          <Link data-aos="zoom-in"
+          <Link
+            data-aos="zoom-in"
             to="/"
             className="lg:btn lg:btn-ghost lg:text-2xl font-bold text-[#b1804e]"
           >
@@ -189,6 +192,9 @@ const Navber = () => {
             </>
           )}
         </div>
+        <button onClick={toggleTheme} style={{ padding: "8px 16px" }}>
+          {theme === "light" ? <MdOutlineNightlightRound /> : <WiDaySunny />}
+        </button>
       </div>
     </div>
   );
