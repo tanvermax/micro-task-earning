@@ -24,15 +24,15 @@ const Paymenhistory = () => {
     <div>
       <div>
         <div className="container mx-auto p-6">
-          <h1 className="text-2xl font-bold mb-4">Payment History</h1>
+          <h1 className="lg:text-2xl text-[10px] font-bold mb-4">Payment History</h1>
           <div className="overflow-x-auto max-w-[200px]  md:max-w-full lg:max-w-full">
             <table className="min-w-full table-auto border-collapse border border-gray-300">
               <thead>
-                <tr className="bg-gray-100">
-                  <th className="px-4 py-2 border border-gray-300">#</th>
-                  <th className="px-4 py-2 border border-gray-300">Date</th>
-                  <th className="px-4 py-2 border border-gray-300">Amount</th>
-                  <th className="px-4 py-2 border border-gray-300">
+                <tr className="">
+                  <th className="px-4 py-2 lg:text-sm text-[8px] border border-gray-300">#</th>
+                  <th className="px-4 py-2  lg:text-sm text-[8px] border border-gray-300">Date</th>
+                  <th className="px-4 py-2 lg:text-sm text-[8px] border border-gray-300">Amount</th>
+                  <th className="px-4 py-2 lg:text-sm text-[8px] border border-gray-300">
                     Payment ID
                   </th>
                   <th className="px-4 py-2 border border-gray-300">email</th>
@@ -41,19 +41,19 @@ const Paymenhistory = () => {
               <tbody>
                 {transittion.map((payment, index) => (
                   <tr key={payment._id} className="text-center">
-                    <td className="px-4 py-2 border border-gray-300">
+                    <td className="px-4 py-2 lg:text-sm text-[8px] border border-gray-300">
                       {index + 1}
                     </td>
-                    <td className="px-4 py-2 border border-gray-300">
+                    <td className="px-4 py-2 lg:text-sm text-[8px] border border-gray-300">
                       {payment.trasitTIme}
                     </td>
-                    <td className="px-4 py-2 border border-gray-300">
+                    <td className="px-4 py-2 lg:text-sm text-[8px] border border-gray-300">
                       {payment.coinbuyed}
                     </td>
-                    <td className="px-4 py-2 border border-gray-300">
+                    <td className="px-4 py-2 lg:text-sm text-[8px] border border-gray-300">
                       {payment.transitsection_id}
                     </td>
-                    <td className={`px-4 py-2 border border-gray-300 `}>
+                    <td className={`px-4 py-2 lg:text-sm text-[8px] border border-gray-300 `}>
                       {payment.trasnsituseEmail}
                     </td>
                   </tr>

@@ -47,11 +47,11 @@ const Notification = () => {
     <div className="items-center lg:w-32 relative -left-11 lg:block">
       <div className="relative">
         <div className="indicator">
-          <span className="indicator-item badge badge-secondary">
+          <span className="indicator-item badge bg-[#d18125] lg:text-sm text-[8px] p-1 lg:p-5 ">
             {notofi.length}
           </span>
           <button onClick={toggleNotifications}>
-            <IoIosNotifications className="ml-10 lg:text-5xl" />
+            <IoIosNotifications className="ml-10 lg:text-5xl text-2xl" />
           </button>
         </div>
 
@@ -59,7 +59,7 @@ const Notification = () => {
         {isOpen && (
           <div
             ref={popUpRef}
-            className="absolute top-12 right-0 bg-white shadow-lg border rounded-lg w-72 p-4 z-50"
+            className="absolute lg:top-12 lg:right-0 -right-5 bg-white shadow-lg border rounded-lg lg:w-72 lg:p-4 z-50"
           >
             {notofi.length > 0 ? (
               <ul>
@@ -68,13 +68,13 @@ const Notification = () => {
                     key={index}
                     className="p-2 border-b last:border-b-0 hover:bg-gray-100 cursor-pointer"
                   >
-                    <h4 className="font-semibold">
+                    <h4 className="font-semibold lg:text-sm text-[8px]">
                       {notification.workermessage || "Notification"}
                     </h4>
-                    <p className="text-sm text-gray-600">
+                    <p className="lg:text-sm text-[8px] text-gray-600">
                       {notification.woekermail || "Details not available"}
                     </p>
-                    <p className="text-sm text-gray-600">
+                    <p className="lg:text-sm text-[8px] text-gray-600">
                       {notification.data}
                     </p>
                   </li>

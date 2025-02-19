@@ -64,34 +64,34 @@ const Maysubmission = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      <h1 className="text-3xl font-semibold text-gray-800 mb-6 text-center">
+    <div className="lg:max-w-7xl mx-auto lg:p-6 p-1 overflow-scroll">
+      <h1 className="lg:text-3xl text-[12px]  font-semibold text-gray-800 mb-6 text-center">
         My Submissions
       </h1>
       {result.length > 0 ? (
-        <div className="overflow-x-auto">
-          <table className="min-w-full bg-white shadow-md rounded-lg">
-            <thead className="bg-blue-600 text-white">
+        <div className="overflow-scroll">
+          <table className="min-w-full  shadow-md rounded-lg">
+            <thead className="bg-blue-600 ">
               <tr>
-                <th className="py-3 px-4 text-left">Task Title</th>
-                <th className="py-3 px-4 text-left">Payable Amount</th>
-                <th className="py-3 px-4 text-left">Submission Details</th>
-                <th className="py-3 px-4 text-left">Worker Name</th>
-                <th className="py-3 px-4 text-left">Buyer Email</th>
-                <th className="py-3 px-4 text-left">Status</th>
-                <th className="py-3 px-4 text-left">Submission Date</th>
+                <th className="py-3 lg:px-4 px-1 text-left lg:text-base text-[8px] ">Task Title</th>
+                <th className="py-3 lg:px-4 px-1 text-left  lg:text-base text-[8px]">Payable Amount</th>
+                <th className="py-3 lg:px-4 px-1 text-left lg:text-base text-[8px]">Submission Details</th>
+                <th className="py-3 lg:px-4 px-1 text-left lg:text-base text-[8px]">Worker Name</th>
+                <th className="py-3 lg:px-4 px-1 text-left lg:text-base text-[8px]">Buyer Email</th>
+                <th className="py-3 lg:px-4 px-1 text-left lg:text-base text-[8px]">Status</th>
+                <th className="py-3 lg:px-4 px-1 text-left lg:text-base text-[8px]">Submission Date</th>
               </tr>
             </thead>
             <tbody>
               {result.map((sub) => (
                 <tr key={sub._id} className="border-t border-gray-200">
-                  <td className="py-3 px-4">{sub.task_title}</td>
-                  <td className="py-3 px-4">${sub.payable_amount}</td>
-                  <td className="py-3 px-4">{sub.submission_details}</td>
-                  <td className="py-3 px-4">{sub.worker_name}</td>
-                  <td className="py-3 px-4">{sub.Buyer_email}</td>
+                  <td className="py-3 lg:px-4 px-1 lg:text-base text-[8px]">{sub.task_title}</td>
+                  <td className="py-3 lg:px-4 px-1 lg:text-base text-[8px]">${sub.payable_amount}</td>
+                  <td className="py-3 lg:px-4 px-1 lg:text-base text-[8px]">{sub.submission_details}</td>
+                  <td className="py-3 lg:px-4 px-1 lg:text-base text-[8px]">{sub.worker_name}</td>
+                  <td className="py-3 lg:px-4 px-1 lg:text-base text-[8px]">{sub.Buyer_email}</td>
                   <td
-                    className={`py-3 px-4 font-semibold text-white rounded-lg ${
+                    className={`py-3 lg:px-4 px-1 lg:text-base text-[8px] font-semibold  rounded-lg ${
                       sub.status.toLowerCase() === "approve"
                         ? "bg-green-500"
                         : sub.status.toLowerCase() === "pending"
@@ -101,7 +101,7 @@ const Maysubmission = () => {
                   >
                     {sub.status}
                   </td>
-                  <td className="py-3 px-4">
+                  <td className="py-3 lg:px-4 px-1 lg:text-base text-[8px]">
                     {new Date(sub.current_date).toLocaleDateString()}
                   </td>
                 </tr>

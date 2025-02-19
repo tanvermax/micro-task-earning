@@ -58,45 +58,45 @@ const AdminHome = () => {
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-10">
-      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 text-center text-[#b1804e] ">
+      <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold mb-8 text-center text-[#b1804e] ">
         Admin Dashboard
       </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+      <div className="grid  grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
         {/* Total Workers */}
-        <div className="bg-white shadow p-4 sm:p-6 lg:p-8 rounded-lg">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 text-[#b1804e]">Total Workers</h2>
-          <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#b1804e]">
+        <div className="bg-white shadow p-1 sm:p-6 lg:p-8 rounded-lg">
+          <h2 className="text-[8px] sm:text-xl font-semibold mb-2 text-[#b1804e]">Total Workers</h2>
+          <p className="text-[10px] sm:text-2xl lg:text-3xl font-bold text-[#b1804e]">
             {wokerdata.length}
           </p>
         </div>
 
         {/* Total Buyers */}
-        <div className="bg-white shadow p-4 sm:p-6 lg:p-8 rounded-lg">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 text-[#b1804e]">Total Buyers</h2>
-          <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-green-600">
+        <div className="bg-white shadow p-1 sm:p-6 lg:p-8 rounded-lg">
+          <h2 className="text-[8px] sm:text-xl font-semibold mb-2 text-[#b1804e]">Total Buyers</h2>
+          <p className="text-[10px] sm:text-2xl lg:text-3xl font-bold text-green-600">
             {Buyerdata.length}
           </p>
         </div>
 
         {/* Total Coins */}
-        <div className="bg-white shadow p-4 sm:p-6 lg:p-8 rounded-lg">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 text-[#b1804e]">Total Coins</h2>
-          <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-yellow-600">
+        <div className="bg-white shadow p-1 sm:p-6 lg:p-8 rounded-lg">
+          <h2 className="text-[8px] sm:text-xl font-semibold mb-2 text-[#b1804e]">Total Coins</h2>
+          <p className="text-[10px] sm:text-2xl lg:text-3xl font-bold text-yellow-600">
             {totalCoins}
           </p>
         </div>
 
         {/* Total Payments */}
-        <div className="bg-white shadow p-4 sm:p-6 lg:p-8 rounded-lg">
-          <h2 className="text-lg sm:text-xl font-semibold mb-2 text-[#b1804e]">Total Payments</h2>
-          <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-red-600">
+        <div className="bg-white shadow p-1 sm:p-6 lg:p-8 rounded-lg">
+          <h2 className="text-[8px] sm:text-xl font-semibold mb-2 text-[#b1804e]">Total Payments</h2>
+          <p className="text-[10px] sm:text-2xl lg:text-3xl font-bold text-red-600">
             {totalpaymnetcoin} $
           </p>
         </div>
       </div>
 
-      <div className="lg:mt-8">
+      <div className="lg:mt-8 mt-5">
         <WorkerPaymnet />
       </div>
     </div>

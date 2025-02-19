@@ -12,20 +12,20 @@ const UserDetails = () => {
 
   // console.log(userData.email);
   return (
-    <div className="navbar w-11/12 mx-auto py-5">
+    <div className="navbar w-11/12 mx-auto py-5 px-0">
       <div className="flex-1">
-      <div className="flex gap-5 ">
+      <div className="flex lg:gap-5 gap-1 ">
             <img
               src={userData.photo}
               alt="user-avatar-image"
               className="border-4 border-solid border-white h-7 w-7 lg:h-20 lg:w-20 rounded-full object-cover"
             />
-             <div className="">
+             <div className=" ">
               <h3 className="text-left text-[#b1804e] font-bold lg:selection lg:text-4xl text-[8px] text-gray-90 mb-1">
                 {userData.userName}
               </h3>
               <p className="text-left lg:text-3xl text-[8px] font-semibold" > coin :{userData.coins}</p>
-              <p className="font-normal text-[#b1804e] text-left lg:text-base text-[8px] leading-7 ">
+              <p className="font-normal text-[#b1804e] text-left lg:text-base text-[8px] lg:leading-7 ">
                 {userData.email}
               </p>
             </div>
@@ -33,7 +33,7 @@ const UserDetails = () => {
           </div>
       </div>
       <div className="flex-none">
-      <button className=" rounded-full lg:py-3 px-5 flex items-center group transition-all duration-500 hover:bg-indigo-100  ">
+      <button className=" rounded-full lg:py-3 lg:px-5 flex items-center group transition-all duration-500 hover:bg-indigo-100  ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"

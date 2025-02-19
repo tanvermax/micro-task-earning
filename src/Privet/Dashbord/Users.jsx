@@ -79,46 +79,47 @@ const Users = () => {
   };
   return (
     <div>
-      <div className="overflow-x-auto">
+      <div className="overflow-scroll">
         <table className="table">
           {/* head */}
           <thead>
             <tr>
               <th></th>
-              <th>Name</th>
-              <th>email</th>
-              <th> job</th>
-              <th>Role</th>
-              <th>Edit</th>
+              <th className="lg:text-sm text-[8px]">Name</th>
+              <th className="lg:text-sm text-[8px]">email</th>
+              <th className="lg:text-sm text-[8px]"> job</th>
+              <th className="lg:text-sm text-[8px]">Role</th>
+              <th className="lg:text-sm text-[8px]">Edit</th>
             </tr>
           </thead>
+          
           <tbody>
             {/* row 1 */}
             {users.map((item, index) => (
               <tr key={item._id}>
-                <th>{index + 1}</th>
+                <th className="lg:text-base text-[8px]">{index + 1}</th>
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">
-                      <div className="mask mask-squircle h-12 w-12">
+                      <div className="mask mask-squircle lg:h-12 h-5 lg:w-12">
                         <img
                           src="https://img.daisyui.com/images/profile/demo/2@94.webp"
-                          alt="Avatar Tailwind CSS Component"
+                          
                         />
                       </div>
                     </div>
                     <div>
-                      <div className="font-bold">{item.userName}</div>
-                      <div className="text-sm opacity-50">United States</div>
+                      <div className="font-bold lg:text-sm text-[8px]">{item.userName}</div>
+                      <div className="lg:text-sm text-[8px] opacity-50">United States</div>
                     </div>
                   </div>
                 </td>
-                <td>{item.email}</td>
-                <td>{item.role}</td>
-                <th>
+                <td className="lg:text-sm text-[8px]">{item.email}</td>
+                <td className="lg:text-sm text-[8px]">{item.role}</td>
+                <th className="lg:text-sm text-[8px]">
                   <select
                     onChange={(e) => handleRoleChange(item, e.target.value)}
-                    className="select select-bordered w-full max-w-xs"
+                    className="select select-bordered lg:w-full lg:max-w-xs "
                     defaultValue={item.role}
                   >
                     <option value="admin">Admin</option>
@@ -129,7 +130,7 @@ const Users = () => {
                 <th>
                   <button
                     onClick={() => handledelete(item)}
-                    className="btn  bg-red-500 "
+                    className="btn p-1 bg-red-500 lg:text-sm text-[8px]"
                   >
                     Delete user
                   </button>

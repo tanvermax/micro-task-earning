@@ -105,15 +105,15 @@ const Addtask = () => {
   }
 
   return (
-    <div className=" border shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] ">
-      <div className=" mx-auto p-6 bg-white rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold mb-4">Create a Task</h2>
+    <div className=" border rounded-xl shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] ">
+      <div className=" mx-auto p-6  rounded-lg shadow-md">
+        <h2 className="lg:text-2xl text-[8px] font-bold mb-4">Create a Task</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Task Title */}
           <div className="mb-4 ">
             <label
               htmlFor="task_title"
-              className="block text-sm font-medium text-gray-700"
+              className="block lg:lg:text-sm text-[12px] ] font-medium "
             >
               Task Title
             </label>
@@ -123,11 +123,11 @@ const Addtask = () => {
               {...register("task_title", {
                 required: "Task title is required",
               })}
-              className="border p-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="border lg:p-3 p-1 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 lg:lg:text-sm text-[12px] "
               placeholder="e.g., Watch my YouTube video and make a comment"
             />
             {errors.task_title && (
-              <p className="text-red-500 text-sm mt-1">
+              <p className="text-red-500 lg:lg:text-sm text-[12px]  mt-1">
                 {errors.task_title.message}
               </p>
             )}
@@ -137,7 +137,7 @@ const Addtask = () => {
           <div className="mb-4">
             <label
               htmlFor="task_detail"
-              className="block text-sm font-medium text-gray-700"
+              className="block lg:lg:text-sm text-[12px]  font-medium "
             >
               Task Detail
             </label>
@@ -146,12 +146,12 @@ const Addtask = () => {
               {...register("task_detail", {
                 required: "Task detail is required",
               })}
-              className=" border p-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className=" border lg:p-3 p-1 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 lg:lg:text-sm text-[12px] "
               rows="4"
               placeholder="Provide a detailed description of the task"
             ></textarea>
             {errors.task_detail && (
-              <p className="text-red-500 text-sm mt-1">
+              <p className="text-red-500 lg:text-sm text-[12px] mt-1">
                 {errors.task_detail.message}
               </p>
             )}
@@ -161,7 +161,7 @@ const Addtask = () => {
           <div className="mb-4">
             <label
               htmlFor="required_workers"
-              className="block text-sm font-medium text-gray-700"
+              className="block lg:text-sm text-[12px] font-medium "
             >
               Required Workers
             </label>
@@ -172,11 +172,11 @@ const Addtask = () => {
                 required: "Number of workers is required",
                 min: 1,
               })}
-              className="border p-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="border p-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 lg:text-sm text-[12px]"
               placeholder="e.g., 100"
             />
             {errors.required_workers && (
-              <p className="text-red-500 text-sm mt-1">
+              <p className="text-red-500 lg:text-sm text-[12px] mt-1">
                 {errors.required_workers.message}
               </p>
             )}
@@ -186,7 +186,7 @@ const Addtask = () => {
           <div className="mb-4">
             <label
               htmlFor="payable_amount"
-              className="block text-sm font-medium text-gray-700"
+              className="block lg:text-sm text-[12px] font-medium "
             >
               Payable Amount
             </label>
@@ -197,11 +197,11 @@ const Addtask = () => {
                 required: "Payable amount is required",
                 min: 1,
               })}
-              className="border p-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="border p-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 lg:text-sm text-[12px]"
               placeholder="e.g., 10"
             />
             {errors.payable_amount && (
-              <p className="text-red-500 text-sm mt-1">
+              <p className="text-red-500 lg:text-sm text-[12px] mt-1">
                 {errors.payable_amount.message}
               </p>
             )}
@@ -211,7 +211,7 @@ const Addtask = () => {
           <div className="mb-4">
             <label
               htmlFor="completion_date"
-              className="block text-sm font-medium text-gray-700"
+              className="block lg:text-sm text-[12px] font-medium "
             >
               Completion Date
             </label>
@@ -221,10 +221,10 @@ const Addtask = () => {
               {...register("completion_date", {
                 required: "Completion date is required",
               })}
-              className="border mt-1 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="border mt-1 p-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 lg:text-sm text-[12px]"
             />
             {errors.completion_date && (
-              <p className="text-red-500 text-sm mt-1">
+              <p className="text-red-500 lg:text-sm text-[12px] mt-1">
                 {errors.completion_date.message}
               </p>
             )}
@@ -234,7 +234,7 @@ const Addtask = () => {
           <div className="mb-4">
             <label
               htmlFor="submission_info"
-              className="block text-sm font-medium text-gray-700"
+              className="block lg:text-sm text-[12px] font-medium "
             >
               Submission Info
             </label>
@@ -244,11 +244,11 @@ const Addtask = () => {
               {...register("submission_info", {
                 required: "Submission info is required",
               })}
-              className="border p-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="border p-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 lg:text-sm text-[12px]"
               placeholder="e.g., Screenshot/Proof"
             />
             {errors.submission_info && (
-              <p className="text-red-500 text-sm mt-1">
+              <p className="text-red-500 lg:text-sm text-[12px] mt-1">
                 {errors.submission_info.message}
               </p>
             )}
@@ -258,7 +258,7 @@ const Addtask = () => {
           <div className="mb-4">
             <label
               htmlFor="task_image_url"
-              className="block text-sm font-medium text-gray-700"
+              className="block lg:text-sm text-[12px] font-medium "
             >
               Task Image URL
             </label>
@@ -268,11 +268,11 @@ const Addtask = () => {
               {...register("task_image_url", {
                 required: "Task image URL is required",
               })}
-              className="border p-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="border p-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 lg:text-sm text-[12px]"
               placeholder="e.g., https://example.com/image.jpg"
             />
             {errors.task_image_url && (
-              <p className="text-red-500 text-sm mt-1">
+              <p className="text-red-500 lg:text-sm text-[12px] mt-1">
                 {errors.task_image_url.message}
               </p>
             )}

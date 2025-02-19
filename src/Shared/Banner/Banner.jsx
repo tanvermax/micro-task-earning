@@ -31,7 +31,7 @@ const Banner = () => {
            </div>
           </SwiperSlide>
 
-          {/* Slide 2 */}
+
           <SwiperSlide style={{ backgroundColor: "var(--sidebar-bg)" }}>
           <div className="px-20  gap-10 lg:py-28 py-10 items-center">
           <img className="lg:h-60 w-10 h-10 lg:w-60 mask mask-hexagon-2 mx-auto" src={photo2} alt="" />
@@ -45,7 +45,7 @@ const Banner = () => {
           </div>
           </SwiperSlide>
 
-          {/* Slide 3 */}
+
           <SwiperSlide style={{ backgroundColor: "var(--sidebar-bg)" }}>
           <div className="px-20 = lg:gap-10 py-10 lg:py-28 items-center">
           <img className="lg:h-60 w-10 h-10 lg:w-60 mask mask-hexagon-2 mx-auto" src={photo3} alt="" />
@@ -54,7 +54,9 @@ const Banner = () => {
               subheading={
                 "Leverage advanced tools to track progress, customize settings, and focus on what matters most—your work."
               }
-            ></Sectiontitle>
+            >
+              
+            </Sectiontitle>
           </div>
           </SwiperSlide>
         </Swiper>

@@ -83,32 +83,32 @@ const Mytask = () => {
     <div>
       <h1>my task : {task.length}</h1>
       <div>
-        <div className="px-2 overflow-x-auto max-w-[230px] md:max-w-full">
+        <div className="lg:px-2 overflow-x-auto max-w-[230px] md:max-w-full">
           <table className="table table-zebra">
             {/* head */}
             <thead>
               <tr>
                 <th></th>
-                <th>Name</th>
-                <th>Required Workers</th>
-                <th>Payable Amount</th>
-                <th>compliton date</th>
-                <th>Edit</th>
-                <th>Edit</th>
+                <th className="lg:text-sm text-[8px]">Name</th>
+                <th className="lg:text-sm text-[8px]">Required Workers</th>
+                <th className="lg:text-sm text-[8px]">Payable Amount</th>
+                <th className="lg:text-sm text-[8px]">compliton date</th>
+                <th className="lg:text-sm text-[8px]">Edit</th>
+                <th className="lg:text-sm text-[8px]">Edit</th>
               </tr>
             </thead>
             <tbody>
               {/* row 1 */}
               {sortedata.map((item, index) => (
                 <tr key={item._id}>
-                  <th>{index + 1}</th>
-                  <td>{item.taskName}</td>
-                  <td>{item.requiredWorkers}</td>
-                  <td>{item.payableAmount}</td>
-                  <td>{item.taskDate}</td>
-                  <td>
+                  <th  className="lg:text-sm text-[8px]">{index + 1}</th>
+                  <td className="lg:text-sm text-[8px]">{item.taskName}</td>
+                  <td className="lg:text-sm text-[8px]">{item.requiredWorkers}</td>
+                  <td className="lg:text-sm text-[8px]">{item.payableAmount}</td>
+                  <td className="lg:text-sm text-[8px]">{item.taskDate}</td>
+                  <td className="lg:text-sm text-[8px]">
                     <Link
-                      className="btn"
+                      className="btn lg:text-sm text-[8px]"
                       to={`/dashbord/taskupdate/${item._id}`}
                     >
                       Update
@@ -116,7 +116,7 @@ const Mytask = () => {
                   </td>
                   <td>
                     <button
-                      className="btn"
+                      className="btn lg:text-sm text-[8px]"
                       onClick={() => handledeletetask(item._id)}
                     >
                       Delete

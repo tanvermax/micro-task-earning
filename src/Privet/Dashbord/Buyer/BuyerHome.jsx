@@ -128,26 +128,26 @@ const BuyerHome = () => {
   };
   return (
     <div className="container mx-auto p-5">
-      <h1 className="text-2xl font-bold mb-5">Buyer Dashboard</h1>
+      <h1 className="lg:text-2xl text-[10px] font-bold mb-5">Buyer Dashboard</h1>
 
       {/* Stats Section */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10">
-        <div className="bg-white p-5 rounded shadow">
-          <h2 className="text-lg font-bold">Total Tasks</h2>
-          <p className="text-xl">{totalTaskCount}</p>
+        <div className=" p-5 rounded shadow">
+          <h2 className="lg:text-lg text-[8px] font-bold">Total Tasks</h2>
+          <p className="lg:text-xl text-[10px]">{totalTaskCount}</p>
         </div>
-        <div className="bg-white p-5 rounded shadow">
-          <h2 className="text-lg font-bold">Pending task</h2>
-          <p className="text-xl">{pendingTaskCount}</p>
+        <div className=" p-5 rounded shadow">
+          <h2 className="lg:text-lg text-[8px] font-bold">Pending task</h2>
+          <p className="lg:text-xl text-[10px]">{pendingTaskCount}</p>
         </div>
-        <div className="bg-white p-5 rounded shadow">
-          <h2 className="text-lg font-bold">Total Payment</h2>
-          <p className="text-xl">{totalPayment} coin</p>
+        <div className=" p-5 rounded shadow">
+          <h2 className="lg:text-lg text-[8px] font-bold">Total Payment</h2>
+          <p className="lg:text-xl text-[10px]">{totalPayment} coin</p>
         </div>
       </div>
 
       {/* Submissions Table */}
-      <div className="bg-red-400 p-5 rounded shadow max-w-[220px] md:max-w-full lg:max-w-full ">
+      <div className="bg-[#dd8f46] p-5 rounded shadow max-w-[220px] md:max-w-full lg:max-w-full ">
         <h2 className="lg:text-lg text-[8px] font-bold mb-5">
           Task Submissions
         </h2>
@@ -188,19 +188,19 @@ const BuyerHome = () => {
                 <td className="border-b py-2">
                   <button
                     onClick={() => setSelectedSubmission(submission)}
-                    className="mr-2 text-white lg:text-lg text-[8px] bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded"
+                    className="mr-2  lg:text-lg text-[8px] bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded"
                   >
                     View Submission
                   </button>
                   <button
                     onClick={() => handleApprove(submission)}
-                    className="mr-2 text-white bg-green-600 hover:bg-green-700 px-3 py-1 rounded lg:text-lg text-[8px]"
+                    className="mr-2  bg-green-600 hover:bg-green-700 px-3 py-1 rounded lg:text-lg text-[8px]"
                   >
                     Approve
                   </button>
                   <button
                     onClick={() => handleReject(submission)}
-                    className="text-white bg-red-600 hover:bg-red-700 px-3 py-1 rounded lg:text-lg text-[8px]"
+                    className=" bg-red-600 hover:bg-red-700 px-3 py-1 rounded lg:text-lg text-[8px]"
                   >
                     Reject
                   </button>
@@ -217,14 +217,14 @@ const BuyerHome = () => {
       {/* Submission Modal */}
       {selectedSubmission && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-5 rounded shadow-lg w-full max-w-md">
+          <div className=" p-5 rounded shadow-lg w-full max-w-md">
             <h2 className="text-lg font-bold mb-3">
               Submission Details for {selectedSubmission.worker_name}
             </h2>
             <p>{selectedSubmission.submission_details}</p>
             <button
               onClick={() => setSelectedSubmission(null)}
-              className="mt-5 text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded"
+              className="mt-5  bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded"
             >
               Close
             </button>

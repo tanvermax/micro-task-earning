@@ -9,9 +9,14 @@ import {
 } from "react-icons/fa";
 import useAuth from "../Provider/useAuth";
 import useAxiosSecure from "../Axios/useAxiosSecure";
-import { MdOutlineDeveloperMode, MdOutlineNightlightRound, MdSpaceDashboard } from "react-icons/md";
+import {
+  MdOutlineDeveloperMode,
+  MdOutlineNightlightRound,
+  MdSpaceDashboard,
+} from "react-icons/md";
 import { useTheme } from "../Mainlayout/ThemeProvider";
 import { WiDaySunny } from "react-icons/wi";
+import { RiHome9Line } from "react-icons/ri";
 // import userMange from "../Privet/Dashbord/userMange";////
 
 const Navber = () => {
@@ -48,7 +53,7 @@ const Navber = () => {
   const navoption = (
     <>
       <Link to={"/"} className="btn ml-2 bg-[#b1804e] border-none text-white">
-        Home
+        Home<RiHome9Line />
       </Link>
       <li className="btn ml-2 bg-[#b1804e] border-none text-white">
         <a href="https://github.com/Programming-Hero-Web-Course4/b10a12-client-side-tanvermax">
@@ -135,13 +140,13 @@ const Navber = () => {
               className="btn btn-ghost text-white lg:hidden"
             >
               {isDropdownOpen ? (
-                <FaTimes className="h-6 w-6 text-[#b1804e]" />
+                <FaTimes className="lg:h-6 lg:w-6 text-[#b1804e]" />
               ) : (
-                <FaBars className="h-6 w-6 text-[#b1804e]" />
+                <FaBars className="lg:h-6 lg:w-6 text-[#b1804e]" />
               )}
             </button>
             {isDropdownOpen && (
-              <ul className="menu menu-sm dropdown-content z-10  text-black rounded-box mt-3 w-52 p-2 shadow">
+              <ul className="menu menu-sm dropdown-content gap-2 z-10  text-black rounded-box mt-3 w-52 p-2 shadow">
                 {navoption}
               </ul>
             )}
@@ -155,19 +160,18 @@ const Navber = () => {
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{navoption}</ul>
+          <ul className="menu menu-horizontal  px-1">{navoption}</ul>
         </div>
         <div className="navbar-end flex items-center gap-4">
           {user ? (
             <>
               <div className="lg:flex gap-4 ">
                 {user.photoURL ? (
-                  <img
-                    className="lg:h-10 h-6 w-6 lg:w-10 rounded-full"
-                    src={user.photoURL}
-                  ></img>
+                  <img  className="lg:h-10 h-6 w-6 mx-auto lg:w-10 rounded-full"  src={user.photoURL}></img>
                 ) : (
+
                   <FaUserCircle className="h-6 w-6" />
+
                 )}
                 <div>
                   <p className="lg:text-base text-[6px]">{user.email}</p>
@@ -176,23 +180,27 @@ const Navber = () => {
               </div>
               <button
                 onClick={logout}
-                className="btn btn-xs lg:btn-md bg-[#b1804e] border-none hover:bg-red-600 text-black"
+                className="btn btn-xs lg:text-sm text-[8px] lg:btn-md bg-[#b1804e] border-none hover:bg-red-600 text-black"
               >
                 Log Out
               </button>
             </>
           ) : (
             <>
-              <Link to="/login" className="btn btn-sm lg:btn-md text-black">
+              <Link to="/login" className="btn btn-xs lg:btn-md bg-[#d48d30] lg:text-sm text-[8px]">
                 Log In
               </Link>
-              <Link to="/register" className="btn btn-sm lg:btn-md text-black">
+              <Link to="/register" className="btn btn-xs lg:btn-md bg-[#d48d30] lg:text-sm text-[8px]">
                 Register
               </Link>
             </>
           )}
         </div>
-        <button className="" onClick={toggleTheme} style={{ padding: "8px 16px" }}>
+        <button
+          className=""
+          onClick={toggleTheme}
+          style={{ padding: "8px 16px" }}
+        >
           {theme === "light" ? <MdOutlineNightlightRound /> : <WiDaySunny />}
         </button>
       </div>

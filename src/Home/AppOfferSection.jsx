@@ -14,7 +14,7 @@ const AppOfferSection = () => {
           initial={{ scale: 0.8 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-4xl font-bold mb-4"
+          className="lg:text-4xl font-bold mb-4"
         >
           🎉 Special Offer!
         </motion.h2>
@@ -22,7 +22,7 @@ const AppOfferSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.5 }}
-          className="text-lg mb-6"
+          className="lg:text-lg  text-[8px] mb-6"
         >
           Download our app today and get <span className="font-semibold">500 coins</span> instantly!
         </motion.p>

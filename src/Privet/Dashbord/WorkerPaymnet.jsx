@@ -55,11 +55,11 @@ const WorkerPaymnet = () => {
   };
 
   return (
-    <div className="container mx-auto lg:p-4">
-      <h1 className="text-2xl font-bold mb-4">
+    <div className="container mx-auto lg:p-4 overflow-scroll">
+      <h1 className="lg:text-2xl font-bold mb-4">
         Withdrawal Requests {withdaw.length}
       </h1>
-      <table className="lg:min-w-full table-auto">
+      <table className="lg:min-w-full table-auto " >
         <thead>
           <tr>
             <th className="lg:px-4 text-[10px] lg:text-xl lg:py-2">User</th>
@@ -69,7 +69,7 @@ const WorkerPaymnet = () => {
             <th className="lg:px-4 text-[10px] lg:text-xl lg:py-2">Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="">
           {withdaw.map((request) => (
             <tr key={request._id}>
               <td className="border text-[10px] lg:text-xl  px-4 py-2">
