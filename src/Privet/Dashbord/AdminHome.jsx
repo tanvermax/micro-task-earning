@@ -3,6 +3,7 @@ import React from "react";
 import useAxiosSecure from "../../Axios/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import WorkerPaymnet from "./WorkerPaymnet";
+import OverviewPage from "./OverviewPage";
 
 const AdminHome = () => {
   const axiosSecure = useAxiosSecure();
@@ -99,6 +100,7 @@ const AdminHome = () => {
       <div className="lg:mt-8 mt-5">
         <WorkerPaymnet />
       </div>
+      <OverviewPage></OverviewPage>
     </div>
   );
 };

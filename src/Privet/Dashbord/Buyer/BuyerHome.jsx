@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import userTask from "./userTask";
 import userSubmission from "./userSubmission";
 import { FaBitcoin } from "react-icons/fa";
+import BuyerStatsPage from "./BuyerStatsPage";
 
 const BuyerHome = () => {
   const { user } = useAuth(); // Replace with actual email from auth
@@ -128,6 +129,9 @@ const BuyerHome = () => {
   };
   return (
     <div className="container mx-auto p-5">
+      <div>
+        <BuyerStatsPage></BuyerStatsPage>
+      </div>
       <h1 className="lg:text-2xl text-[10px] font-bold mb-5">Buyer Dashboard</h1>
 
       {/* Stats Section */}

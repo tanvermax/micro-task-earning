@@ -3,6 +3,7 @@ import useAxiosSecure from "../../../Axios/useAxiosSecure";
 import useAuth from "../../../Provider/useAuth";
 import userMange from "../userMange";
 import { useQuery } from "@tanstack/react-query";
+import WorkerStatsPage from "./WorkerStatsPage";
 // import Swal from "sweetalert2";
 const WorkerHome = () => {
   const { user } = useAuth(); 
@@ -61,6 +62,9 @@ const WorkerHome = () => {
 
   return (
     <div className="container mx-auto lg:p-5 p-2">
+      <div className="py-5">
+      <WorkerStatsPage></WorkerStatsPage>
+      </div>
       <h1 className="lg:text-sm text-[8px] font-bold mb-5">Worker Dashboard</h1>
 
       {/* Stats Section */}
@@ -134,6 +138,7 @@ const WorkerHome = () => {
           </tbody>
         </table>
       </div>
+      
     </div>
   );
 };
