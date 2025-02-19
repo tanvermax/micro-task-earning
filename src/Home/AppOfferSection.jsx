@@ -14,7 +14,7 @@ const AppOfferSection = () => {
           initial={{ scale: 0.8 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="lg:text-4xl font-bold mb-4"
+          className="lg:text-4xl  font-bold mb-4"
         >
           🎉 Special Offer!
         </motion.h2>
