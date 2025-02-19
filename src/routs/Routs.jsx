@@ -22,15 +22,18 @@ import AdminHome from "../Privet/Dashbord/AdminHome";
 import AdminRouts from "../Axios/Hook/AdminRouts";
 import Paymenhistory from "../Privet/Dashbord/Buyer/Paymenhistory";
 import Aboutus from "../Home/Aboutus";
+import Erro from "./Erro";
 
 export const Routs = createBrowserRouter([
   {
     path: "/",
     element: <Mainlayout></Mainlayout>,
+    errorElement:<Erro></Erro>,
     children: [
       {
         path: "/",
         element: <Home></Home>,
+        errorElement:<Erro></Erro>,
       },
       {
         path: "dashbord",
@@ -38,70 +41,88 @@ export const Routs = createBrowserRouter([
           <PrivetRoute>
             <Dashbord></Dashbord>
           </PrivetRoute>
+
         ),
+        errorElement:<Erro></Erro>,
         children: [
           {
             path: "users",
             element: <AdminRouts><Users></Users></AdminRouts>,
+            errorElement:<Erro></Erro>,
           },{
             path:'adminhome',
-            element:<AdminRouts><AdminHome></AdminHome></AdminRouts>
+            element:<AdminRouts><AdminHome></AdminHome></AdminRouts>,
+            errorElement:<Erro></Erro>,
           },
           {
             path:'managetask',
-            element:<ManageTask></ManageTask>
+            element:<ManageTask></ManageTask>,
+            errorElement:<Erro></Erro>,
           },
           {
             path: "buyerhome",
             element: <BuyerHome></BuyerHome>,
+            errorElement:<Erro></Erro>,
           },{
             path:'workerhome',
-            element:<WorkerHome></WorkerHome>
+            element:<WorkerHome></WorkerHome>,
+            errorElement:<Erro></Erro>,
           },
           {
             path: "manageuser",
             element: <Manageuser></Manageuser>,
+            errorElement:<Erro></Erro>,
           },
           {
             path: "tasklist",
             element: <TaskList></TaskList>,
+            errorElement:<Erro></Erro>,
           },
 
           {
             path: "addtask",
             element: <Addtask></Addtask>,
+            errorElement:<Erro></Erro>,
           },
           {
             path: "mytask",
             element: <Mytask></Mytask>,
+            errorElement:<Erro></Erro>,
           },{
             path:"paymnethistory",
-            element:<Paymenhistory></Paymenhistory>
+            element:<Paymenhistory></Paymenhistory>,
+            errorElement:<Erro></Erro>,
           },
           {
             path: "purchase",
             element: <Purchase></Purchase>,
+            errorElement:<Erro></Erro>,
           },{
             path:'maysubmissioin',
             element:<Maysubmission></Maysubmission>,
+            errorElement:<Erro></Erro>,
             loader: ()=> fetch('https://micro-tasking-server.vercel.app/submitCount')
           },
           {
             path: "mytask",
             element: <Mytask></Mytask>,
+            errorElement:<Erro></Erro>,
           },{
             path:'withdraw',
-            element:<WithdrawPage></WithdrawPage>
+            element:<WithdrawPage></WithdrawPage>,
+            errorElement:<Erro></Erro>,
           },
           {
             path: "taskupdate/:id",
             element: <Taskupdate></Taskupdate>,
+            errorElement:<Erro></Erro>,
             loader: ({ params }) =>
               fetch(`https://micro-tasking-server.vercel.app/task/${params.id}`),
           },
           {
             path: "taskdetails/:id",
             element: <Taskdetails></Taskdetails>,
+            errorElement:<Erro></Erro>,
             loader: ({ params }) =>
               fetch(`https://micro-tasking-server.vercel.app/task/${params.id}`),
           },
@@ -110,14 +131,17 @@ export const Routs = createBrowserRouter([
       {
         path: "login",
         element: <Login></Login>,
+        errorElement:<Erro></Erro>,
       },
       {
         path: "register",
         element: <Register></Register>,
+        errorElement:<Erro></Erro>,
       },
       {
         path:"aboutus",
-        element:<Aboutus></Aboutus>
+        element:<Aboutus></Aboutus>,
+        errorElement:<Erro></Erro>,
       }
     ],
   },
