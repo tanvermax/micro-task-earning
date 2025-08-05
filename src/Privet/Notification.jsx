@@ -5,38 +5,30 @@ import { useState, useEffect, useRef } from "react";
 import useAuth from "../Provider/useAuth";
 
 const Notification = () => {
-  const [isOpen, setIsOpen] = useState(false); // Toggle for showing/hiding notifications
-  const popUpRef = useRef(null); // Reference for the pop-up
+  const [isOpen, setIsOpen] = useState(false);
+  const popUpRef = useRef(null);
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
   const { data: notofi = [], refetch } = useQuery({
-    queryKey: ["notofi"], // Unique key for caching and identifying the query
+    queryKey: ["notofi"],
     queryFn: async () => {
       const response = await axiosSecure.get(`/newnotificatio`);
       const userNotifications = response.data.filter(
         (item) => item.woekermail === user.email
       );
-      // Sort notifications in descending order based on the date
       return userNotifications.sort(
-        (a, b) => new Date(b.timestamp) - new Date(a.timestamp) // Assuming the field is 'timestamp'
-      ); // Filter notifications for the logged-in user
+        (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
+      );
     },
   });
 
-  // Toggle the notification pop-up
-  const toggleNotifications = () => {
-    setIsOpen(!isOpen);
-  };
-
-  // Close the pop-up when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (popUpRef.current && !popUpRef.current.contains(event.target)) {
         setIsOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -44,45 +36,51 @@ const Notification = () => {
   }, []);
 
   return (
-    <div className="items-center lg:w-32 relative -left-11 lg:block">
+    <div className="relative">
       <div className="relative">
-        <div className="indicator">
-          <span className="indicator-item badge bg-[#d18125] lg:text-sm text-[8px] p-1 lg:p-5 ">
-            {notofi.length}
-          </span>
-          <button onClick={toggleNotifications}>
-            <IoIosNotifications className="ml-10 lg:text-5xl text-2xl" />
-          </button>
-        </div>
+        <button onClick={() => setIsOpen(!isOpen)} className="relative">
+          <IoIosNotifications className="text-3xl text-gray-700 hover:text-black transition duration-150" />
+          {notofi.length > 0 && (
+            <span className="absolute -top-1 -right-1 text-[10px] bg-red-600 text-white px-1.5 py-0.5 rounded-full">
+              {notofi.length}
+            </span>
+          )}
+        </button>
 
-        {/* Notification Floating Pop-Up */}
         {isOpen && (
           <div
             ref={popUpRef}
-            className="absolute lg:top-12 lg:right-0 -right-5 bg-white shadow-lg border rounded-lg lg:w-72 lg:p-4 z-50"
+            className="absolute right-0 mt-3 bg-white border border-gray-200 shadow-md rounded-md z-50"
           >
-            {notofi.length > 0 ? (
-              <ul>
-                {notofi.map((notification, index) => (
-                  <li
-                    key={index}
-                    className="p-2 border-b last:border-b-0 hover:bg-gray-100 cursor-pointer"
-                  >
-                    <h4 className="font-semibold lg:text-sm text-[8px]">
-                      {notification.workermessage || "Notification"}
-                    </h4>
-                    <p className="lg:text-sm text-[8px] text-gray-600">
-                      {notification.woekermail || "Details not available"}
-                    </p>
-                    <p className="lg:text-sm text-[8px] text-gray-600">
-                      {notification.data}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-gray-500">No new notifications</p>
-            )}
+            <div className="px-4 py-3 border-b font-semibold text-gray-700">
+              Notifications
+            </div>
+            <div className="max-h-80 overflow-y-auto">
+              {notofi.length > 0 ? (
+                <ul className="divide-y divide-gray-200">
+                  {notofi.map((notification, index) => (
+                    <li
+                      key={index}
+                      className="px-4 py-3 hover:bg-gray-50 transition text-sm"
+                    >
+                      <div className="font-medium text-gray-800 mb-1">
+                        {notification.workermessage || "Notification"}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {notification.woekermail}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {notification.data}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className="px-4 py-6 text-sm text-center text-gray-500">
+                  No new notifications
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>

@@ -21,7 +21,7 @@ export default function OverviewPage() {
   return (
     <div className="flex flex-col items-center justify-center   text-center lg:p-6">
       <motion.h1
-        className="text-4xl text-[#b1804e]  font-bold lg:mb-4"
+        className="text-4xl    font-bold lg:mb-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -31,7 +31,7 @@ export default function OverviewPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
         <div className=" p-6 rounded-lg shadow-lg border">
-          <h2 className="text-xl text-[#b1804e] font-semibold mb-2">Task Trend</h2>
+          <h2 className="text-xl   font-semibold mb-2">Task Trend</h2>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={data}>
               <XAxis dataKey="name" stroke="#b1804e" />
@@ -43,7 +43,7 @@ export default function OverviewPage() {
         </div>
 
         <div className=" p-6 rounded-lg shadow-lg border">
-          <h2 className="text-xl font-semibold mb-2 text-[#b1804e] ">Revenue Distribution</h2>
+          <h2 className="text-xl font-semibold mb-2   ">Revenue Distribution</h2>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={data2}>
               <XAxis dataKey="name" stroke="#b1804e" />

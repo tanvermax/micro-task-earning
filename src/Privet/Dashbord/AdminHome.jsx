@@ -59,22 +59,22 @@ const AdminHome = () => {
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-10">
-      <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold mb-8 text-center text-[#b1804e] ">
+      <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold mb-8 text-center   ">
         Admin Dashboard
       </h1>
 
       <div className="grid  grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
         {/* Total Workers */}
         <div className="bg-white shadow p-1 sm:p-6 lg:p-8 rounded-lg">
-          <h2 className="text-[8px] sm:text-xl font-semibold mb-2 text-[#b1804e]">Total Workers</h2>
-          <p className="text-[10px] sm:text-2xl lg:text-3xl font-bold text-[#b1804e]">
+          <h2 className="text-[8px] sm:text-xl font-semibold mb-2  ">Total Workers</h2>
+          <p className="text-[10px] sm:text-2xl lg:text-3xl font-bold  ">
             {wokerdata.length}
           </p>
         </div>
 
         {/* Total Buyers */}
         <div className="bg-white shadow p-1 sm:p-6 lg:p-8 rounded-lg">
-          <h2 className="text-[8px] sm:text-xl font-semibold mb-2 text-[#b1804e]">Total Buyers</h2>
+          <h2 className="text-[8px] sm:text-xl font-semibold mb-2  ">Total Buyers</h2>
           <p className="text-[10px] sm:text-2xl lg:text-3xl font-bold text-green-600">
             {Buyerdata.length}
           </p>
@@ -82,7 +82,7 @@ const AdminHome = () => {
 
         {/* Total Coins */}
         <div className="bg-white shadow p-1 sm:p-6 lg:p-8 rounded-lg">
-          <h2 className="text-[8px] sm:text-xl font-semibold mb-2 text-[#b1804e]">Total Coins</h2>
+          <h2 className="text-[8px] sm:text-xl font-semibold mb-2  ">Total Coins</h2>
           <p className="text-[10px] sm:text-2xl lg:text-3xl font-bold text-yellow-600">
             {totalCoins}
           </p>
@@ -90,7 +90,7 @@ const AdminHome = () => {
 
         {/* Total Payments */}
         <div className="bg-white shadow p-1 sm:p-6 lg:p-8 rounded-lg">
-          <h2 className="text-[8px] sm:text-xl font-semibold mb-2 text-[#b1804e]">Total Payments</h2>
+          <h2 className="text-[8px] sm:text-xl font-semibold mb-2  ">Total Payments</h2>
           <p className="text-[10px] sm:text-2xl lg:text-3xl font-bold text-red-600">
             {totalpaymnetcoin} $
           </p>

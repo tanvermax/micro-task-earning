@@ -1,66 +1,69 @@
 import React from "react";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper-bundle.css"; // Import Swiper styles
-import Sectiontitle from "./Sectiontitle";
-import photo1 from './../../assets/photo1.jpg'
-import photo2 from './../../assets/photo23.jpg'
-import photo3 from './../../assets/photo54.jpg'
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import "swiper/swiper-bundle.css";
+
+import SectionTitle from "./Sectiontitle";
+import photo1 from "../../assets/photo1.jpg";
+import photo2 from "../../assets/photo23.jpg";
+import photo3 from "../../assets/photo54.jpg";
+import GlowButton from './glow-button'
+const slides = [
+  {
+    id: 1,
+    image: photo1,
+    heading: "Track Your Submissions Effortlessly",
+    subheading:
+      "Stay organized with real-time updates on your tasks, payments, and statuses—all in one place.",
+  },
+  {
+    id: 2,
+    image: photo2,
+    heading: "Empowering Workers and Buyers Alike",
+    subheading:
+      "Seamlessly manage submissions, approvals, and payouts with an intuitive dashboard designed for everyone.",
+  },
+  {
+    id: 3,
+    image: photo3,
+    heading: "Maximize Your Productivity",
+    subheading:
+      "Leverage advanced tools to track progress, customize settings, and focus on what matters most—your work.",
+  },
+];
+
 const Banner = () => {
   return (
-    <div className=" ">
-      <div className="">
-        <Swiper
-          modules={[Navigation, Pagination, Autoplay]}
-          navigation
-          pagination={{ clickable: true }}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
-          loop
-          className="h-full "
-        >
-          {/* Slide 1 */}
-          <SwiperSlide  style={{ backgroundColor: "var(--sidebar-bg)" }}>
-           <div className="px-20  gap-10 lg:py-28 py-10  items-center">
-           <img className="lg:h-60 w-10 h-10 mx-auto lg:w-60 mask mask-hexagon-2" src={photo1} alt="" />
-            <Sectiontitle
-              heading={"Track Your Submissions Effortlessly"}
-              subheading={
-                "Stay organized with real-time updates on your tasks, payments, and statuses—all in one place."
-              }
-            ></Sectiontitle>
-           </div>
-          </SwiperSlide>
-
-
-          <SwiperSlide style={{ backgroundColor: "var(--sidebar-bg)" }}>
-          <div className="px-20  gap-10 lg:py-28 py-10 items-center">
-          <img className="lg:h-60 w-10 h-10 lg:w-60 mask mask-hexagon-2 mx-auto" src={photo2} alt="" />
-            <Sectiontitle
-              heading={"Empowering Workers and Buyers Alike"}
-              
-              subheading={
-                "Seamlessly manage submissions, approvals, and payouts with an intuitive dashboard designed for everyone."
-              }
-            ></Sectiontitle>
-          </div>
-          </SwiperSlide>
-
-
-          <SwiperSlide style={{ backgroundColor: "var(--sidebar-bg)" }}>
-          <div className="px-20 = lg:gap-10 py-10 lg:py-28 items-center">
-          <img className="lg:h-60 w-10 h-10 lg:w-60 mask mask-hexagon-2 mx-auto" src={photo3} alt="" />
-            <Sectiontitle
-              heading={"Maximize Your Productivity"}
-              subheading={
-                "Leverage advanced tools to track progress, customize settings, and focus on what matters most—your work."
-              }
+    <div className="relative bottom-28">
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay]}
+        navigation
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        loop
+        className="h-full"
+      >
+        {slides.map(({ id, image, heading, subheading }) => (
+          <SwiperSlide key={id}>
+            <div
+              className="relative bg-cover bg-center bg-no-repeat h-[400px] lg:h-[800px] flex items-center justify-center px-4 lg:px-20"
+              style={{ backgroundImage: `url(${image})` }}
             >
-              
-            </Sectiontitle>
-          </div>
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-black bg-opacity-50 z-0" />
+
+              {/* Content */}
+              <div className="relative   z-10 text-center item-center text-white max-w-3xl mx-auto">
+                <SectionTitle heading={heading} subheading={subheading} />
+                {/* <GlowButton variant="blue">Blue Glow</GlowButton> */}
+                <div className=" w-52 py-10 mx-auto">
+                  <GlowButton variant="green">Success</GlowButton>
+                </div>
+              </div>
+            </div>
           </SwiperSlide>
-        </Swiper>
-      </div>
+        ))}
+      </Swiper>
     </div>
   );
 };
