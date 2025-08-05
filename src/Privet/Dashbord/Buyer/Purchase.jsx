@@ -7,7 +7,6 @@ const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GET);
 const Purchase = () => {
   return (
     <div>
-      <h1>Purchase Coins</h1>
 
       <Elements stripe={stripePromise}>
         <Cheakouform></Cheakouform>

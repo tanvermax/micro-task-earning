@@ -3,23 +3,19 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Axios/useAxiosSecure";
 import useAuth from "../../../Provider/useAuth";
 import userMange from "../userMange";
-import { data } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Cheakouform = () => {
   const stripe = useStripe();
   const element = useElements();
   const { user } = useAuth();
-  const [userData,refetch] = userMange(); // User information
-  const axiosSecure = useAxiosSecure(); // Secure Axios instance
+  const [userData, refetch] = userMange();
+  const axiosSecure = useAxiosSecure();
+
   const [error, setError] = useState("");
   const [transictionid, setTransictionId] = useState("");
   const [clientSecret, setClientSecret] = useState("");
-  const [processing, setProcessing] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [price, setPrice] = useState(1);
-  const [coinAmount, setCoinAmount] = useState(10);
-  // console.log(userData);
 
   const priceToCoinMap = {
     1: 10,
@@ -27,14 +23,12 @@ const Cheakouform = () => {
     20: 500,
     35: 1000,
   };
+
   useEffect(() => {
-    // Create a payment intent when the component loads
     if (price) {
       axiosSecure
-        .post("/createpaymentintent", { price: parseInt(price) }) // Convert dollars to cents
+        .post("/createpaymentintent", { price: parseInt(price) })
         .then((res) => {
-          // console.log(res.data.clientSecret);
-
           setClientSecret(res.data.clientSecret);
         })
         .catch((err) => console.error("Error creating payment intent:", err));
@@ -43,110 +37,92 @@ const Cheakouform = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!stripe || !element) {
-      console.log("go away");
-      return;
-    }
+    if (!stripe || !element) return;
+
     const card = element.getElement(CardElement);
-    if (!card) {
-      return;
-    }
-    // Use your card Element with other Stripe.js APIs
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    if (!card) return;
+
+    const { error: cardError, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
-    if (error) {
-      console.log("payment error", error);
-      setError(error.message);
+
+    if (cardError) {
+      setError(cardError.message);
+      return;
     } else {
-      console.log("payment method", paymentMethod);
       setError("");
     }
 
-    const { error: confirmerror, paymentIntent } =
-      await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: card,
-          billing_details: {
-            email: user.email || "anonymous",
-            name: user.displayName || "janina",
-          },
+    const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card,
+        billing_details: {
+          email: user.email || "anonymous",
+          name: user.displayName || "Guest User",
         },
-      });
-    if (confirmerror) {
-      console.log("confirmerror", error);
-      setError(error.message);
-    } else {
-      console.log("paymentMethod", paymentIntent);
-      if (paymentIntent.status === "succeeded") {
-        console.log("transiction id", paymentIntent.id);
-        setTransictionId(paymentIntent.id);
+      },
+    });
 
-        const coinToadd = priceToCoinMap[price] || 0;
-        const updatecoins = (userData.coins || 0) + coinToadd;
-        // setUserData({ ...userData, coins: updatecoins });
+    if (confirmError) {
+      setError(confirmError.message);
+      return;
+    }
 
-        axiosSecure
+    if (paymentIntent.status === "succeeded") {
+      const coinToAdd = priceToCoinMap[price] || 0;
+      const updatedCoins = (userData.coins || 0) + coinToAdd;
+
+      axiosSecure
         .patch("/users", {
-            email: user.email,
-            coins: updatecoins,
-          })
-          .then((res) => {
-            console.log(res.data.message);
-            const postData={
-              
-                transitsection_id: paymentIntent.id,
-                transittuserName : user.displayName,
-                trasnsituseEmail : user.email,
-                trasitTIme : new Date() ,
-                coinbuyed : coinToadd,
-                moneyforcoin : price,
-              
+          email: user.email,
+          coins: updatedCoins,
+        })
+        .then(() => {
+          const postData = {
+            transitsection_id: paymentIntent.id,
+            transittuserName: user.displayName,
+            trasnsituseEmail: user.email,
+            trasitTIme: new Date(),
+            coinbuyed: coinToAdd,
+            moneyforcoin: price,
+          };
+
+          axiosSecure.post("/transit", postData).then((res) => {
+            if (res.data.acknowledged) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Transaction successful!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
             }
-            axiosSecure.post('/transit',postData)
-            .then(res=>{
-              console.log("transit Data posted successfully:", res.data);
-              if (res.data.acknowledged) {
-                Swal.fire({
-                  position: "top-end",
-                  icon: "success",
-                  title: "Your Transiction has been success",
-                  showConfirmButton: false,
-                  timer: 1500
-                });
-              }
-            })
-            .catch((err) => {
-              console.error("Error posting data:", err.response?.data || err.message);
-            });            
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Your Transiction has been success",
-              showConfirmButton: false,
-              timer: 1500
-            });
           });
-      }
+        });
+
+      setTransictionId(paymentIntent.id);
       setError("");
     }
   };
 
   return (
-    <>
-      <div className="mb-4">
-        <h3>Select Payment Amount:</h3>
-        <div className="grid grid-cols-2 gap-5 p-5">
+    <div className="max-w-xl mx-auto bg-gradient-to-br from-white via-gray-100 to-gray-200 shadow-2xl rounded-2xl p-8 mt-10 border">
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
+        Purchase Coins
+      </h2>
+
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold text-gray-700 mb-3">Select Payment Amount:</h3>
+        <div className="grid grid-cols-2 gap-4">
           {[1, 10, 20, 35].map((value) => (
             <button
               key={value}
-              onClick={() => {
-                setPrice(value);
-                setCoinAmount(priceToCoinMap[value]);
-              }}
-              className={`px-4 py-5  border rounded  ${
-                price === value ? "bg-blue-500 text-white" : "bg-gray-200"
+              onClick={() => setPrice(value)}
+              className={`w-full py-4 text-lg font-medium rounded-lg border transition duration-200 ${
+                price === value
+                  ? "bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-md"
+                  : "bg-gray-100 hover:bg-gray-200 text-gray-700"
               }`}
             >
               ${value} = {priceToCoinMap[value]} coins
@@ -154,37 +130,40 @@ const Cheakouform = () => {
           ))}
         </div>
       </div>
-      <form onSubmit={handleSubmit}>
-        <CardElement
-          options={{
-            style: {
-              base: {
-                fontSize: "16px",
-                color: "#424770",
-                "::placeholder": { color: "#aab7c4" },
-              },
-              invalid: { color: "#9e2146" },
-            },
-          }}
-        />
 
-        {error && <p className="text-red-700">{error}</p>}
-        {success && <p className="text-green-700">Payment successful!</p>}
+      <form onSubmit={handleSubmit}>
+        <div className="bg-white rounded-lg p-4 shadow-inner mb-4">
+          <CardElement
+            options={{
+              style: {
+                base: {
+                  fontSize: "16px",
+                  color: "#424770",
+                  "::placeholder": { color: "#aab7c4" },
+                },
+                invalid: { color: "#9e2146" },
+              },
+            }}
+          />
+        </div>
+
+        {error && <p className="text-red-600 mb-2 font-medium">{error}</p>}
 
         <button
-          className="btn btn-xl text-xl my-10 btn-primary"
           type="submit"
           disabled={!stripe || !clientSecret}
+          className="w-full py-3 text-xl font-semibold text-white rounded-lg bg-gradient-to-r from-[#bffa35] to-[#3e479c] hover:from-[#9c6c3e] hover:to-[#6db14e] transition duration-200"
         >
-          pay {price}$
+          Pay ${price}
         </button>
+
         {transictionid && (
-          <p className="text-green-500">
-            your transiction id : {transictionid}
+          <p className="mt-4 text-green-600 font-medium">
+            Transaction ID: <span className="break-words">{transictionid}</span>
           </p>
         )}
       </form>
-    </>
+    </div>
   );
 };
 
