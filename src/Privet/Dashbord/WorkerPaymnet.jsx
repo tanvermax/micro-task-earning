@@ -9,39 +9,28 @@ const WorkerPaymnet = () => {
   const axiosSecure = useAxiosSecure();
 
   const { data: withdaw = [], refetch } = useQuery({
-    queryKey: ["workerSubmissions", user.email], // Unique key for caching
+    queryKey: ["workerSubmissions", user.email],
     queryFn: async () => {
       const response = await axiosSecure.get("/withdrawals");
-      // console.log("API Response Data:", response.data); // Logs the raw API response
       return response.data.filter((item) => item.status === "pending");
     },
   });
-// console.log(withdaw);
-
 
   const handleApprove = (request) => {
-    // console.log(request._id);
-    axiosSecure.patch(`/withdrawals/${request._id}`)
-    .then((res) => {
-      console.log(res.data);
+    axiosSecure.patch(`/withdrawals/${request._id}`).then((res) => {
       if (res.data) {
         axiosSecure
           .post("/newnotificatio", {
-            workermessage: `GOOD NEWS,You have earned ${
-              request.withdrawal_amount
-            } doller  in ${
-              request.payment_system
-            }`,
+            workermessage: `GOOD NEWS, You have earned ${request.withdrawal_amount} dollar via ${request.payment_system}`,
             woekermail: request.worker_email,
             data: new Date(),
           })
           .then((res) => {
-            // console.log(res.data);
             if (res.data.acknowledged) {
               Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Your work has been saved",
+                title: "Payment Approved",
                 showConfirmButton: false,
                 timer: 1500,
               });
@@ -49,55 +38,53 @@ const WorkerPaymnet = () => {
             }
           });
       }
-
-      refetch();
     });
   };
 
   return (
-    <div className="container mx-auto lg:p-4 overflow-scroll">
-      <h1 className="lg:text-2xl font-bold mb-4">
-        Withdrawal Requests {withdaw.length}
-      </h1>
-      <table className="lg:min-w-full table-auto " >
-        <thead>
-          <tr>
-            <th className="lg:px-4 text-[10px] lg:text-xl lg:py-2">User</th>
-            <th className="lg:px-4 text-[10px] lg:text-xl lg:py-2">Amount</th>
-            <th className="lg:px-4 text-[10px] lg:text-xl lg:py-2">Method</th>
-            <th className="lg:px-4 text-[10px] lg:text-xl lg:py-2">Status</th>
-            <th className="lg:px-4 text-[10px] lg:text-xl lg:py-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody className="">
-          {withdaw.map((request) => (
-            <tr key={request._id}>
-              <td className="border text-[10px] lg:text-xl  px-4 py-2">
-                {request.worker_email}
-              </td>
-              <td className="border text-[10px] lg:text-xl px-4 py-2">
-                {request.withdrawal_coin}
-              </td>
-              <td className="border text-[10px] lg:text-xl px-4 py-2">
-                {request.payment_system}
-              </td>
-              <td className="border text-[10px] lg:text-xl px-4 py-2">
-                {request.status}
-              </td>
-              <td className="border text-[10px] lg:text-xl px-4 py-2">
-                {request.status === "pending" && (
-                  <button
-                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                    onClick={() => handleApprove(request)}
-                  >
-                    payment success
-                  </button>
-                )}
-              </td>
+    <div className="container mx-auto px-4 lg:px-8 py-6">
+      <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">
+        Withdrawal Requests ({withdaw.length})
+      </h2>
+
+      <div className="overflow-x-auto rounded-lg shadow border border-gray-200 dark:border-gray-700">
+        <table className="min-w-full table-auto bg-white dark:bg-gray-900">
+          <thead className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+            <tr>
+              <th className="px-4 py-3 text-left text-sm font-semibold">User</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold">Amount</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold">Method</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold">Status</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold">Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody className="text-sm text-gray-800 dark:text-gray-200 divide-y divide-gray-200 dark:divide-gray-700">
+            {withdaw.map((request) => (
+              <tr key={request._id} className="hover:bg-gray-50 dark:hover:bg-gray-800 transition">
+                <td className="px-4 py-3">{request.worker_email}</td>
+                <td className="px-4 py-3 font-semibold">{request.withdrawal_coin}</td>
+                <td className="px-4 py-3 capitalize">{request.payment_system}</td>
+                <td className="px-4 py-3">
+                  <span className="inline-block px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">
+                    {request.status}
+                  </span>
+                </td>
+                <td className="px-4 py-3">
+                  {request.status === "pending" && (
+                    <button
+                      onClick={() => handleApprove(request)}
+                      className="bg-green-600 hover:bg-green-700 text-white font-semibold text-sm px-4 py-2 rounded-md transition"
+                    >
+                      Approve
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

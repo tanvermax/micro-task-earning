@@ -3,7 +3,7 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import {
   FaBitcoin, FaHome, FaTasks, FaUserShield,
 } from "react-icons/fa";
-import { MdAdminPanelSettings, MdOutlineMonetizationOn, MdTask, MdOutlineSecurity, MdOutlineSupportAgent } from "react-icons/md";
+import { MdAdminPanelSettings, MdOutlineMonetizationOn, MdTask, MdOutlineSecurity, MdOutlineSupportAgent, MdOutlineMedicalServices, MdManageAccounts, MdOutlineQueryStats } from "react-icons/md";
 import { PiHandWithdrawFill } from "react-icons/pi";
 import { RiSecurePaymentFill } from "react-icons/ri";
 import { GoFileSubmodule } from "react-icons/go";
@@ -41,6 +41,9 @@ const Dashbord = () => {
               <SidebarLink to="/dashbord/adminhome" icon={<MdAdminPanelSettings />} label="Admin Home" />
               <SidebarLink to="/dashbord/users" icon={<FaUserShield />} label="Manage Users" />
               <SidebarLink to="/dashbord/managetask" icon={<MdTask />} label="Manage Task" />
+              <SidebarLink to="/dashbord/supportservice" icon={<MdOutlineMedicalServices />} label="Support Service" />
+              <SidebarLink to="/dashbord/accountrequest" icon={<MdManageAccounts />} label="Account Request approval" />
+              <SidebarLink to="/dashbord/salesandbussines" icon={<MdOutlineQueryStats />} label="Sales and Bussines" />
             </>
           )}
 
