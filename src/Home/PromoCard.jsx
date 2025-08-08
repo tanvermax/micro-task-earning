@@ -1,4 +1,5 @@
 import React from "react";
+import SimpleGradientButton from "../Shared/Banner/glow-button";
 
 const PromoCard = () => {
   return (
@@ -18,9 +19,17 @@ const PromoCard = () => {
 
         {/* Right Button */}
         <div className="lg:p-6 flex justify-center items-center">
-          <button className="bg-[#b1804e] text-white px-6 py-3 text-lg font-semibold rounded-lg shadow-md hover:bg-red-600 focus:ring-4 focus:ring-red-300">
-            Get Started Now
-          </button>
+          <SimpleGradientButton
+                    colors={{
+                      base: { from: "#000000", via: "#4F46E5", to: "#9333EA" },
+                      hover: { from: "#4F46E5", via: "#000000", to: "#EF4444" },
+                      focusRing: "#48acca",
+                    }}
+                    onClick={() => alert("Clicked!")}
+                  >
+                    Get Started Now
+                  </SimpleGradientButton>
+         
         </div>
       </div>
     </div>

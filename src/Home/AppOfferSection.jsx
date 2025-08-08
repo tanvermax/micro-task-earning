@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import SimpleGradientButton from "../Shared/Banner/glow-button";
 
 const AppOfferSection = () => {
   return (
@@ -28,17 +29,17 @@ const AppOfferSection = () => {
           Download our app and get <span className="font-semibold">500 coins</span> instantly!
         </motion.p>
 
-        <motion.button
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          onClick={() => window.open("https://app-download-link.com", "_blank")}
-          className="bg-white text-[#43959b] font-semibold px-6 py-2 rounded-full shadow hover:bg-gray-100 transition"
+        <SimpleGradientButton
+          colors={{
+            base: { from: "#000000", via: "#4F46E5", to: "#9333EA" },
+            hover: { from: "#4F46E5", via: "#000000", to: "#EF4444" },
+            focusRing: "#48acca",
+          }}
+          onClick={() => alert("Clicked!")}
         >
-          Download Now
-        </motion.button>
+          Download App
+        </SimpleGradientButton>
 
-      
       </motion.div>
     </section>
   );

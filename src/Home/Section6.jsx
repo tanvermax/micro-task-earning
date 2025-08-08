@@ -1,4 +1,5 @@
 import React from "react";
+import SimpleGradientButton from "../Shared/Banner/glow-button";
 
 const jobs = [
   {
@@ -74,9 +75,17 @@ const Section6 = () => {
       </div>
 
       <div className="text-center mt-10">
-        <button className="px-6 py-3 bg-[#ddbd9d] text-black font-medium rounded-lg hover:bg-red-600 transition duration-300">
+        <SimpleGradientButton
+          colors={{
+            base: { from: "#000000", via: "#4F46E5", to: "#9333EA" },
+            hover: { from: "#4F46E5", via: "#000000", to: "#EF4444" },
+            focusRing: "#48acca",
+          }}
+          onClick={() => alert("Clicked!")}
+        >
           View All
-        </button>
+        </SimpleGradientButton>
+       
       </div>
     </section>
   );

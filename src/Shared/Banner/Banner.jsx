@@ -7,7 +7,7 @@ import SectionTitle from "./Sectiontitle";
 import photo1 from "../../assets/photo1.jpg";
 import photo2 from "../../assets/photo23.jpg";
 import photo3 from "../../assets/photo54.jpg";
-import GlowButton from './glow-button'
+import SimpleGradientButton from "./glow-button";
 const slides = [
   {
     id: 1,
@@ -57,7 +57,16 @@ const Banner = () => {
                 <SectionTitle heading={heading} subheading={subheading} />
                 {/* <GlowButton variant="blue">Blue Glow</GlowButton> */}
                 <div className=" w-52 py-10 mx-auto">
-                  <GlowButton variant="green">Success</GlowButton>
+                  <SimpleGradientButton
+                    colors={{
+                      base: { from: "#000000", via: "#4F46E5", to: "#9333EA" },
+                      hover: { from: "#4F46E5", via: "#000000", to: "#EF4444" },
+                      focusRing: "#48acca",
+                    }}
+                    onClick={() => alert("Clicked!")}
+                  >
+                    Join_With_Us
+                  </SimpleGradientButton>
                 </div>
               </div>
             </div>

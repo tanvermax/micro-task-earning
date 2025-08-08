@@ -1,4 +1,5 @@
 import React from "react";
+import SimpleGradientButton from "../Shared/Banner/glow-button";
 
 const Newsletter = () => {
   return (
@@ -18,9 +19,17 @@ const Newsletter = () => {
             placeholder="Enter your email"
             className="w-full bg-transparent lg:py-4 px-2 text-gray-800 text-base border-none outline-none"
           />
-          <button className="bg-[#000000] hover:bg-gray-800 text-[#19d1e9] text-base font-semibold py-4 px-4 sm:px-8 rounded-xl focus:outline-none">
+          <SimpleGradientButton
+            colors={{
+              base: { from: "#000000", via: "#4F46E5", to: "#9333EA" },
+              hover: { from: "#4F46E5", via: "#000000", to: "#EF4444" },
+              focusRing: "#48acca",
+            }}
+            onClick={() => alert("Clicked!")}
+          >
             Subscribe
-          </button>
+          </SimpleGradientButton>
+
         </div>
       </div>
     </div>
