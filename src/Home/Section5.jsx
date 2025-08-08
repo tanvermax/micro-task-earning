@@ -1,17 +1,29 @@
-import React from 'react';
-import SimpleGradientButton from '../Shared/Banner/glow-button';
+import React from "react";
+import { motion } from "framer-motion";
+import SimpleGradientButton from "../Shared/Banner/glow-button";
 
 const Section5 = () => {
   return (
-    <div className="grid md:grid-cols-2 gap-8 px-6 md:px-20 py-12 " style={{ backgroundColor: "var(--sidebar-bg)" }}>
+    <div
+      className="grid md:grid-cols-2 gap-8 px-6 md:px-20 py-16 bg-gradient-to-br from-gray-50 via-white to-gray-100"
+    >
       {/* Left Section */}
-      <div className="bg-[#ddbd9d] text-white rounded-lg p-8 shadow-lg">
+      <motion.div
+        initial={{ opacity: 0, x: -40 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6 }}
+        whileHover={{ y: -5 }}
+        className="bg-[#030303] text-white rounded-xl p-8 shadow-xl hover:shadow-2xl transition-all"
+      >
         <h2 className="text-3xl font-bold mb-4">
-          Micro Tasks - Deliver Work Make Money: This is how:
+          Micro Tasks - Deliver Work, Make Money: This is How
         </h2>
-        <div className="h-1 w-16 bg-red-500 mb-6"></div>
-        <p className="mb-6">
-          Take surveys, download apps, play games, or follow social media apps. Picoworkers offers a diverse range of options to boost your income. Whether you are a student, freelancer, or stay-at-home parent, our platform connects you with employers quickly and safely with a seamless payment experience. Register now!
+        <div className="h-1 w-16 bg-red-500 mb-6 rounded-full"></div>
+        <p className="mb-6 text-gray-300 leading-relaxed">
+          Take surveys, download apps, play games, or follow social media apps.
+          Our platform offers diverse ways to boost your income—perfect for
+          students, freelancers, or stay-at-home parents. Connect with employers
+          safely and get paid seamlessly. Register now and start earning today!
         </p>
         <SimpleGradientButton
           colors={{
@@ -19,21 +31,29 @@ const Section5 = () => {
             hover: { from: "#4F46E5", via: "#000000", to: "#EF4444" },
             focusRing: "#48acca",
           }}
-          onClick={() => alert("Clicked!")}
+          onClick={() => alert("Find A Job clicked!")}
         >
           Find A Job
         </SimpleGradientButton>
-
-      </div>
+      </motion.div>
 
       {/* Right Section */}
-      <div className="bg-white text-gray-900 rounded-lg p-8 shadow-lg">
+      <motion.div
+        initial={{ opacity: 0, x: 40 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6 }}
+        whileHover={{ y: -5 }}
+        className="bg-white text-gray-900 rounded-xl p-8 shadow-xl hover:shadow-2xl transition-all"
+      >
         <h2 className="text-3xl font-bold mb-4">
-          Hire Talent in Minutes, and Get Work Done
+          Hire Talent in Minutes & Get Work Done
         </h2>
-        <div className="h-1 w-16 bg-red-500 mb-6"></div>
-        <p className="mb-6">
-          Whether you are a company or an individual, crowdsource talent for your micro jobs and start getting it done in minutes. App testing, surveys, promoting social media, or getting sign-ups—get it done with Picoworkers. One platform for all your needs; sign up now and start creating a job!
+        <div className="h-1 w-16 bg-red-500 mb-6 rounded-full"></div>
+        <p className="mb-6 text-gray-600 leading-relaxed">
+          Whether you’re a company or an individual, crowdsource talent for your
+          micro jobs and get it done fast—app testing, surveys, social media
+          promotion, or sign-ups. One platform for all your needs. Sign up and
+          start creating a job today!
         </p>
         <SimpleGradientButton
           colors={{
@@ -41,12 +61,11 @@ const Section5 = () => {
             hover: { from: "red", via: "#000000", to: "#EF4444" },
             focusRing: "#48acca",
           }}
-          onClick={() => alert("Clicked!")}
+          onClick={() => alert("Post A Job clicked!")}
         >
-          <span className='text-black'>Post A Job</span>
+          <span className="text-black">Post A Job</span>
         </SimpleGradientButton>
-       
-      </div>
+      </motion.div>
     </div>
   );
 };
