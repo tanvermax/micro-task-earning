@@ -1,8 +1,13 @@
 import React from "react";
 import useTask from "../Buyer/useTask";
 import { useNavigate } from "react-router-dom";
+import userMange from "../userMange";
+
 
 const TaskList = () => {
+  const [userData] = userMange();
+
+
   const [task] = useTask();
   const navigate = useNavigate();
 
@@ -10,6 +15,12 @@ const TaskList = () => {
     .sort((a, b) => a.payableAmount - b.payableAmount)
     .filter((item) => item.requiredWorkers > 0);
 
+      const filteredTasks = sortedTasks.filter(item =>
+    userData.categories?.includes(item.taskCategory)
+  );
+console.log("filteredTasks",filteredTasks)
+  console.log(task)
+  console.log(userData.categories)
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-10 bg-gradient-to-r from-blue-500 to-indigo-500 text-transparent bg-clip-text">
@@ -17,7 +28,7 @@ const TaskList = () => {
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {sortedTasks.map((item) => (
+        {filteredTasks.map((item) => (
           <div
             key={item._id}
             className="bg-gradient-to-br from-white via-slate-50 to-gray-100 border border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"

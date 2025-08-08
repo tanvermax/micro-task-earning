@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../Provider/useAuth";
 
 export const axiosSecure = axios.create({
-  baseURL: "https://micro-tasking-server.vercel.app/",
+  baseURL: "http://localhost:5000/",
 });
 const useAxiosSecure = () => {
     const {handlelogout}= useAuth();

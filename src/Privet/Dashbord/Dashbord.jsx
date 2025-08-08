@@ -3,7 +3,7 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import {
   FaBitcoin, FaHome, FaTasks, FaUserShield,
 } from "react-icons/fa";
-import { MdAdminPanelSettings, MdOutlineMonetizationOn, MdTask, MdOutlineSecurity, MdOutlineSupportAgent, MdOutlineMedicalServices, MdManageAccounts, MdOutlineQueryStats } from "react-icons/md";
+import { MdAdminPanelSettings, MdOutlineMonetizationOn, MdTask, MdOutlineSecurity, MdOutlineSupportAgent, MdOutlineMedicalServices, MdManageAccounts, MdOutlineQueryStats, MdOutlineSettingsSuggest } from "react-icons/md";
 import { PiHandWithdrawFill } from "react-icons/pi";
 import { RiSecurePaymentFill } from "react-icons/ri";
 import { GoFileSubmodule } from "react-icons/go";
@@ -33,7 +33,7 @@ const Dashbord = () => {
     <div className="grid grid-cols-12 min-h-screen">
       {/* Sidebar */}
       <aside className="col-span-2 bg-gray-100 border-r border-gray-300 p-5">
-        <h2 className="text-xl font-bold mb-6 text-blue-600">Earnly Dashboard</h2>
+        <h2 className="text-xl font-bold mb-6 text-blue-600"><a href="/">Earnly Dashboard</a></h2>
 
         <ul className="space-y-3 text-gray-800 text-sm">
           {isAdmin && (
@@ -55,6 +55,7 @@ const Dashbord = () => {
               <SidebarLink to="/dashbord/growth" icon={<GrGrow />} label="Growth" />
               <SidebarLink to="/dashbord/withdraw" icon={<PiHandWithdrawFill />} label="Withdrawals" />
               <SidebarLink to="/dashbord/monetization" icon={<MdOutlineMonetizationOn />} label="Monetization" />
+              <SidebarLink to="/dashbord/workeraccountsetting" icon={<MdOutlineSettingsSuggest />} label="Account Setting" />
             </>
           )}
 
@@ -65,6 +66,8 @@ const Dashbord = () => {
               <SidebarLink to="/dashbord/mytask" icon={<FaHome />} label="My Tasks" />
               <SidebarLink to="/dashbord/purchase" icon={<FaBitcoin />} label="Purchase Coin" />
               <SidebarLink to="/dashbord/paymnethistory" icon={<RiSecurePaymentFill />} label="Payment History" />
+              {/* <SidebarLink to="/dashbord/buyeraccountsetting" icon={<MdOutlineSettingsSuggest />} label="Account Setting" /> */}
+
             </>
           )}
 

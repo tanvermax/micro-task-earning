@@ -10,7 +10,7 @@ const UserDetails = () => {
     <div className="w-full border-b border-gray-200 px-4 py-4 lg:px-10 lg:py-6 bg-white shadow-sm rounded-md">
       <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
         {/* Left: Profile Info */}
-        <div className="flex items-center gap-4 lg:gap-6 w-full lg:w-1/2">
+        <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-6 w-full lg:w-1/2">
           <img
             src={userData?.photo || "https://via.placeholder.com/80"}
             alt="User Avatar"
@@ -26,6 +26,25 @@ const UserDetails = () => {
             <p className="text-[10px] lg:text-sm font-semibold text-amber-600 mt-1">
               💰 Coins: {userData?.coins ?? 0}
             </p>
+
+            {/* Categories */}
+            {userData?.categories?.length > 0 && (
+              <div className="mt-3">
+                <h4 className="text-xs lg:text-sm font-semibold text-gray-600 mb-1">
+                Work Categories:
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {userData.categories.map((cat, idx) => (
+                    <span
+                      key={idx}
+                      className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-xs lg:text-sm"
+                    >
+                      {cat}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
 

@@ -29,6 +29,7 @@ import Monetization from "../Privet/Dashbord/Worker/Monetization/Monetization";
 import TermsAndConditionsPage from "../Privet/Dashbord/TermsandCondition/Terms";
 import Support from "../Privet/Dashbord/Support/Supoort";
 import Settings from "../Privet/Dashbord/Setting/Setting";
+import WokeraccountSetting from "../Privet/Dashbord/Worker/WokeraccountSetting/WokeraccountSetting";
 
 export const Routs = createBrowserRouter([
   {
@@ -61,8 +62,8 @@ export const Routs = createBrowserRouter([
             errorElement: <Erro></Erro>,
           },
           {
-            path: 'UserProfile',
-            element: <AdminRouts><UserProfile /></AdminRouts>,
+            path: 'userprofile',
+            element: <UserProfile />,
             errorElement: <Erro></Erro>,
           },
           {
@@ -124,6 +125,11 @@ export const Routs = createBrowserRouter([
             errorElement: <Erro></Erro>,
           },
           {
+            path: "workeraccountsetting",
+            element: <WokeraccountSetting/>,
+            errorElement: <Erro></Erro>,
+          },
+          {
             path: "mytask",
             element: <Mytask></Mytask>,
             errorElement: <Erro></Erro>,
@@ -140,7 +146,7 @@ export const Routs = createBrowserRouter([
             path: 'maysubmissioin',
             element: <Maysubmission></Maysubmission>,
             errorElement: <Erro></Erro>,
-            loader: () => fetch('https://micro-tasking-server.vercel.app/submitCount')
+            loader: () => fetch('http://localhost:5000/submitCount')
           },
           {
             path: "mytask",
@@ -156,14 +162,14 @@ export const Routs = createBrowserRouter([
             element: <Taskupdate></Taskupdate>,
             errorElement: <Erro></Erro>,
             loader: ({ params }) =>
-              fetch(`https://micro-tasking-server.vercel.app/task/${params.id}`),
+              fetch(`http://localhost:5000/task/${params.id}`),
           },
           {
             path: "taskdetails/:id",
             element: <Taskdetails></Taskdetails>,
             errorElement: <Erro></Erro>,
             loader: ({ params }) =>
-              fetch(`https://micro-tasking-server.vercel.app/task/${params.id}`),
+              fetch(`http://localhost:5000/task/${params.id}`),
           },
         ],
       },
