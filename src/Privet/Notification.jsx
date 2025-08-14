@@ -3,6 +3,7 @@ import useAxiosSecure from "../Axios/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect, useRef } from "react";
 import useAuth from "../Provider/useAuth";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Notification = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,14 +15,19 @@ const Notification = () => {
     queryKey: ["notofi"],
     queryFn: async () => {
       const response = await axiosSecure.get(`/newnotificatio`);
-      const userNotifications = response.data.filter(
-        (item) => item.woekermail === user.email
-      );
-      return userNotifications.sort(
-        (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
-      );
+      return response.data
+        .filter((item) => item.woekermail === user.email)
+        .sort((a, b) => new Date(b.data) - new Date(a.data)); // newest first
     },
   });
+
+  useEffect(() => {
+  const interval = setInterval(() => {
+    refetch();
+  }, 500); // every 5 seconds
+  return () => clearInterval(interval);
+}, [refetch])
+
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -35,55 +41,79 @@ const Notification = () => {
     };
   }, []);
 
+  const formatDate = (isoString) => {
+    if (!isoString) return "";
+    return new Date(isoString).toLocaleString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
   return (
     <div className="relative">
-      <div className="relative">
-        <button onClick={() => setIsOpen(!isOpen)} className="relative">
-          <IoIosNotifications className="text-3xl text-gray-700 hover:text-black transition duration-150" />
-          {notofi.length > 0 && (
-            <span className="absolute -top-1 -right-1 text-[10px] bg-red-600 text-white px-1.5 py-0.5 rounded-full">
-              {notofi.length}
-            </span>
-          )}
-        </button>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="relative text-gray-700 hover:text-gray-900 transition-all duration-200"
+      >
+        <IoIosNotifications className="text-3xl md:text-4xl" />
+        {notofi.length > 0 && (
+          <span className="absolute -top-1 -right-1 text-[10px] md:text-xs bg-red-600 text-white px-2 py-0.5 rounded-full animate-pulse">
+            {notofi.length}
+          </span>
+        )}
+      </button>
 
+      <AnimatePresence>
         {isOpen && (
-          <div
+          <motion.div
             ref={popUpRef}
-            className="absolute right-0 mt-3 bg-white border border-gray-200 shadow-md rounded-md z-50"
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="absolute right-0 mt-3 w-[300px] md:w-[500px] bg-white border border-gray-200 shadow-xl rounded-xl z-50 overflow-hidden"
           >
-            <div className="px-4 py-3 border-b font-semibold text-gray-700">
-              Notifications
+            <div className="px-4 py-3 bg-gray-100 border-b border-gray-200 font-semibold text-gray-700 flex justify-between items-center">
+              <span>Notifications</span>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-gray-400 hover:text-gray-600 transition"
+              >
+                ✕
+              </button>
             </div>
-            <div className="max-h-80 overflow-y-auto">
+
+            <div className="max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
               {notofi.length > 0 ? (
-                <ul className="divide-y divide-gray-200">
+                <ul>
                   {notofi.map((notification, index) => (
                     <li
                       key={index}
-                      className="px-4 py-3 hover:bg-gray-50 transition text-sm"
+                      className="px-4 py-3 hover:bg-indigo-50 transition cursor-pointer flex flex-col gap-1 border-b border-gray-100"
                     >
-                      <div className="font-medium text-gray-800 mb-1">
+                      <div className="font-medium text-gray-800 text-sm md:text-base">
                         {notification.workermessage || "Notification"}
                       </div>
-                      <div className="text-xs text-gray-500">
-                        {notification.woekermail}
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        {notification.data}
+                      <div className="flex justify-between items-center text-[10px] md:text-xs text-gray-500">
+                        <p>{notification.woekermail}</p>
+                        <p>{formatDate(notification.data)}</p>
                       </div>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <div className="px-4 py-6 text-sm text-center text-gray-500">
+                <div className="px-4 py-6 text-center text-gray-500 text-sm">
                   No new notifications
                 </div>
               )}
             </div>
-          </div>
+          </motion.div>
         )}
-      </div>
+      </AnimatePresence>
     </div>
   );
 };

@@ -38,7 +38,7 @@ const Navbar = () => {
   }, [user?.email, token]);
 
   const logout = () => {
-    handlelogout().then(() => window.location.reload()).catch(console.log);
+    handlelogout().then(() => window.location.reload()).catch();
   };
 
   const renderRoleMenu = () => {

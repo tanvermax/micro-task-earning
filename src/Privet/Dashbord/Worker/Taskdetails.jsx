@@ -3,13 +3,14 @@ import { useLoaderData } from "react-router-dom";
 import userMange from "../userMange";
 import useAxiosSecure from "../../../Axios/useAxiosSecure";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const Taskdetails = () => {
   const task = useLoaderData();
-  const [userData,refetch] = userMange(); // Load task data from the route
+  const [userData, refetch] = userMange(); // Load task data from the route
   const axiosSecure = useAxiosSecure();
   const [submissionDetails, setSubmissionDetails] = useState("");
-//   console.log(userData);
+  //   console.log(userData);
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -18,7 +19,6 @@ const Taskdetails = () => {
     // Mock worker information (replace with actual logged-in worker data)
     const workerEmail = userData.email;
     const workerName = userData.userName;
-
     // Current date
     const currentDate = new Date().toISOString().split("T")[0];
 
@@ -35,7 +35,7 @@ const Taskdetails = () => {
       current_date: currentDate,
       status: "pending",
     };
-    
+
 
     // console.log("Submission Data:", submission);
 
@@ -43,14 +43,14 @@ const Taskdetails = () => {
     axiosSecure.post("/tasksubmit", submission).then((res) => {
       // console.log(res.data);
       if (res.data.message) {
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Your work has been saved",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        toast.success(res.data.message);
       }
+      axiosSecure
+        .post("/newnotificatio", {
+          workermessage: `Your submission for the task "${task.taskName}" has been requested to owner.`,
+          woekermail: userData.email,
+          data: new Date(),
+        })
     });
   };
 

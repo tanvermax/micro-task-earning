@@ -3,6 +3,7 @@ import Navber from "../Home/Navber";
 import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../Home/Footer";
 import Aos from "aos";
+import { ToastContainer } from "react-toastify";
 
 
 const Mainlayout = () => {
@@ -29,6 +30,7 @@ const Mainlayout = () => {
           <span className="loading loading-bars   mt-32 loading-3xl mx-auto w-20 "></span>
         ) : (
             <div data-aos="fade-up" className="">
+                <ToastContainer />
             {noHeaderfoot || <Navber></Navber>}
             <div data-aos="fade-up" className="min-h-screen">
               <Outlet></Outlet>
