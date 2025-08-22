@@ -175,15 +175,15 @@ const Register = () => {
                 type="password"
                 {...register("password", {
                   required: "Password is required",
-                  minLength: {
-                    value: 8,
-                    message: "At least 8 characters",
-                  },
-                  pattern: {
-                    value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])/,
-                    message:
-                      "Must include a letter, number, and special character",
-                  },
+                  // minLength: {
+                  //   value: 8,
+                  //   message: "At least 8 characters",
+                  // },
+                  // pattern: {
+                  //   value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])/,
+                  //   message:
+                  //     "Must include a letter, number, and special character",
+                  // },
                 })}
                 placeholder="••••••••"
                 className={`w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${

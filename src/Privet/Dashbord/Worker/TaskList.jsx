@@ -10,7 +10,7 @@ const TaskList = () => {
 
   const [task] = useTask();
   const navigate = useNavigate();
-
+console.log(task)
   const sortedTasks = task
     .sort((a, b) => a.payableAmount - b.payableAmount)
     .filter((item) => item.requiredWorkers > 0);
@@ -19,6 +19,9 @@ const TaskList = () => {
     userData.categories?.includes(item.taskCategory)
   );
 console.log("filteredTasks",filteredTasks)
+if(filteredTasks.length===0){
+ return <p className="text-center text-gray-500 mt-10">No tasks available in your categories. Please check back later.</p>
+}
   console.log(task)
   console.log(userData.categories)
   return (
