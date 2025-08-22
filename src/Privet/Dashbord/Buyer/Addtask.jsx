@@ -5,10 +5,11 @@ import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import useaxiospublic from "../../../Axios/useaxiospublic";
+import { URL } from "../../../constans";
+import "./task.css"; // Assuming you have a CSS file for styling
 
 const image_hostin_key = import.meta.env.VITE_IMAGEBB;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hostin_key}`;
-
 
 const Addtask = () => {
   const { user } = useAuth();
@@ -17,6 +18,8 @@ const Addtask = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [userData, setUserData] = useState({});
+  const [question, setQuestion] = useState("like: i need  task idea for social media engagement");
+  const [answer, setAnswer] = useState("");
 
   useEffect(() => {
     if (user?.email) {
@@ -26,18 +29,13 @@ const Addtask = () => {
     }
   }, [user?.email]);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
+  // --- SUBMIT TASK ---
   const onSubmit = async (data) => {
     const imageFile = { image: data.task_image_url[0] };
     const res = await axiosPublic.post(image_hosting_api, imageFile, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+      headers: { "Content-Type": "multipart/form-data" },
     });
 
     if (res.data.success) {
@@ -59,27 +57,21 @@ const Addtask = () => {
         axiosSecure.post("/task", taskitem).then((res) => {
           if (res.data.insertedId) {
             const updatedCoins = userData.coins - totalCost;
-            axiosSecure
-              .patch(`/users/coins/${userData._id}`, {
-                email: user.email,
-                coins: updatedCoins,
-              })
-              .then((updateRes) => {
-                if (updateRes.data.success) {
-                  setUserData((prevData) => ({
-                    ...prevData,
-                    coins: updatedCoins,
-                  }));
-                  Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Task added successfully!",
-                    text: "Your coins have been deducted.",
-                    showConfirmButton: false,
-                    timer: 1500,
-                  });
-                }
-              });
+            axiosSecure.patch(`/users/coins/${userData._id}`, {
+              email: user.email, coins: updatedCoins,
+            }).then((updateRes) => {
+              if (updateRes.data.success) {
+                setUserData((prev) => ({ ...prev, coins: updatedCoins }));
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Task added successfully!",
+                  text: "Your coins have been deducted.",
+                  showConfirmButton: false,
+                  timer: 2000,
+                });
+              }
+            });
           }
         });
       } else {
@@ -93,100 +85,160 @@ const Addtask = () => {
     }
   };
 
+  // --- GEMINI AI ---
+  const payload = {
+    contents: [
+      {
+        parts:
+          [{
+            text: `i am buyer of this website , i have give task to woker , 
+            now how i say ${question} to the best way to my worker in this website ,
+             please give me a task title idea with budget and details
+              just like this example: "Watch a YouTube video and comment on it.
+               Budget: $5 , woker need 20 pepole. Details: Watch the video and
+                leave a meaningful comment.just seggest 3 best organized ideasof title, budget and details , don't
+                 add any very unnecessary text  and dont repeat your self"`,
+          }]
+      }]
+  };
+
+  const askquestion = async () => {
+    setAnswer(""); // clear previous answer
+
+    let response = await fetch(URL, {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
+    response = await response.json();
+
+    const text = response.candidates[0].content.parts[0]?.text || "No answer found";
+
+    // Show it word by word
+    let i = 0;
+    const words = text.split(" ");
+    const interval = setInterval(() => {
+      setAnswer((prev) => prev + " " + words[i]);
+      i++;
+      if (i >= words.length) clearInterval(interval);
+    }, 100); // 100ms per word (adjust speed)
+  };
+
   return (
-    <div className="bg-gradient-to-br from-purple-200 via-white to-indigo-200 p-8 rounded-3xl shadow-2xl max-w-3xl mx-auto mt-10">
-      <h2 className="text-2xl font-bold text-center text-indigo-700 mb-6">Create a Task</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium">Task Title</label>
-          <input
-            type="text"
-            {...register("task_title", { required: "Task title is required" })}
-            placeholder="e.g., Watch video and comment"
-            className="input input-bordered w-full"
-          />
-          {errors.task_title && <p className="text-red-500 text-sm">{errors.task_title.message}</p>}
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium">Task Detail</label>
-          <textarea
-            {...register("task_detail", { required: "Task detail is required" })}
-            className="textarea textarea-bordered w-full"
-            rows="3"
-            placeholder="Provide a detailed task description"
-          ></textarea>
-          {errors.task_detail && <p className="text-red-500 text-sm">{errors.task_detail.message}</p>}
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium">Task Category(flatfrom)</label>
-          {/* <select {...register("task_category", { required: true })} className="select select-bordered w-full">
-            <option value="">Select Category</option>
-            {categories.map((cat, i) => (
-              <option key={i} value={cat}>{cat}</option>
-            ))}
-          </select> */}
-          <input type="text"
-           {...register("task_category", { required: "Task Category is required" })}
-            placeholder="Category flatfrom(e.g., YouTube, Facebook)"
-            className="input input-bordered w-full" />
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-purple-100 py-12 px-6 flex gap-10 justify-center">
+      {/* Left Side - Task Form */}
+      <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-8 w-[55%]">
+        <h2 className="text-3xl font-bold text-indigo-700 mb-8 text-center">✨ Create a New Task</h2>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          {/* Task Title */}
           <div>
-            <label className="block text-sm font-medium">Required Workers</label>
+            <label className="block text-sm font-semibold text-gray-700">Task Title</label>
             <input
-              type="number"
-              {...register("required_workers", { required: true, min: 1 })}
-              className="input input-bordered w-full"
+              type="text"
+              {...register("task_title", { required: "Task title is required" })}
+              placeholder="e.g., Watch video and comment"
+              className="input input-bordered w-full rounded-xl shadow-sm"
+            />
+            {errors.task_title && <p className="text-red-500 text-sm">{errors.task_title.message}</p>}
+          </div>
+
+          {/* Task Details */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700">Task Detail</label>
+            <textarea
+              {...register("task_detail", { required: "Task detail is required" })}
+              rows="3"
+              placeholder="Provide a detailed task description"
+              className="textarea textarea-bordered w-full rounded-xl shadow-sm"
+            ></textarea>
+          </div>
+
+          {/* Category */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700">Task Category</label>
+            <input
+              type="text"
+              {...register("task_category", { required: "Task Category is required" })}
+              placeholder="e.g., YouTube, Facebook"
+              className="input input-bordered w-full rounded-xl shadow-sm"
             />
           </div>
-          <div>
-            <label className="block text-sm font-medium">Payable Amount</label>
-            <input
-              type="number"
-              {...register("payable_amount", { required: true, min: 1 })}
-              className="input input-bordered w-full"
-            />
+
+          {/* Workers + Payment */}
+          <div className="grid grid-cols-2 gap-5">
+            <div>
+              <label className="block text-sm font-semibold text-gray-700">Required Workers</label>
+              <input type="number" {...register("required_workers", { required: true, min: 1 })}
+                className="input input-bordered w-full rounded-xl shadow-sm" />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700">Payable Amount</label>
+              <input type="number" {...register("payable_amount", { required: true, min: 1 })}
+                className="input input-bordered w-full rounded-xl shadow-sm" />
+            </div>
           </div>
-        </div>
 
-        <div>
-          <label className="block text-sm font-medium">Completion Date</label>
-          <input
-            type="date"
-            {...register("completion_date", { required: true })}
-            className="input input-bordered w-full"
-          />
-        </div>
+          {/* Completion Date */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700">Completion Date</label>
+            <input type="date" {...register("completion_date", { required: true })}
+              className="input input-bordered w-full rounded-xl shadow-sm" />
+          </div>
 
-        <div>
-          <label className="block text-sm font-medium">Submission Info</label>
+          {/* Submission Info */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700">Submission Info</label>
+            <input type="text" {...register("submission_info", { required: true })}
+              placeholder="e.g., Screenshot or proof"
+              className="input input-bordered w-full rounded-xl shadow-sm" />
+          </div>
+
+          {/* Image Upload */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700">Task Image</label>
+            <input type="file" {...register("task_image_url", { required: true })}
+              className="file-input file-input-bordered w-full rounded-xl shadow-sm" />
+          </div>
+
+          <button type="submit"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl text-lg font-semibold shadow-md transition">
+            🚀 Submit Task
+          </button>
+        </form>
+      </div>
+
+      {/* Right Side - Gemini AI Assistant */}
+      <div className="bg-gradient-to-tr from-purple-600 to-indigo-600 text-white rounded-3xl shadow-2xl p-6 w-[35%] flex flex-col">
+        <h2 className="text-2xl font-bold mb-4">🤖 Task AI Assistant</h2>
+        <p className="text-sm text-indigo-100 mb-4">Ask task ai to refine your task idea, suggest better details, or check budget validity.</p>
+
+        <div className="flex gap-2 mb-4">
           <input
             type="text"
-            {...register("submission_info", { required: true })}
-            placeholder="e.g., Screenshot or proof"
-            className="input input-bordered w-full"
+            className="flex-1 px-3 py-2 rounded-xl text-black"
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
           />
+          <button
+            onClick={askquestion}
+            className="bg-white text-indigo-700 font-semibold px-4 py-2 rounded-xl hover:bg-indigo-200 transition">
+          ✨  Ask
+          </button>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium">Task Image</label>
-          <input
-            type="file"
-            {...register("task_image_url", { required: true })}
-            className="file-input file-input-bordered w-full"
-          />
+        <div className="bg-white/20 p-4 rounded-xl flex-1 max-h-[61vh] overflow-y-auto text-wrap">
+          <p className="whitespace-pre-wrap text-left typing">
+            {answer || "✨ Task AI response will appear here"}
+          </p>
         </div>
 
+
+        {/* AI Autofill Button */}
         <button
-          type="submit"
-          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl text-lg font-semibold"
-        >
-          Submit Task
+          onClick={() => setQuestion("Generate a sample YouTube engagement task with budget and details")}
+          className="mt-4 bg-pink-400 hover:bg-pink-500 py-2 rounded-xl font-semibold transition">
+          🎯 Generate Sample Task
         </button>
-      </form>
+      </div>
     </div>
   );
 };

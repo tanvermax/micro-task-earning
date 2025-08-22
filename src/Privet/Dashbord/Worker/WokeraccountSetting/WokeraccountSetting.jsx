@@ -32,7 +32,7 @@ export default function WokerAccountSetting() {
     });
 
   };
-  console.log(user)
+  // console.log(user)
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -35,7 +35,10 @@ const slides = [
 
 const Banner = () => {
   return (
-    <div className="relative bottom-28">
+    <div className="
+    ">
+      {/* relative 
+      bottom-28 */}
       <Swiper
         modules={[Navigation, Pagination, Autoplay, EffectFade]}
         navigation
