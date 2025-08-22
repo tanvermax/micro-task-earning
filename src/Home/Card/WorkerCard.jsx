@@ -65,7 +65,7 @@ const WorkerCard = ({
               hover: { from: "#4F46E5", via: "#000000", to: "#EF4444" },
               focusRing: "#48acca",
             }}
-            onClick={handlefollow}
+            // onClick={handlefollow}
           >
             Follow
           </SimpleGradientButton>
@@ -76,7 +76,7 @@ const WorkerCard = ({
               hover: { from: "#4F46E5", via: "#000000", to: "#EF4444" },
               focusRing: "#48acca",
             }}
-            onClick={handlemessage}
+            // onClick={handlemessage}
           >
             Message
           </SimpleGradientButton>

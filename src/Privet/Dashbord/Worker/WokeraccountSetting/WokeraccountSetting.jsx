@@ -14,7 +14,7 @@ export default function WokerAccountSetting() {
 
   useEffect(() => {
     axios
-      .get(`https://micro-tasking-server.vercel.app/task`)
+      .get(`http://localhost:5000/task`)
       .then((response) => {
         setData(response.data);
       })
@@ -41,7 +41,7 @@ export default function WokerAccountSetting() {
        console.log("user.email",user.email);
       const payload = { categories: formData.categories };
 
-      const response = await axios.patch(`https://micro-tasking-server.vercel.app/users/${user.email}/categories`, payload);
+      const response = await axios.patch(`http://localhost:5000/users/${user.email}/categories`, payload);
 
       if (response.status === 200) {
         alert('Categories updated successfully!');
