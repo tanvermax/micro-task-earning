@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import useAuth from '../../../../Provider/useAuth';
+import { toast } from 'react-toastify';
 
 export default function WokerAccountSetting() {
 
@@ -38,13 +39,14 @@ export default function WokerAccountSetting() {
     console.log(formData);
     try {
        // or however you identify the user
-       console.log("user.email",user.email);
+      //  console.log("user.email",user.email);
       const payload = { categories: formData.categories };
 
       const response = await axios.patch(`https://micro-task-server-plum.vercel.app/users/${user.email}/categories`, payload);
 
       if (response.status === 200) {
-        alert('Categories updated successfully!');
+        // alert('Categories updated successfully!');
+        toast(`${formData.categories} added successfully!`)
         // Optionally refetch user data or update local state here
       }
     } catch (error) {

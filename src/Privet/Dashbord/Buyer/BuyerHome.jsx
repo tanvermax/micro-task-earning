@@ -36,42 +36,56 @@ const BuyerHome = () => {
     0
   );
 
-  const handleApprove = (submission) => {
-    axiosSecure
-      .patch(`/submitted/${submission._id}`)
-      .then((res) => {
-        if (
-          res.data.message ===
-          "Submission approved and coins updated successfully"
-        ) {
-          axiosSecure
-            .post("/newnotificatio", {
-              workermessage: `You have earned ${
-                submission.payable_amount
-              } Coin from ${submission?.Buyer_email || "anonymous"} for completing ${
-                submission.task_title
-              }`,
-              woekermail: submission.worker_email,
-              data: new Date(),
-            })
-            .then((res) => {
-              if (res.data.acknowledged) {
-                Swal.fire({
-                  position: "top-end",
-                  icon: "success",
-                  title: "Your work has been saved",
-                  showConfirmButton: false,
-                  timer: 1500,
-                });
-                refetch();
-              }
-            });
-        }
-      })
-      .catch((error) => {
-        console.error("Error approving task:", error);
-      });
-  };
+ const handleApprove = (submission) => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: `Do you want to approve this submission for task: "${submission.task_title}"?`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, approve it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      axiosSecure
+        .patch(`/submitted/${submission._id}`)
+        .then((res) => {
+          if (
+            res.data.message ===
+            "Submission approved and coins updated successfully"
+          ) {
+            axiosSecure
+              .post("/newnotificatio", {
+                workermessage: `You have earned ${
+                  submission.payable_amount
+                } Coin from ${
+                  submission?.Buyer_email || "anonymous"
+                } for completing ${submission.task_title}`,
+                woekermail: submission.worker_email,
+                data: new Date(),
+              })
+              .then((res) => {
+                if (res.data.acknowledged) {
+                  Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Submission approved successfully!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                  refetch();
+                }
+              });
+          }
+        })
+        .catch((error) => {
+          console.error("Error approving task:", error);
+          Swal.fire("Error!", "Something went wrong while approving.", "error");
+        });
+    }
+  });
+};
+
 
   const handleReject = (submission) => {
     axiosSecure
