@@ -21,7 +21,7 @@ export default function SimpleGradientButton({
     <>
       <button
         onClick={onClick}
-        className="relative px-8 py-3 rounded-2xl font-semibold text-white bg-[length:200%_200%] transition-all duration-500 ease-in-out focus:outline-none focus:ring-4"
+        className="relative px-8 py-3 rounded-2xl font-normal text-white bg-[length:200%_200%] transition-all duration-500 ease-in-out focus:outline-none focus:ring-4"
         style={{
           backgroundImage: baseGradient,
           backgroundSize: "200% 200%",
