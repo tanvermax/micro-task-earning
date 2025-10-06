@@ -14,7 +14,7 @@ const useProfile = () => {
                 try {
                     setLoading(true);
                     console.log("Fetching profile for:", auth.user.email);
-                    const response = await axios.get(`https://micro-task-server-plum.vercel.app/me?email=${auth.user.email}`);
+                    const response = await axios.get(`https://micro-task-server-plum.vercel.app/user/me?email=${auth.user.email}`);
                     setUserData(response.data);
                 } catch (err) {
                     console.error("Error fetching user profile:", err);
