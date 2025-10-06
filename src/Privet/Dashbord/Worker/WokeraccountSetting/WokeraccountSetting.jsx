@@ -17,7 +17,8 @@ export default function WokerAccountSetting() {
     axios
       .get(`https://micro-task-server-plum.vercel.app/task`)
       .then((response) => {
-        setData(response.data);
+          setData(prev=>[...prev,response.data])
+        // setData(response.data);
       })
       .catch((error) => {
         console.error('Error fetching tasks:', error);

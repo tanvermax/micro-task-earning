@@ -20,7 +20,7 @@ const userMange = () => {
   });
 
 
-  return [userData];
+  return [userData,refetch];
 };
 
 export default userMange;
