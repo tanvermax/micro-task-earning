@@ -22,7 +22,7 @@ const Login = () => {
     loginwithemail(data.email, data.password)
       .then(() => {
         navigate("/");
-        window.location.reload(false);
+        // window.location.reload(false);
       })
       .catch((error) => {
         const code = error.code;

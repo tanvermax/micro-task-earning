@@ -72,6 +72,9 @@ const Authprovider = ({ children }) => {
     };
   }, [axiospublic, user]);
 
+ 
+
+
   const authinfo = {
     user,
     loading,

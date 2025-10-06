@@ -38,7 +38,7 @@ const Navbar = () => {
   }, [user?.email, token]);
 
   const logout = () => {
-    handlelogout().then(() => window.location.reload()).catch();
+    handlelogout();
   };
 
   const renderRoleMenu = () => {
@@ -74,7 +74,7 @@ const Navbar = () => {
         Home <RiHome9Line />
       </Link>
       <a
-        href="https://github.com/Programming-Hero-Web-Course4/b10a12-client-side-tanvermax"
+        href="https://github.com/tanvermax"
         className="btn   border-none ml-2"
       >
         Join as Developer <MdOutlineDeveloperMode />
@@ -115,9 +115,9 @@ const Navbar = () => {
         <div className="navbar-end flex items-center gap-4">
           {user ? (
             <>
-          
-            <UserDropDown user={user} logout={logout}/>
-              
+
+              <UserDropDown user={user} logout={logout} />
+
             </>
           ) : (
             <>

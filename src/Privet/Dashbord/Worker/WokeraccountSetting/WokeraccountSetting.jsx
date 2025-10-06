@@ -2,10 +2,15 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import useAuth from '../../../../Provider/useAuth';
 import { toast } from 'react-toastify';
+import useProfile from '../../../../Provider/userProfile';
 
-export default function WokerAccountSetting() {
-
+export default function WorkerAccountSetting() {
   const { user } = useAuth();
+  const { userData, loading, error } = useProfile(); // Destructure properly
+
+  console.log("User Data:", userData);
+  console.log("Loading:", loading);
+  console.log("Error:", error);
 
   const [formData, setFormData] = useState({
     categories: [],
@@ -17,8 +22,7 @@ export default function WokerAccountSetting() {
     axios
       .get(`https://micro-task-server-plum.vercel.app/task`)
       .then((response) => {
-          setData(prev=>[...prev,response.data])
-        // setData(response.data);
+        setData(response.data); // Fixed: response.data should be the array, not spreading into prev
       })
       .catch((error) => {
         console.error('Error fetching tasks:', error);
@@ -31,24 +35,17 @@ export default function WokerAccountSetting() {
       ...formData,
       categories: selectedOptions,
     });
-
   };
-  // console.log(user)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
     try {
-       // or however you identify the user
-      //  console.log("user.email",user.email);
       const payload = { categories: formData.categories };
-
       const response = await axios.patch(`https://micro-task-server-plum.vercel.app/users/${user.email}/categories`, payload);
 
       if (response.status === 200) {
-        // alert('Categories updated successfully!');
-        toast(`${formData.categories} added successfully!`)
-        // Optionally refetch user data or update local state here
+        toast(`${formData.categories.join(', ')} added successfully!`);
       }
     } catch (error) {
       console.error('Failed to update categories:', error);
@@ -56,12 +53,34 @@ export default function WokerAccountSetting() {
     }
   };
 
-  // Get unique categories
-  const uniqueCategories = [...new Set(data.map((category) => category.taskCategory))];
+  // Get unique categories - add null check
+  const uniqueCategories = data && data.length > 0 
+    ? [...new Set(data.map((item) => item.taskCategory))] 
+    : [];
+
+  // Show loading state
+  if (loading) {
+    return <div className="text-center py-8">Loading user profile...</div>;
+  }
+
+  // Show error state
+  if (error) {
+    return <div className="text-center py-8 text-red-500">Error: {error}</div>;
+  }
+  // console.log("userData.categories.length",userData)
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
       <h2 className="text-2xl font-semibold mb-6 text-center">Worker Account Settings</h2>
+      
+      {/* Display user data if available */}
+      {userData && (
+        <div className="mb-4 p-4 bg-gray-100 rounded">
+          <h3 className="font-bold">Profile:</h3>
+          <p>Email: {userData.email}</p>
+          <p>Categories: {userData.categories?.join(', ') || 'None'}</p>
+        </div>
+      )}
 
       {/* Show Available Categories */}
       <h3 className="font-bold mb-2">Available Categories</h3>
@@ -79,6 +98,12 @@ export default function WokerAccountSetting() {
       {/* Multiple Select Form */}
       <form onSubmit={handleSubmit} className="space-y-6 bg-white shadow-md rounded-lg p-6">
         <div>
+          {userData?.categories?.length > 0 ? "" : (
+            <div className="mb-4 p-4 bg-red-100 rounded">
+              <h3 className="font-bold mb-2">Please selete category to work</h3>
+              {/* <p>{userData.categories.join(', ')}</p> */}
+            </div>
+          )}
           <label className="block font-medium text-gray-700 mb-2">
             Skills / Work Categories
           </label>

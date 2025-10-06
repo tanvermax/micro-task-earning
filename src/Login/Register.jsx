@@ -54,6 +54,7 @@ const Register = () => {
           });
 
           const dbRes = await axiosSecure.post("/users", user);
+          console.log("Account created successfully!")
           if (dbRes.data.insertedId) {
             Swal.fire({
               icon: "success",
@@ -64,8 +65,8 @@ const Register = () => {
             });
           }
 
-          window.location.reload(false);
-          navigate("/");
+          // window.location.reload(false);
+          navigate("/dashbord/workeraccountsetting");
         }
       }
     } catch (error) {
