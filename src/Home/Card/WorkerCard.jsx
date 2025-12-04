@@ -1,25 +1,102 @@
-import React from "react";
-import { FaBitcoin, FaUserPlus, FaEnvelope } from "react-icons/fa";
-import userMange from "../../Privet/Dashbord/userMange";
+import React, { useState, useEffect } from "react";
+import { FaBitcoin, FaUserPlus, FaUserCheck } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
+
 import { useNavigate } from "react-router-dom";
 import SimpleGradientButton from "../../Shared/Banner/glow-button";
+import axios from "axios";
+import useAuth from "../../Provider/useAuth";
 
 const WorkerCard = ({
   photo,
   userName,
   role,
   coins,
-  bio = "This user hasn’t written a bio yet. 🚀",
+  bio = "This user hasn't written a bio yet. 🚀",
+  userId, 
 }) => {
-  const [userData] = userMange();
+ const { user: userData } = useAuth();
   const navigate = useNavigate();
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [followersCount, setFollowersCount] = useState(0);
 
-  const handleFollow = () => {
-    if (!userData) navigate("/login");
+  const API_BASE = "http://localhost:5000";
+
+  // Check if current user is following this user
+  useEffect(() => {
+    if (userData && userId) {
+      checkFollowStatus();
+      fetchUserDetails();
+    }
+  }, [userData, userId]);
+
+  const checkFollowStatus = async () => {
+    try {
+      const response = await axios.get(`${API_BASE}/users/${userId}`);
+      const user = response.data;
+      
+      // Check if current user is in the followers list
+      const following = user.followers?.some(follower => 
+        follower._id === userData._id || follower === userData._id
+      );
+      setIsFollowing(following);
+      setFollowersCount(user.followers?.length || 0);
+    } catch (error) {
+      console.error('Error checking follow status:', error);
+    }
+  };
+
+  const fetchUserDetails = async () => {
+    try {
+      const response = await axios.get(`${API_BASE}/users/${userId}`);
+      setFollowersCount(response.data.followers?.length || 0);
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+    }
+  };
+
+  const handleFollow = async () => {
+    if (!userData) {
+      navigate("/login");
+      return;
+    }
+console.log("processin")
+    setLoading(true);
+    try {
+      // if (isFollowing) {
+        // Unfollow logic
+        // await axios.post(`${API_BASE}/users/${userData._id}/unfollow/${userId}`);
+        // setIsFollowing(false);
+        // setFollowersCount(prev => prev - 1);
+      // } else {
+        // Follow logic
+        await axios.post(`${API_BASE}/users/${userData._id}/follow/${userId}`);
+        // setIsFollowing(true);
+        // setFollowersCount(prev => prev + 1);
+      // }
+    } catch (error) {
+      console.error('Error following/unfollowing user:', error);
+      // Handle specific errors
+      if (error.response?.status === 400) {
+        alert(error.response.data.message);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleMessage = () => {
-    if (!userData) navigate("/login");
+    if (!userData) {
+      navigate("/login");
+      return;
+    }
+    // Add your message logic here
+    console.log("Navigate to message page for user:", userId);
+  };
+
+  const handleViewProfile = () => {
+    navigate(`/profile/${userId}`);
   };
 
   return (
@@ -31,6 +108,11 @@ const WorkerCard = ({
           src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?auto=format&fit=crop&w=800&q=60"
           alt="cover"
         />
+        
+        {/* Followers Badge */}
+        <div className="absolute top-2 right-2 bg-black/60 text-white px-2 py-1 rounded-full text-xs">
+          {followersCount} followers
+        </div>
       </div>
 
       {/* Info Section */}
@@ -65,23 +147,51 @@ const WorkerCard = ({
             {bio}
           </p>
 
+          {/* Follow Status */}
+          {isFollowing && (
+            <div className="mt-2">
+              <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                Following ✓
+              </span>
+            </div>
+          )}
+
           {/* Action Buttons */}
-          <div className="flex justify-center gap-4 mt-6 pb-6">
+          <div className="flex flex-col gap-3 mt-6 pb-6">
             <SimpleGradientButton
               onClick={handleFollow}
+              disabled={loading}
               colors={{
-                base: { from: "#4F46E5", via: "#9333EA", to: "#EF4444" },
-                hover: { from: "#9333EA", via: "#EF4444", to: "#000000" },
+                base: { 
+                  from: isFollowing ? "#EF4444" : "#4F46E5", 
+                  via: isFollowing ? "#DC2626" : "#9333EA", 
+                  to: isFollowing ? "#B91C1C" : "#EF4444" 
+                },
+                hover: { 
+                  from: isFollowing ? "#DC2626" : "#9333EA", 
+                  via: isFollowing ? "#B91C1C" : "#EF4444", 
+                  to: isFollowing ? "#991B1B" : "#000000" 
+                },
                 focusRing: "#48acca",
               }}
             >
               <span className="flex items-center gap-2">
-                <FaUserPlus /> Follow
+                {loading ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    {isFollowing ? "Unfollowing..." : "Following..."}
+                  </>
+                ) : (
+                  <>
+                    {isFollowing ? <FaUserCheck /> : <FaUserPlus />}
+                    {isFollowing ? "Unfollow" : "Follow"}
+                  </>
+                )}
               </span>
             </SimpleGradientButton>
 
             <SimpleGradientButton
-              onClick={handleMessage}
+              onClick={handleViewProfile}
               colors={{
                 base: { from: "#4F46E5", via: "#9333EA", to: "#EF4444" },
                 hover: { from: "#9333EA", via: "#EF4444", to: "#000000" },
@@ -89,7 +199,7 @@ const WorkerCard = ({
               }}
             >
               <span className="flex items-center gap-2">
-                <FaEnvelope /> Message
+                <CgProfile /> View Profile
               </span>
             </SimpleGradientButton>
           </div>

@@ -70,7 +70,7 @@ const Navbar = () => {
 
   const navItems = (
     <>
-      <Link to="/" className="btn   border-none ml-2">
+      <Link to="/" className="btn border-none ml-2">
         Home <RiHome9Line />
       </Link>
       <a
@@ -103,7 +103,7 @@ const Navbar = () => {
               </ul>
             )}
           </div>
-          <Link to="/" className="lg:text-2xl font-bold text-white">
+          <Link to="/" className="lg:text-2xl font-bold ">
             Earnly
           </Link>
         </div>

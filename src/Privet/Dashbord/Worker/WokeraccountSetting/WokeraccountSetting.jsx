@@ -8,9 +8,9 @@ export default function WorkerAccountSetting() {
   const { user } = useAuth();
   const { userData, loading, error } = useProfile(); // Destructure properly
 
-  console.log("User Data:", userData);
-  console.log("Loading:", loading);
-  console.log("Error:", error);
+  // console.log("User Data:", userData);
+  // console.log("Loading:", loading);
+  // console.log("Error:", error);
 
   const [formData, setFormData] = useState({
     categories: [],
@@ -39,7 +39,7 @@ export default function WorkerAccountSetting() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     try {
       const payload = { categories: formData.categories };
       const response = await axios.patch(`https://micro-task-server-plum.vercel.app/users/${user.email}/categories`, payload);
@@ -54,8 +54,8 @@ export default function WorkerAccountSetting() {
   };
 
   // Get unique categories - add null check
-  const uniqueCategories = data && data.length > 0 
-    ? [...new Set(data.map((item) => item.taskCategory))] 
+  const uniqueCategories = data && data.length > 0
+    ? [...new Set(data.map((item) => item.taskCategory))]
     : [];
 
   // Show loading state
@@ -68,11 +68,10 @@ export default function WorkerAccountSetting() {
     return <div className="text-center py-8 text-red-500">Error: {error}</div>;
   }
   // console.log("userData.categories.length",userData)
-
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
       <h2 className="text-2xl font-semibold mb-6 text-center">Worker Account Settings</h2>
-      
+
       {/* Display user data if available */}
       {userData && (
         <div className="mb-4 p-4 bg-gray-100 rounded">
@@ -98,7 +97,7 @@ export default function WorkerAccountSetting() {
       {/* Multiple Select Form */}
       <form onSubmit={handleSubmit} className="space-y-6 bg-white shadow-md rounded-lg p-6">
         <div>
-          {userData?.categories?.length > 0 ? "" : (
+          {userData?.categories ? "" : (
             <div className="mb-4 p-4 bg-red-100 rounded">
               <h3 className="font-bold mb-2">Please selete category to work</h3>
               {/* <p>{userData.categories.join(', ')}</p> */}

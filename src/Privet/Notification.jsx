@@ -15,7 +15,8 @@ const Notification = () => {
     queryKey: ["notofi"],
     queryFn: async () => {
       const response = await axiosSecure.get(`/newnotificatio`);
-      return response.data
+      const sorted = (response.data || []).reverse();
+      return sorted
         .filter((item) => item.woekermail === user.email)
         .sort((a, b) => new Date(b.data) - new Date(a.data)); // newest first
     },

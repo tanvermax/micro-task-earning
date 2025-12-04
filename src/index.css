@@ -6,6 +6,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 body{
     font-family: "Jost", serif;
 }
@@ -26,7 +27,6 @@ body{
     color: var(--text-color);
     transition: all 0.3s ease-in-out;
   }
-
   :root {
     --sidebar-bg: #e5e7eb; /* Light mode (gray-200) */
   }
@@ -34,3 +34,6 @@ body{
   [data-theme="dark"] {
     --sidebar-bg: #1f2937; /* Dark mode (gray-800) */
   }
+  
+  
+  

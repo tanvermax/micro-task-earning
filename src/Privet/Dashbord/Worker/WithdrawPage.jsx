@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import useAxiosSecure from "../../../Axios/useAxiosSecure";
-import useAuth from "../../../Provider/useAuth";
 import Swal from "sweetalert2";
 import userMange from "../userMange";
+import WorkerWithdrawList from "./withdrahistory/WorkerWithdrawList";
 
 const WithdrawPage = () => {
-  const { user } = useAuth();
+
   const axiosSecure = useAxiosSecure();
   const [withdrawAmount, setWithdrawAmount] = useState(0);
   const [coinsToWithdraw, setCoinsToWithdraw] = useState(""); // Change initial state to an empty string
@@ -71,6 +70,7 @@ const WithdrawPage = () => {
         payment_system: paymentSystem,
         account_number: accountNumber,
         status: "pending",
+        created_at: new Date().toISOString(),
       };
 
       const res = await axiosSecure.post("/withdrawals", withdrawalData);
@@ -182,6 +182,9 @@ const WithdrawPage = () => {
           </button>
         </div>
       </form>
+      <div className="border-2 h-[400px] overflow-x-auto mt-10 h-100">
+         <WorkerWithdrawList />
+      </div>
     </div>
   );
 };

@@ -1,12 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { FaCog, FaSignOutAlt, FaUser, FaUserCircle } from "react-icons/fa";
 import Notification from "../Notification";
-import userMange from "./userMange";
 import useAuth from "../../Provider/useAuth";
+import useProfile from "../../Provider/userProfile";
 
 const UserDetails = () => {
-  const [userData] = userMange();
-  const { handlelogout } = useAuth();
+  const { user, handlelogout } = useAuth();
+  const {userData} = useProfile()
+  // const { handlelogout } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -26,6 +27,7 @@ const UserDetails = () => {
       .catch(() => {});
   };
 
+  // console.log("userData",userData)
   return (
     <div className="w-full border-b border-gray-200 px-4 py-6 lg:px-10 bg-gradient-to-r from-indigo-50 to-white shadow-lg rounded-xl transition-all duration-500 hover:shadow-2xl">
       <div className="flex flex-col lg:flex-row justify-between items-center gap-4">

@@ -12,34 +12,38 @@ const WorkerPaymnet = () => {
     queryKey: ["workerSubmissions", user.email],
     queryFn: async () => {
       const response = await axiosSecure.get("/withdrawals");
-      return response.data.filter((item) => item.status === "pending");
+      return response.data.filter((item) => item.status === "pending")
+      .reverse();
     },
   });
 
-  const handleApprove = (request) => {
-    axiosSecure.patch(`/withdrawals/${request._id}`).then((res) => {
-      if (res.data) {
-        axiosSecure
-          .post("/newnotificatio", {
-            workermessage: `GOOD NEWS, You have earned ${request.withdrawal_amount} dollar via ${request.payment_system}`,
-            woekermail: request.worker_email,
-            data: new Date(),
-          })
-          .then((res) => {
-            if (res.data.acknowledged) {
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Payment Approved",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              refetch();
-            }
+ const handleApprove = (request) => {
+  axiosSecure.patch(`/withdrawals/${request._id}`).then((res) => {
+    if (res.data) {
+
+      // SEND NOTIFICATION ONLY AFTER APPROVE
+      axiosSecure.post("/newnotificatio", {
+        workermessage: `GOOD NEWS! You received $${request.withdrawal_amount} via ${request.payment_system}`,
+        woekermail: request.worker_email,
+        date: new Date(),
+      }).then((notifyRes) => {
+        if (notifyRes.data.acknowledged) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Payment Approved",
+            showConfirmButton: false,
+            timer: 1500,
           });
-      }
-    });
-  };
+
+          refetch();
+        }
+      });
+    }
+  });
+};
+
+  console.log("withdaw",withdaw)
 
   return (
     <div className="container mx-auto px-4 lg:px-8 py-6">
@@ -55,6 +59,7 @@ const WorkerPaymnet = () => {
               <th className="px-4 py-3 text-left text-sm font-semibold">Amount</th>
               <th className="px-4 py-3 text-left text-sm font-semibold">Method</th>
               <th className="px-4 py-3 text-left text-sm font-semibold">Status</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold">Time</th>
               <th className="px-4 py-3 text-left text-sm font-semibold">Action</th>
             </tr>
           </thead>
@@ -70,6 +75,8 @@ const WorkerPaymnet = () => {
                     {request.status}
                   </span>
                 </td>
+                <td className="px-4 py-3 capitalize">{request.created_at ? request.created_at : "date :" }</td>
+
                 <td className="px-4 py-3">
                   {request.status === "pending" && (
                     <button

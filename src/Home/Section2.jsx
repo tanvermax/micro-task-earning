@@ -24,11 +24,13 @@ const Section2 = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-6 lg:px-20">
         {wokerdata.map((worker) => (
           <WorkerCard
+          userId={worker._id}
             key={worker._id}
             photo={worker.photo}
             userName={worker.userName}
             role={worker.role}
             coins={worker.coins}
+            bio={worker.bio}
           />
         ))}
       </div>
