@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import WorkerWithdrawRequestCard from "./WithdrawHistory";
+import useAxiosSecure from "../../../../Axios/useAxiosSecure";
 
 export default function WorkerWithdrawList() {
   const [withdrawals, setWithdrawals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const axiosSecure = useAxiosSecure();
 
-  const API = "http://localhost:5001/withdrawals";
+  // const API = "https://micro-task-server-plum.vercel.app/withdrawals";
 
   const fetchWithdrawals = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(API);
+      const res = await axiosSecure.get("/withdrawals");
       const sorted = (res.data || []).reverse();
       setWithdrawals(sorted || []);
     } catch (err) {
