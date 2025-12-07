@@ -1,76 +1,42 @@
 import React, { useState } from "react";
+import useAxiosSecure from "../../../Axios/useAxiosSecure";
+import useAuth from "../../../Provider/useAuth"; // If you have auth context
+import { useNavigate } from "react-router-dom";
 
 export default function Settings() {
   const [formData, setFormData] = useState({
-   
     notifications: true,
     darkMode: false,
   });
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
+  const axiosSecure = useAxiosSecure();
+  const { user, logOut } = useAuth(); // your auth context
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Settings updated!");
-  };
+  const handleDelete = async () => {
+    const confirmed = confirm("Are you sure? This cannot be undone!");
 
-  const handleDelete = () => {
-    const confirmed = confirm("Are you sure you want to delete your account?");
-    if (confirmed) {
-      // Add actual deletion logic here
-      alert("Account deleted!");
+    if (!confirmed) return;
+
+    try {
+      const res = await axiosSecure.delete(`/user/delete/${user.email}`);
+
+      if (res.data.message) {
+        alert("Account deleted successfully");
+
+        // Logout user
+        await logOut();
+
+        navigate("/"); // redirect to homepage
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error deleting account!");
     }
   };
 
   return (
     <div className="max-w-3xl mx-auto p-6 text-gray-800">
-      <h1 className="text-3xl font-bold mb-6">Settings</h1>
-
-      <form onSubmit={handleSubmit} className="space-y-8">
-        {/* Account Info */}
-        <div>
-         
-        </div>
-
-        {/* Preferences */}
-        <div>
-          <h2 className="text-xl font-semibold mb-4">Website Preferences</h2>
-          <div className="space-y-2">
-            <label className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                name="notifications"
-                checked={formData.notifications}
-                onChange={handleChange}
-              />
-              Enable Email Notifications
-            </label>
-
-            <label className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                name="darkMode"
-                checked={formData.darkMode}
-                onChange={handleChange}
-              />
-              Enable Dark Mode
-            </label>
-          </div>
-        </div>
-
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
-        >
-          Save Settings
-        </button>
-      </form>
 
       {/* Danger Zone */}
       <div className="mt-10 border-t pt-8">
@@ -80,6 +46,7 @@ export default function Settings() {
         <p className="text-sm text-gray-600 mb-4">
           Deleting your account is permanent and cannot be undone.
         </p>
+
         <button
           onClick={handleDelete}
           className="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700"

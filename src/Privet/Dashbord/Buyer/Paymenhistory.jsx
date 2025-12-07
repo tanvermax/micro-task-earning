@@ -17,8 +17,23 @@ const Paymenhistory = () => {
   });
   // console.log(transittion);
   // console.log(user);
-  
-  
+
+  const handleDelete = async (id) => {
+    const confirmDelete = confirm("Are you sure you want to delete this payment?");
+    if (!confirmDelete) return;
+
+    try {
+      const res = await axiosSecure.delete(`/transit/${id}`);
+      if (res.status === 200) {
+        alert("Payment deleted successfully!");
+        refetch();
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Failed to delete payment.");
+    }
+  };
+
 
   return (
     <div>
@@ -53,12 +68,23 @@ const Paymenhistory = () => {
                     <td className="px-4 py-2 lg:text-sm text-[8px] border border-gray-300">
                       {payment.transitsection_id}
                     </td>
-                    <td className={`px-4 py-2 lg:text-sm text-[8px] border border-gray-300 `}>
+                    <td className="px-4 py-2 lg:text-sm text-[8px] border border-gray-300">
                       {payment.trasnsituseEmail}
+                    </td>
+
+                    {/* DELETE BUTTON */}
+                    <td className="px-4 py-2 border border-gray-300">
+                      <button
+                        onClick={() => handleDelete(payment._id)}
+                        className="bg-red-600 text-white text-[8px] lg:text-sm px-3 py-1 rounded hover:bg-red-700"
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
+
             </table>
           </div>
         </div>

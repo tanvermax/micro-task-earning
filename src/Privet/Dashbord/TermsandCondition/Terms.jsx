@@ -68,6 +68,31 @@ export default function TermsAndConditionsPage() {
           Last updated: August 5, 2025
         </p>
       </section>
+
+      {/* Contact Section */}
+      <div className="mt-12 pt-8 border-t">
+        <h2 className="text-xl font-bold mb-4 text-center">Contact Us</h2>
+
+        <div className="flex justify-center gap-6">
+          {/* Call Button */}
+          <a
+            href="tel:01701866120"
+            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+          >
+            📞 Call Us
+          </a>
+
+          {/* WhatsApp Button */}
+          <a
+            href="https://wa.me/8801701866120"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700"
+          >
+            💬 WhatsApp Chat
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

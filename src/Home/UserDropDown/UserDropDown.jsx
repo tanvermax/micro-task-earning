@@ -43,7 +43,7 @@ const UserDropDown = ({ user, logout }) => {
             <a className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700" href="/dashbord/UserProfile">
              Edit Profile
             </a>
-            <a className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700" href="#">
+            {/* <a className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700" href="#">
               Purchases
             </a>
             <a className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700" href="#">
@@ -51,7 +51,7 @@ const UserDropDown = ({ user, logout }) => {
             </a>
               <a className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700" href="#">
               Support
-            </a>
+            </a> */}
             <button
               onClick={logout}
               className="w-full text-left px-4 py-2 text-sm bg-blue-500 text-white rounded hover:bg-red-600"

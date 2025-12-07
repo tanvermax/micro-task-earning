@@ -41,9 +41,9 @@ const Dashbord = () => {
               <SidebarLink to="/dashbord/adminhome" icon={<MdAdminPanelSettings />} label="Admin Home" />
               <SidebarLink to="/dashbord/users" icon={<FaUserShield />} label="Manage Users" />
               <SidebarLink to="/dashbord/managetask" icon={<MdTask />} label="Manage Task" />
-              <SidebarLink to="/dashbord/supportservice" icon={<MdOutlineMedicalServices />} label="Support Service" />
-              <SidebarLink to="/dashbord/accountrequest" icon={<MdManageAccounts />} label="Account Request approval" />
-              <SidebarLink to="/dashbord/salesandbussines" icon={<MdOutlineQueryStats />} label="Sales and Bussines" />
+              {/* <SidebarLink to="/dashbord/supportservice" icon={<MdOutlineMedicalServices />} label="Support Service" /> */}
+              {/* <SidebarLink to="/dashbord/accountrequest" icon={<MdManageAccounts />} label="Account Request approval" /> */}
+              {/* <SidebarLink to="/dashbord/salesandbussines" icon={<MdOutlineQueryStats />} label="Sales and Bussines" /> */}
             </>
           )}
 

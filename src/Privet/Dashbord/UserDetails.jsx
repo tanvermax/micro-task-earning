@@ -94,12 +94,12 @@ const UserDetails = () => {
                 >
                   <FaUserCircle /> My Profile
                 </button>
-                <button
+                {/* <button
                   onClick={() => setDropdownOpen(false)}
                   className="flex items-center gap-2 px-4 py-2 w-full text-left text-sm hover:bg-indigo-50 hover:text-indigo-700 transition-all duration-200"
                 >
                   <FaUser /> Account Settings
-                </button>
+                </button> */}
                 <button
                   onClick={handleLogout}
                   className="flex items-center gap-2 px-4 py-2 w-full text-left text-sm hover:bg-red-100 hover:text-red-600 text-red-600 transition-all duration-200"

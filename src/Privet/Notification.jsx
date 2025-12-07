@@ -23,11 +23,11 @@ const Notification = () => {
   });
 
   useEffect(() => {
-  const interval = setInterval(() => {
-    refetch();
-  }, 500); // every 5 seconds
-  return () => clearInterval(interval);
-}, [refetch])
+    const interval = setInterval(() => {
+      refetch();
+    }, 500); // every 5 seconds
+    return () => clearInterval(interval);
+  }, [refetch])
 
 
   useEffect(() => {
